@@ -11,6 +11,20 @@
 ##
 
 
+# check if Werner's code is available
+POL_WCA := IsBoundGlobal( "SiftUpperUnitriMat" );
+
+if POL_WCA then
+   POL_SiftUpperUnitriMatGroup := SiftUpperUnitriMatGroup;
+   POL_DecomposeUpperUnitriMat := DecomposeUpperUnitriMat;
+   POL_PolycyclicGenerators := PolycyclicGenerators;
+else
+   POL_SiftUpperUnitriMatGroup := 0;
+   POL_DecomposeUpperUnitriMat := 0;
+   POL_PolycyclicGenerators := 0;
+fi;
+
+
 #############################################################################
 ##
 #F POL_DetermineMultiplier(gens )
@@ -718,7 +732,7 @@ POL_CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
     Info( InfoPolenta, 3, "calculate levels ",
                           " of the group...\n",
                            gensOfU,"\n" );
-    level := SiftUpperUnitriMatGroup( U );
+    level := POL_SiftUpperUnitriMatGroup( U );
     Info( InfoPolenta, 3, "... finished\n" );
    
     # check if <gens_U_p> is stable under conjugation 
@@ -726,7 +740,7 @@ POL_CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
             "check if <gens_U_p> is stable under conjugation...");
       gensWithInverses := Concatenation( gens, List( gens, x-> x^-1 ));
       gensWithInversesConj := List( gensWithInverses, x-> x^conjugator );
-      P :=  PolycyclicGenerators( level );
+      P :=  POL_PolycyclicGenerators( level );
       # maybe incomplete pcs of U^conjugator
       pcs_U_p := P.matrices;
       for mat in pcs_U_p do
@@ -734,7 +748,7 @@ POL_CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
           for h in gensWithInversesConj do
               mat2 := mat^h;
               Info( InfoPolenta, 3, "test membership ..." );
-              testMembership :=  DecomposeUpperUnitriMat( level, mat2 );
+              testMembership :=  POL_DecomposeUpperUnitriMat( level, mat2 );
               Info( InfoPolenta, 3, "... finished" );
               if IsBool( testMembership ) then
                  #extend gens_U_p
@@ -753,7 +767,7 @@ POL_CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
       Info( InfoPolenta, 3, "...finished" );
 
     # assemble necessary data for a constructive pcs of <gens_U_p>
-    #P :=  PolycyclicGenerators( level );
+    #P :=  POL_PolycyclicGenerators( level );
     rels := List(  [1..Length(P.gens)], x->0 );
     pcs := List( pcs_U_p, x-> x^( conjugator^-1 ) );
 
@@ -777,8 +791,7 @@ end;
 CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
 
     # check if Werner's code is available
-    if IsBound( DecomposeUpperUnitriMat ) and 
-       IsBound( SiftUpperUnitriMat ) then
+    if POL_WCA then
         return POL_CPCS_Unipotent_Conjugation( gens, gens_U_p );
     else
         return POL_CPCS_Unipotent_Conjugation_old( gens, gens_U_p );
@@ -822,7 +835,7 @@ POL_ExponentOfCPCS_Unipotent := function( matrix, conPcs )
     if not POL_UpperTriangIntTest( [matrix2] ) then
         return fail;
     fi;
-    decomp := DecomposeUpperUnitriMat( conPcs.level, matrix2 );
+    decomp := POL_DecomposeUpperUnitriMat( conPcs.level, matrix2 );
     if IsBool( decomp ) then return fail; fi;
     n := Length( conPcs.gens );
     exp := [];
@@ -853,8 +866,7 @@ end;
 ExponentOfCPCS_Unipotent := function( matrix, conPcs )
 
     # check if Werner's code is available
-    if IsBound( DecomposeUpperUnitriMat ) and 
-       IsBound( SiftUpperUnitriMat ) then
+    if POL_WCA then
         return POL_ExponentOfCPCS_Unipotent( matrix, conPcs );
     else
         return POL_ExponentOfCPCS_Unipotent_old( matrix, conPcs );
