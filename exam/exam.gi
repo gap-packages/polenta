@@ -764,29 +764,29 @@ end;
 #F POL_RandomRationalTriangularGroup( dim, numberOfGens )
 ##
 POL_RandomRationalTriangularGroup := function( dim, numberOfGens )
-    local gens, i, g, j, k, G, x;
-    if dim=0 then
-        dim:=RandomList([1..10]);
-    fi;
-    if numberOfGens=0 then
-        numberOfGens:=RandomList([1..5]);
-    fi;
+    local gens, i, g, j, k, range, kk,ll;
+
+    range := 7;
+    ll := [-range..range];
+    kk := [-range..range];
+    ll := Filtered( ll, (x->x<>0) );
+    kk := Filtered( kk, (x->x<>0) ); 
+   
     gens:=[];
     for i in [1..numberOfGens] do
-        g:=RandomInvertibleMat(dim,Rationals);
+        g:=IdentityMat(dim,Rationals);
         for j in [1..dim] do
-            for k in [1..j] do
-                if j=k then
-                   g[j][k]:=1;
-                elif j>k then
-                   g[j][k]:=0;
+            for k in [j..dim] do
+                if j<=k then
+                   g[j][k] := RandomList( ll )/RandomList( kk );
+                else 
+                   g[j][k] := 0;
                 fi;
             od;
         od;
         Add(gens,g);
     od;
-    G := Group( gens );
-    return G;
+    return gens;
 end; 
 
 #############################################################################
@@ -800,47 +800,6 @@ POL_RandomRationalUnipotentGroup := function( dim, numberOfGens )
     return G^x;
 end;
 
-#############################################################################
-##
-#F POL_RandomIntegralTriangularGroup( dim, numberOfGens )
-##
-POL_RandomIntegralTriangularGroup := function( dim, numberOfGens )
-    local gens, i, g, j, k, G, x;
-    if dim=0 then
-        dim:=RandomList([1..10]);
-    fi;
-    if numberOfGens=0 then
-        numberOfGens:=RandomList([1..5]);
-    fi;
-    gens:=[];
-    for i in [1..numberOfGens] do
-        g:=RandomInvertibleMat(dim,Integers);
-        for j in [1..dim] do
-            for k in [1..j] do
-                if j=k then
-                   g[j][k]:=1;
-                elif j>k then
-                   g[j][k]:=0;
-                fi;
-            od;
-        od;
-        Add(gens,g);
-    od;
-    G := Group( gens );
-    return G;
-end; 
-
-#############################################################################
-##
-#F  POL_RandomAlmostIntegralUnipotentGroup( dim, numberOfGens )
-##
-POL_RandomAlmostIntegralUnipotentGroup := function( dim, numberOfGens )
-    local G, x;
-    G := POL_RandomIntegralTriangularGroup( dim, numberOfGens );
-    x := RandomInvertibleMat( dim, Integers );
-    Print(x);
-    return G^x;
-end;
 
 #############################################################################
 ##
@@ -940,7 +899,113 @@ else
     POL_AlmostCrystallographicGroup := AlmostCrystallographicGroup;
 fi;
 
+POL_IrredPol := function( n )
+    local x,p;
+    x := Indeterminate(Rationals,"x":old);
 
+    if n = 1 then 
+       p :=  x^2 + 6*x + 3;
+       return p;
+    fi;
+    if n = 2 then 
+       p := x^3 + 14*x^2 - 49*x + 7;
+       return p;
+    fi;
+    if n = 3 then 
+       p := x^2+1; 
+       return p;
+    fi;
+    if n = 4 then
+       p := x^3+2*x+2; 
+       return p;
+    fi;
+    if n = 5 then 
+       p := x^3+2*x+2;
+       return p;
+    fi;
+    if n = 6 then 
+       p := -4*x^2-2*x+1;
+       return p;
+    fi;
+end;
+
+POL_AbelianIrreducibleGens := function( n )
+    local k,l,ll,range,pol,mat,n_gens,gens,i,exps,l_comb,g;
+
+    pol := POL_IrredPol( n );
+    mat := CompanionMat( pol );
+    
+    range := 3;
+    l := [-range..range];
+    l := Filtered( l, (x -> x<>0) );
+    # k := [-range..range];
+    k := [1];
+    k := Filtered( k, (x -> x<>0) );
+
+    exps := [0,1,2];
+   
+    n_gens := 3;
+    gens := [];
+    for i in [1..n_gens] do
+        l_comb := 2;
+        ll := List( [1..l_comb], x-> RandomList(l)/RandomList(k) );
+        g := List( [1..l_comb] , x-> ll[x]*mat^RandomList(exps) );
+        Add( gens, Sum( g ) );
+    od;  
+
+    return gens;
+end;
+
+POL_TriangularizableGens := function( n_blocks, n_gens )
+    local n_fields,a_gens,i,ll,dim,j,k,start,rr,gens,g,start1,start2,
+          rr1,rr2, u_entries, mat;
+  
+    n_fields := 6;
+    a_gens := [];
+    for i in [1..n_blocks] do 
+        Add( a_gens, POL_AbelianIrreducibleGens( RandomList( [1..4] )) );
+    od;
+  
+    #get dimension of composed matrix
+    ll := List( [1..n_blocks], x-> Length( a_gens[x][1] ));
+    dim := Sum( ll );
+
+    #get final generators
+    gens := [];
+    for i in [1..n_gens] do 
+        g := NullMat( dim,dim );
+        #write blocks
+        for j in [1..n_blocks] do 
+            for k in [j..n_blocks] do 
+                if j = k then
+                   #place block on diagonal
+                     # set starting point
+                     start := Sum( ll{[1..(j-1)]} );
+                     # get range
+                     rr := [1..ll[j]]+start;
+                     g{rr}{rr} := RandomList( a_gens[j] );
+                elif j <= k then
+                   # write upper part
+                     #set starting points
+                     start1 := Sum( ll{[1..(j-1)]} );
+                     start2 := Sum( ll{[1..(k-1)]} );
+                     #get range
+                     rr1 := [1..ll[j]]+start1;
+                     rr2 := [1..ll[k]]+start2;
+                     u_entries := [0,0,0,0,1];
+                     mat := RandomMat( ll[j], ll[k], u_entries );
+                     g{rr1}{rr2} := mat;
+                     
+                fi;
+             od;
+         od;
+        Add( gens, g );
+     od;
+ 
+    return gens; 
+       
+
+end;
 
 
 #############################################################################
@@ -948,7 +1013,7 @@ fi;
 #F POL_PolExamples2( n ) .............. .. Examples for polycyc rat. matrix groups
 ##
 POL_PolExamples2 := function( n )
-    local i,M,P, nat, G, gens, d, l, l1, l2, l3,h1,h2,H;
+    local i,M,P, nat, G, gens, d, l, l1, l2, l3,h1,h2,H,g,h;
 
     # check if aclib is needed
     l1 := Concatenation( [9..16],[21..28],[37..40]);
@@ -1155,10 +1220,192 @@ POL_PolExamples2 := function( n )
                   [ 1, -1, 2, -5 ] ] ];
          return Group( gens );
      fi;
+     if n= 1205 then
+           gens := [ [ [ -7/3, 77/3, 0, 0, 1, 0 ], 
+                     [ -77/3, 994/3, 0, 0, 0, 0 ],
+                      [ 0, 0, 0, 0, 0, -28/3 ], [ 0, 0, 2/3, 0, 0, 22/3 ],
+                      [ 0, 0, 0, 2/3, 0, -10/3 ], [ 0, 0, 0, 0, 2/3, -2 ]
+                       ],
+                      [ [ 1/3, 8/3, 0, 0, 0, 0 ], [ -8/3, 35, 0, 1, 0, 0 ],
+                          [ 0, 0, 0, 0, 0, -28/3 ], [ 0, 0, 2/3, 0, 0, 22/3 ],
+                          [ 0, 0, 0, 2/3, 0, -10/3 ], 
+                         [ 0, 0, 0, 0, 2/3, -2 ]] ];
+             return Group( gens );
+     fi;
 
-          
 
-end;
+     # some easy examples
+     if n = -1 then
+         g := 2*IdentityMat( 2, 1 ); 
+         gens := [g];
+         return Group( gens );
+     fi;
+     if n = -2 then 
+        g := 2*IdentityMat( 3, 1 ); 
+         gens := [g];
+         return Group( gens );  
+     fi;
+     if n = -3 then
+        g := 1345*IdentityMat( 5, 1 ); 
+         gens := [g];
+         return Group( gens );  
+     fi;
+     if n = -4 then
+        g := 23* IdentityMat( 5, 1 ); 
+        h := 12* IdentityMat( 5, 1 );
+        gens := [g,h];
+        return Group( gens );
+     fi;
+     if n = -5 then 
+        g := IdentityMat( 3,1 );
+        g[3][3] := 34;
+        h := IdentityMat( 3,1 );
+        h[1][1] := 23;
+        gens := [g,h];
+        return Group( gens );
+     fi;
+     if n = -6 then
+        g := IdentityMat(4,1 );
+        gens := [g];
+        return Group( gens );
+     fi;
+     if n = -7 then
+        g := [[2]];
+        h := [[3]];
+        gens := [g,h];
+        return Group( gens );
+     fi;
+     if n = -8 then
+        g := [[1]];
+        gens := [g];
+        return Group( gens );
+     fi;
+
+     # some abelian irrdeucible examples
+     if n = - 9 then
+        gens := [ [ [ -21/5, 0, 56, -168 ], [ 0, -21/5, -44, 188 ], 
+                  [ -4, 0, 79/5, -104 ],
+                  [ 0, -4, 12, -101/5 ] ],
+                  [ [ -1/2, 0, 434/5, -1302/5 ], [ 0, -1/2, -341/5, 1457/5 ],
+                  [ -31/5, 0, 61/2, -806/5 ], [ 0, -31/5, 93/5, -253/10 ] ],
+                  [ [ -5/6, 0, 14/5, -77/5 ], [ 1/2, -5/6, -11/5, 149/10 ],
+                  [ -1/5, 1/2, 1/6, -77/10 ], [ 0, -1/5, 11/10, -47/15 ] ] ];
+        return Group( gens );
+     fi;
+     if n = - 10 then 
+        gens := [ [ [ -37/20, 0, 0, -70/3 ], [ 5/3, -37/20, 0, 55/3 ],
+                [ 0, 5/3, -37/20, -25/3 ], [ 0, 0, 5/3, -137/20 ] ],
+                [ [ 3/4, 0, 0, -56 ], [ 4, 3/4, 0, 44 ], [ 0, 4, 3/4, -20 ],
+                 [ 0, 0, 4, -45/4 ] ],
+               [ [ 7/2, 0, 28, -84 ], [ 0, 7/2, -22, 94 ],
+                 [ -2, 0, 27/2, -52 ],
+                     [ 0, -2, 6, -9/2 ] ] ];
+        return Group( gens );
+     fi;
+     if n = -11 then 
+        gens := [ [ [ -1, 185/12 ], [ -185/12, 2393/12 ] ], 
+                [ [ -1/2, -24 ], [ 24, -625/2 ] ]
+                 , [ [ 1/3, -1/2 ], [ 1/2, -37/6 ] ] ];
+     fi;
+     if n = -12 then
+        gens := [ [ [ 0, 0, 0, 0, 0, 119/6 ], 
+                 [ -17/12, 0, 0, 0, 0, -187/12 ],
+                 [ 0, -17/12, 0, 0, 0, 0 ], [ 0, 0, -17/12, 0, 0, -17 ],
+                 [ 0, 0, 0, -17/12, 0, 0 ], [ 0, 0, 0, 0, -17/12, 85/12 ] ],
+                 [ [ 0, 0, 0, 0, 196/15, -238/3 ], 
+                 [ 1, 0, 0, 0, -154/15, 377/5 ],
+                 [ -14/15, 1, 0, 0, 0, -154/15 ], 
+                 [ 0, -14/15, 1, 0, -56/5, 68 ],
+                 [ 0, 0, -14/15, 1, 0, -56/5 ], 
+                 [ 0, 0, 0, -14/15, 17/3, -85/3 ] ],
+                 [ [ 2, 0, 0, 0, -84/5, 98 ], [ -1, 2, 0, 0, 66/5, -469/5 ],
+                 [ 6/5, -1, 2, 0, 0, 66/5 ], [ 0, 6/5, -1, 2, 72/5, -84 ],
+                 [ 0, 0, 6/5, -1, 2, 72/5 ], [ 0, 0, 0, 6/5, -7, 37 ] ] ];
+         return Group( gens );
+     fi;
+     
+     # some triangularizable examples
+     if n = -13 then
+        gens := [ [ [ -6, -1/2, 3/4, -5/3 ], [ 0, -3, 3, -3/2 ], 
+                 [ 0, 0, 1/3, -4/7 ],
+                  [ 0, 0, 0, 1 ] ],
+                [ [ 7/4, 2, 1/2, -5/3 ], [ 0, 5/6, -6, 1 ], [ 0, 0, 3, 2/7 ],
+                  [ 0, 0, 0, 2/3 ] ] ];
+        return Group( gens );
+     fi;
+     if n = -14 then
+        gens := [ [ [ 1, 5/7, 3/4, -5, 2/5 ], 
+                  [ 0, -1, 3/2, 2, 4/7 ], [ 0, 0, 2/3, 1, -7/5 ],
+                  [ 0, 0, 0, 1/5, 4/7 ], [ 0, 0, 0, 0, 2/5 ] ],
+                  [ [ 2, -2/7, -4/7, 1, 3/7 ], [ 0, -1/5, -1/3, 1, 1/2 ],
+                  [ 0, 0, -4/3, -3, 2 ], [ 0, 0, 0, 7, -1/6 ], 
+                   [ 0, 0, 0, 0, -2 ] ] ];
+        return Group( gens );
+     fi;
+     if n = -15 then 
+        gens := [ [ [ 3/2, -3, -4/5, 1/3, -3, -5/6, 4, 5/3 ],
+                 [ 0, -1, 5/7, -1/2, 3/7, -1/3, -4/5, 1/2 ],
+                 [ 0, 0, -1/4, 3/5, 5/2, -1/6, -1, 1 ],
+                  [ 0, 0, 0, 1/5, 7/4, -2, -7/4, -1 ],
+                  [ 0, 0, 0, 0, 5/3, -5/2, -1, -1/6 ], 
+                  [ 0, 0, 0, 0, 0, -1, 5/2, -1 ],
+                  [ 0, 0, 0, 0, 0, 0, 3, 1 ], 
+                 [ 0, 0, 0, 0, 0, 0, 0, -2/7 ] ],
+                [ [ 3/2, 1, -3/2, 1, -1, -2/5, 1/5, -1 ],
+                [ 0, 1, 4/7, 1, -3/5, -5/7, 5/2, 3 ],
+                 [ 0, 0, -1/3, 1, 3/2, -4/3, 3/2, 2/3 ],
+                  [ 0, 0, 0, 3, -3, -7/5, 5/2, 1/2 ], 
+                  [ 0, 0, 0, 0, 3/5, -2, 4/3, 1 ],
+                 [ 0, 0, 0, 0, 0, -2, 3, 3 ], 
+                  [ 0, 0, 0, 0, 0, 0, -1/2, -1/2 ],
+                 [ 0, 0, 0, 0, 0, 0, 0, 5/3 ] ] ];
+          return Group( gens );
+       fi;
+       if n = -16 then 
+           gens:= [[[1,-3,8,-2,0,2],
+                [5,-14,37,-3,-2,-2],
+                [-3,8,-22,0,-5,2],
+                 [0,0,0,0,1,-1],
+                  [0,0,0,0,5,-4],
+                   [0,0,0,1,-1,6]],
+               [[1,0,0,-1,1,-2],
+                [0,1,0,-3,0,5],
+                  [0,0,1,-1,2,1],
+                 [0,0,0,2,-1,-1],
+                     [0,0,0,-2,-3,-6],
+                   [0,0,0,-1,-1,-2]]];
+            return Group( gens );
+       fi;
+       if n = -17 then
+           gens := [ [ [ 9/10, 39/10, 0, 0 ], [ -39/10, 258/5, 0, 0 ], 
+                   [ 0, 0, 4, -39 ],
+                    [ 0, 0, 39, -503 ] ],
+                    [ [ 9/10, 39/10, 0, 0 ], [ -39/10, 258/5, 0, 0 ], 
+                   [ 0, 0, 4, -39 ],
+                    [ 0, 0, 39, -503 ] ] ];
+            return Group( gens );
+       fi;
+       if n = -18 then
+          gens := [ [ [ 7, 6, 0, 0 ], [ -6, 85, 0, 0 ], 
+                    [ 0, 0, 0, 5 ], [ 0, 0, -5, 65 ] ],
+                   [ [ -7, 78, 0, 0 ], [ -78, 1007, 0, 0 ], [ 0, 0, -6, 81 ],
+                   [ 0, 0, -81, 1047 ] ] ];
+          return Group( gens );
+       fi;
+       if n = -19 then
+           gens := [ [ [ -9, 36, 0, 0, 0 ], [ -12, 63, 0, 0, 0 ], 
+                     [ 0, 0, -1, 6, 0 ],
+                     [ 0, 0, 0, 5, 6 ], [ 0, 0, -3, 0, 5 ] ],
+                     [ [ -6, 24, 0, 0, 0 ], [ -8, 42, 0, 0, 0 ], 
+                      [ 0, 0, -1, 6, 0 ],
+                     [ 0, 0, 0, 5, 6 ], [ 0, 0, -3, 0, 5 ] ] ];
+        return Group( gens );
+       fi;
+ 
+
+
+
+  end;
    
 
 
