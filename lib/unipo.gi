@@ -738,13 +738,13 @@ POL_CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
               Info( InfoPolenta, 3, "... finished" );
               if IsBool( testMembership ) then
                  #extend gens_U_p
-                 Info( InfoPolenta,3, "Extending gens_U_p \n" );
+       Info(InfoPolenta,3,"Extending generator list of unipotent subgroup\n" );
                  #newGens := Concatenation( gens_U_p,[mat2] );
                  newGens := Concatenation( pcs_U_p,[mat2] );
                  newGens := List( newGens, x-> x^( conjugator^-1 ) );
                  Info( InfoPolenta, 2,
                 "An extended list of the normal subgroup generators for the\n",
-                 "    unipotent part is" );
+                 "    unipotent subgroup is" );
                  Info( InfoPolenta, 2, newGens );  
                  return POL_CPCS_Unipotent_Conjugation( gens,newGens );
               fi;
