@@ -92,8 +92,8 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
                                                       gens_K_p_mutableCopy,
                                                       d );
+    if recordSeries = fail then return fail; fi;
     radSeries := recordSeries.sers;
-    if radSeries=fail then return fail; fi;
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The radical series has length ", 
                           Length( radSeries ), "." );
