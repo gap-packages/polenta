@@ -285,6 +285,74 @@ POL_FirstCloseUnderConjugation := function( gens,gens_U_p )
     return rec( gens := gens,gens_U_p := gens_U_p,conjugator := conjugator );
 end;
 
+
+#############################################################################
+##
+#M POL_UnitriangularPcpGroup( n, p ) . . .. . . . for p = 0 we take UT( n, Z )
+##
+POL_UnitriangularPcpGroup :=  function( n, p )
+    local l, c, g, r, i, j, h, f, k, v, o, G;
+
+    if not IsInt(n) or n <= 1 then return fail; fi;
+    if not (IsPrimeInt(p) or p=0) then return fail; fi;
+
+    l := n*(n-1)/2;
+    c := FromTheLeftCollector( l );
+
+    # compute matrix generators
+    g := [];
+    for i in [1..n-1] do
+        for j in [1..n-i] do
+            r := IdentityMat( n );
+            r[j][i+j] := 1;
+            Add( g, r );
+        od;
+    od;
+
+    # mod out p if necessary
+    if p > 0 then g := List( g, x -> x * One( GF(p) ) ); fi;
+
+    # get inverses
+    h := List( g, x -> x^-1 );
+
+    # read of pc presentation
+    for i in [1..l] do
+  
+          # commutators
+        for j in [1..i-1] do
+            #v := Comm( g[j], g[i] );
+            v := Comm( g[i], g[j] );
+            if v <> v^0 then
+                if v in g then
+                    k := Position( g, v );
+                    o := [k, 1];
+                elif v in h then
+                    k := Position( h, v );
+                    o := [k, -1];
+                else
+                    Error("commutator out of range"); 
+                fi;
+                SetCommutator( c, i, j, o );
+            fi;
+        od;
+
+        # powers
+        if p > 0 then 
+            SetRelativeOrder( c, i, p ); 
+            v := g[i]^p;
+            if v <> v^0 then Error("power out of range"); fi;
+        fi;
+    od;
+    UpdatePolycyclicCollector( c );
+
+    # translate from collector to group
+    G := PcpGroupByCollectorNC( c );
+    G!.mats := g;
+    G!.isomorphism := GroupHomomorphismByImagesNC( G, Group(g), Igs(G), g);
+    return G;
+end;
+
+
 #############################################################################
 ##
 #F POL_SubgroupUnitriangularPcpGroup_Mod(  mats  )
@@ -298,7 +366,7 @@ POL_SubgroupUnitriangularPcpGroup_Mod  :=  function(  mats  )
     # get the dimension, the char and the full unitriangluar group
     n  :=  Length(  mats[1]  );
     p  :=  Characteristic(  mats[1][1][1]  );
-    G  :=  UnitriangularPcpGroup(  n, p  );
+    G  :=  POL_UnitriangularPcpGroup(  n, p  );
 
     # compute corresponding generators
     g  :=  [];
@@ -408,7 +476,7 @@ CPCS_Unipotent := function( gens_U_p )
 
     # calculate a pc-sequence for <gens_U_p>
     pcs := [];
-    A := UnitriangularPcpGroup( dim,0 );
+    A := POL_UnitriangularPcpGroup( dim,0 );
     mats := A!.mats;
     for g in GeneratorsOfPcp( Pcp( pcp_rec.pcp ) ) do
         #calculate preimage, i.e. convert it to a mat and conjugate it
@@ -490,7 +558,7 @@ CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
 
     # calculate a pc-sequence for <gens_U_p>
     pcs := [];
-    A := UnitriangularPcpGroup( dim,0 );
+    A := POL_UnitriangularPcpGroup( dim,0 );
     mats := A!.mats;
     for g in GeneratorsOfPcp( Pcp( pcp_rec.pcp ) ) do
         #calculate preimage, i.e. convert it to a mat and conjugate it
@@ -555,7 +623,7 @@ CPCS_Unipotent_Conjugation_Version2 := function( gens, gens_U_p )
 
     # check if the preimages of the gens of the pcp are
     # stable under conjugation
-    A := UnitriangularPcpGroup( dim,0 );
+    A := POL_UnitriangularPcpGroup( dim,0 );
     mats := A!.mats;
     for g in GeneratorsOfGroup( pcp_rec.pcp ) do
         # calculate the preimage, i.e. convert it to a matrix and conjugate
@@ -656,7 +724,7 @@ POL_TestCPCS_Unipotent2 :=
      numberOfTests := 10;
 
      # construct some Unipotent rational Matrixgroups
-     G := UnitriangularPcpGroup( dim,0 );
+     G := POL_UnitriangularPcpGroup( dim,0 );
      mats := G!.mats;
      for i in [1..k] do
          g[i] := Random( G );
@@ -722,7 +790,7 @@ POL_Test_UnipotentMats2Pcp := function( dim, k )
     matrices := [];
     d  :=  dim; 
     # construct some Unipotent rational Matrixgroups
-    G := UnitriangularPcpGroup( dim,0 );
+    G := POL_UnitriangularPcpGroup( dim,0 );
     mats := G!.mats;
     for i in [1..k] do
         g[i] := Random( G );
