@@ -65,7 +65,7 @@ Dependencies := rec(
   NeededOtherPackages := [[ "polycyclic", ">=1.1" ],
                           [ "alnuth" , "1,0"], ],
   SuggestedOtherPackages := [ ["aclib", "1.0"]], 
-  ExternalConditions := ["needs KANT/KASH Computer Algebra System"] ), 
+  ExternalConditions := ["needs KANT/KASH Computer Algebra System Version >=2.4"] ), 
 
 AvailabilityTest := ReturnTrue,             
 BannerString := "Loading Polenta 1.1 ... \n",     

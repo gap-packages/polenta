@@ -1061,7 +1061,7 @@ POL_CompositionSeriesTriangularizableRMGroup := function( gens, d )
  
     # compute the normal the subgroup gens. for the kernel of phi_p
     Info( InfoPolenta, 1,"Compute normal subgroup generators for the kernel\n",
-          "    of the p-congruence homomorphism ...");      
+         "    of the p-congruence homomorphism ...");      
     gens_K_p := POL_NormalSubgroupGeneratorsOfK_p( pcgs_I_p, gens );
     gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) );
     Info( InfoPolenta, 1,"finished.");   
@@ -1075,8 +1075,8 @@ POL_CompositionSeriesTriangularizableRMGroup := function( gens, d )
     recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
                                                       gens_K_p_mutableCopy,
                                                       d );
-    radSeries := recordSeries.sers;
     if radSeries=fail then return fail; fi;
+    radSeries := recordSeries.sers;
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The radical series has length ", 
                           Length( radSeries ), "." );
@@ -1248,8 +1248,9 @@ POL_HomogeneousSeriesTriangularizableRMGroup := function( gens, d )
     recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
                                                       gens_K_p_mutableCopy,
                                                       d );
-    radSeries := recordSeries.sers;
+    
     if radSeries=fail then return fail; fi;
+    radSeries := recordSeries.sers;
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The radical series has length ", 
                           Length( radSeries ), "." );

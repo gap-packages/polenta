@@ -101,6 +101,29 @@ end;
 ExponentVector_AbelianSS:=function( CPCS_nue_K_p, g )
    local trivial,freeGens,n,A,m,rels3,v,exp,i,rels,r2,F,
          rels2,r,newGens,a,ll; 
+
+   # check if nue_K_p is trivial
+    if Length( CPCS_nue_K_p.relOrders )=0 then
+        return [];
+    fi;
+
+   #check if g is trivial
+    n := Length( g );
+    trivial := true;
+    for i in [1..n] do
+        if not g[i][1] = g[i][1]^0 then
+            trivial := false;
+            break;
+        fi;
+    od;
+    #if the action of g on the radical series is trivial we
+    #return an as the exponent vector [0 ... 0] of the length of the 
+    #pc sequence of nue(K_p)
+    if trivial then
+       ll := Length( CPCS_nue_K_p.relOrders );
+       return List( [1..ll], x->0 );
+    fi;
+
    newGens := CPCS_nue_K_p.newGensOfBlockAction;
    # n is the number of blocks
    n:=Length(newGens);
@@ -115,29 +138,29 @@ ExponentVector_AbelianSS:=function( CPCS_nue_K_p, g )
    od;
    # compute the relations of A
    rels:=IdentityMat(n+1);
-   trivial:=true;
+            #trivial:=true;
    for r in A do
-       # trivial case: we check if r just contains  1's
-       for i in [1..Length(r)] do
-           if not r[i]=r[i]^0 then
-               trivial:=false;
-           break;
-           fi;
-       od;
-       if not trivial then
-           F := FieldByMatricesNC( r );   
-           if F = false then return fail; fi; 
-           r2 := RelationLattice( F, r );  
-           rels:=LatticeIntersection(rels,r2);
-       fi;
+            # trivial case: we check if r just contains  1's
+            #for i in [1..Length(r)] do
+            # if not r[i]=r[i]^0 then
+            #   trivial:=false;
+            # break;
+            # fi;
+            #od;
+            #if not trivial then
+          F := FieldByMatricesNC( r );   
+          if F = false then return fail; fi; 
+          r2 := RelationLattice( F, r );  
+          rels:=LatticeIntersection(rels,r2);
+            #fi;
    od;
-   #if the action of g on the radical series is trivial we
-   #return an as the exponent vector [0 ... 0] of the length of the 
-   #pc sequence of nue(K_p)
-   if trivial then
-      ll := Length( CPCS_nue_K_p.relOrders );
-      return List( [1..ll], x->0 );
-   fi;
+            #if the action of g on the radical series is trivial we
+            #return an as the exponent vector [0 ... 0] of the length of the 
+            #pc sequence of nue(K_p)
+            #  if trivial then
+            #  ll := Length( CPCS_nue_K_p.relOrders );
+            #  return List( [1..ll], x->0 );
+            # fi;
    rels := NormalFormIntMat(rels,0).normal;
    if not rels[1][1]=1 then return fail; fi;
    exp := -rels[1]{ [2..(Length(rels[1]))] };
