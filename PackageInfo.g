@@ -71,7 +71,7 @@ AvailabilityTest := ReturnTrue,
 BannerString := "Loading Polenta 1.2 ... \n",     
 Autoload := true,
 TestFile := "tst/testall.g",
-Keywords := ["polycyclic presentations", "matrix groups" ]
+Keywords := ["polycyclic presentations", "matrix groups", "test solvability", "triangularizable subgroup", "unipotent subgroup", "radical series", "composition series of triangularizable groups" ]
 
 ));
 
