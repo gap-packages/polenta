@@ -84,7 +84,39 @@ system you should do the following:
     KASH_2.4 containing, amongst other files, the KASH executable called
     kash.  The place where KASH is put is independent of the place
     where the Alnuth or Polenta package is installed.
-    
+ 
+
+
+Loading the Polenta package
+==========================
+
+If the  Package is not already loaded 
+then you have to request it explicitly. 
+This  can be 
+done by `LoadPackage("polenta")'.
+The `LoadPackage' command is described in Section 72.2.1
+in the GAP Reference Manual.
+
+
+Running the test suite
+======================
+
+Once the package is installed, it is possible to check the correct
+installation by running the test suite of the package.
+
+    gap> Read( "mygap/pkg/polenta/tst/testall.g" );
+
+where `mygap' needs to be replaced with the directory where GAP
+was installed. For more details on  Test Files see 
+Section 7.9 of the 
+GAP Reference Manual.
+
+If the test suite runs into an error, even though the packages
+Polycyclic and 
+Alnuth  and  the computational algebraic number theory system KANT
+have been correctly installed, then please send a message
+to `BjoernAssmann@gmx.net' including the error message.
+   
                                  
 Author
 ======

@@ -106,7 +106,7 @@ is defined by $R_{i+1}:= Rad_G(R_i)$.
 \> RadicalSeriesSolvableMatGroup( <G> )
 
 This function returns a 
-radical series for the $\Q[G]$-module $\Q^d$, where <G> is an
+radical series for the $\Q[G]$-module $\Q^d$, where <G> is a
 solvable subgroup of $GL(d,\Q)$.
 
 A radical series of $\Q^d$ can be refined to a homogeneous series.
@@ -126,7 +126,7 @@ A module is said to be homogeneous if it is the direct sum of pairwise
 irreducible isomorphic submodules. A homogeneous series of a module 
 is a submodule series such that the factors are homogeneous.
 This function returns a 
-homogeneous series for the $\Q[G]$-module $\Q^d$, where <G> is an
+homogeneous series for the $\Q[G]$-module $\Q^d$, where <G> is a
 triangularizable subgroup of $GL(d,\Q)$.  
 
 A homogeneous series can be refined to a composition series.
@@ -142,27 +142,29 @@ abelian subgroup of $GL(d,\Q)$.
 
 A composition series of a module is a submodule series such that 
 the factors are irreducible. This function returns a 
-composition series for the $\Q[G]$-module $\Q^d$, where <G> is an
+composition series for the $\Q[G]$-module $\Q^d$, where <G> is a
 triangularizable subgroup of $GL(d,\Q)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Subgroups}
 
-\> TriangNormalSubgroupFiniteInd( <G> )
+%\> TriangNormalSubgroupFiniteInd( <G> )
+%
+%<G> is  a subgroup of $GL(d,\Q)$. If $G$ is solvable then
+%this function computes a triangularizable normal subgroup of <G>,
+%which is of finite index in <G>. If $G$ is not solvable, then the 
+%function returns 'fail'. 
 
-<G> is  a subgroup of $GL(d,\Q)$. If $G$ is solvable then
-this function computes a triangularizable normal subgroup of <G>,
-which is of finite index in <G>. If $G$ is not solvable, then the 
-function returns 'fail'. 
-
-\> TriangNormalSubgroupFiniteIndUnipo( <G> )
+\> SubgroupsUnipotentByAbelianByFinite( <G> )
 
 <G> is  a subgroup of $GL(d,R)$ where $R=\Q$ or $\Z$.
 If <G> is polycyclic, then 
-this function determines a triangularizable normal subgroup $T$ of <G>,
-which is of finite index in <G>. An unipotent normal 
-subgroup $U$ of <G> is also
-computed, such that $T/U$ is abelian.  
+this function returns a record containing two normal subgroups 
+$T$ and $U$ of $G$.
+The group $T$ is unipotent-by-abelian 
+(and thus triangularizable) and 
+of finite index in <G>. 
+The group $U$ is unipotent and is such that $T/U$ is abelian.  
 If <G> is not polycyclic, then there are two cases. If $R=\Z$,
 then the algorithm returns 'fail'. In case that $R=\Q$ then the algorithm may
 return 'fail' or may not terminate.  

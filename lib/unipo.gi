@@ -681,7 +681,8 @@ end;
 ## 
 POL_CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
     local dim, gens_U_p_mod,rec1,conjugator,U,gensOfU, gensWithInverses,
-          level, mat, h, mat2, mat3,P, rels, newGens,i,testMembership; 
+          level, mat, h, mat2, mat3,P, rels, newGens,i,testMembership,
+          pcs, gensWithInversesConj, pcs_U_p;      
 
     dim := Length( gens[1] );
 
@@ -721,38 +722,46 @@ POL_CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
     Info( InfoPolenta, 3, "... finished\n" );
    
     # check if <gens_U_p> is stable under conjugation 
-    Info( InfoPolenta, 3,
-          "check if <gens_U_p> is stable under conjugation...");
-    gensWithInverses := Concatenation( gens, List( gens, x-> x^-1 ));
-    for mat in gens_U_p do
-        for h in gensWithInverses do
-            mat2 := mat^h;
-            mat3 := mat2^conjugator;
-            Info( InfoPolenta, 3, "test membership ..." );
-            testMembership :=  DecomposeUpperUnitriMat( level, mat3 );
-            Info( InfoPolenta, 3, "... finished" );
-            if IsBool( testMembership ) then
-                #extend gens_U_p
-                Info( InfoPolenta,3, "Extending gens_U_p \n" );
-                newGens := Concatenation( gens_U_p,[mat2] );
-                Info( InfoPolenta, 2,
-               "An extended list of the normal subgroup generators for the\n",
-                "    unipotent part is" );
-                Info( InfoPolenta, 2, newGens );  
-                return POL_CPCS_Unipotent_Conjugation( gens,newGens );
-            fi;
-        od;
-    od;        
-    Info( InfoPolenta, 3, "...finished" );
+      Info( InfoPolenta, 3,
+            "check if <gens_U_p> is stable under conjugation...");
+      gensWithInverses := Concatenation( gens, List( gens, x-> x^-1 ));
+      gensWithInversesConj := List( gensWithInverses, x-> x^conjugator );
+      P :=  PolycyclicGenerators( level );
+      # maybe incomplete pcs of U^conjugator
+      pcs_U_p := P.matrices;
+      for mat in pcs_U_p do
+      #for mat in gens_U_p do
+          for h in gensWithInversesConj do
+              mat2 := mat^h;
+              Info( InfoPolenta, 3, "test membership ..." );
+              testMembership :=  DecomposeUpperUnitriMat( level, mat2 );
+              Info( InfoPolenta, 3, "... finished" );
+              if IsBool( testMembership ) then
+                 #extend gens_U_p
+                 Info( InfoPolenta,3, "Extending gens_U_p \n" );
+                 #newGens := Concatenation( gens_U_p,[mat2] );
+                 newGens := Concatenation( pcs_U_p,[mat2] );
+                 newGens := List( newGens, x-> x^( conjugator^-1 ) );
+                 Info( InfoPolenta, 2,
+                "An extended list of the normal subgroup generators for the\n",
+                 "    unipotent part is" );
+                 Info( InfoPolenta, 2, newGens );  
+                 return POL_CPCS_Unipotent_Conjugation( gens,newGens );
+              fi;
+           od;
+      od;        
+      Info( InfoPolenta, 3, "...finished" );
 
     # assemble necessary data for a constructive pcs of <gens_U_p>
-    P :=  PolycyclicGenerators( level );
+    #P :=  PolycyclicGenerators( level );
     rels := List(  [1..Length(P.gens)], x->0 );
-    U := Group( P.matrices );
-    U := U^( conjugator^-1 );
+    pcs := List( pcs_U_p, x-> x^( conjugator^-1 ) );
+
+    #U := Group( P.matrices );
+    #U := U^( conjugator^-1 );
    
     return rec( level := level,
-                pcs := GeneratorsOfGroup( U ),
+                pcs := pcs,
                 gens := P.gens,
                 conjugator := conjugator,
                 rels := rels );
