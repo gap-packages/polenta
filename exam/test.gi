@@ -257,6 +257,39 @@ POL_AbelianTestGroup := function( i )
 end;
 
      
+POL_CompleteRuntime:= function( func, input )
+    local rec1,rec2, user_time, user_time_child, system_time, 
+          system_time_child, sum;
+    rec1 := Runtimes();
+    func( input );
+    rec2 := Runtimes();
+
+    user_time := rec2.user_time -rec1.user_time;
+    user_time_child := rec2.user_time_children -rec1.user_time_children;
+    system_time := rec2.system_time - rec1.system_time;
+    system_time_child := rec2.system_time_children - rec1.system_time_children;
+
+    sum := user_time + user_time_child + system_time + system_time_child;
+
+    return StringTime( sum);
+end;
+
+POL_CompleteRuntime_FullInfo:= function( func, input )
+    local rec1,rec2, rec3;
+    rec1 := Runtimes();
+    func( input );
+    rec2 := Runtimes();
+
+    rec3 := rec( 
+    user_time := StringTime( rec2.user_time -rec1.user_time),
+    user_time_child := StringTime( rec2.user_time_children -rec1.user_time_children ),
+    system_time := StringTime( rec2.system_time - rec1.system_time ),
+    system_time_child := StringTime( rec2.system_time_children - rec1.system_time_children ),
+    );
+    
+    return rec3;
+end;
+
 #############################################################################
 ##
 #E
