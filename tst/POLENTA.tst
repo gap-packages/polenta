@@ -1,13 +1,7 @@
 gap> START_TEST("Test of POLENTA package");  
 gap> G := MatExamples(2);
 <matrix group with 6 generators>
-gap> mats := GeneratorsOfGroup( G );
-[ [ [ 2, -1, -1, 3 ], [ -1, 0, 1, -4 ], [ 0, 1, 2, -2 ], [ -1, 1, 2, -4 ] ],
-  [ [ 1, 1, 1, -2 ], [ 1, 1, -1, 1 ], [ -2, 1, 0, -3 ], [ -1, 1, 0, -2 ] ],
-  [ [ 1, 0, -1, 0 ], [ -2, 5, 5, -11 ], [ -1, 0, 2, 0 ], [ -1, 1, 2, -2 ] ],
-  [ [ 0, 3, 2, -7 ], [ -1, 6, 4, -13 ], [ -1, 2, 1, -5 ], [ -1, 3, 2, -7 ] ],
-  [ [ 0, 4, 5, -12 ], [ 2, -4, 1, 5 ], [ 1, -4, -1, 8 ], [ 1, -3, 0, 5 ] ],
-  [ [ 1, 0, -1, 0 ], [ -2, 5, 5, -11 ], [ -1, 0, 2, 0 ], [ -1, 1, 2, -2 ] ] ]
+gap> mats := GeneratorsOfGroup( G );;
 gap> nat := IsomorphismPcpGroup( G );;
 gap> H := Image( nat );;
 gap> h := GeneratorsOfGroup( H );;

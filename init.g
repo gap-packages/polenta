@@ -9,7 +9,7 @@
 ##
 
 
-DeclarePackage( "polenta", "1.0", function() return true; end );
+DeclarePackage( "polenta", "1.1", function() return true; end );
 #DeclarePackageDocumentation( "polenta", "doc" );
  
 #############################################################################
@@ -24,6 +24,7 @@ ReadPkg( "polenta/lib/cpcs.gd" );
 ReadPkg( "polenta/lib/present.gd" );
 ReadPkg( "polenta/lib/solvable.gd" );
 ReadPkg( "polenta/lib/series.gd" );
+ReadPkg( "polenta/lib/subgroups.gd" );
 
 ############################################################################
 #R  read other packages

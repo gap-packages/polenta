@@ -27,6 +27,8 @@ ReadPkg( "polenta/lib/isom.gi" );
 ReadPkg( "polenta/lib/solvable.gi" );
 ReadPkg( "polenta/exam/exam.gi" );
 ReadPkg( "polenta/exam/test.gi" );
+ReadPkg( "polenta/lib/subgroups.gi" );
+
 
 #############################################################################
 ##

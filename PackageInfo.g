@@ -21,13 +21,13 @@ Persons := [
       FirstNames    := "Bjoern",
       IsAuthor      := true,
       IsMaintainer  := true,
-      Email         := "bjoerna77@gmx.de",
+      Email         := "BjoernAssmann@gmx.net",
       PostalAddress := Concatenation( [
-            "Institut f\"ur Geometrie, Algebra und diskrete Mathematik\n",
-            "TU Braunschweig\n",
-            "Pockelsstr. 14\n D-38106 Braunschweig\n Germany" ] ),
-      Place         := "Braunschweig",
-      Institution   := "TU Braunschweig"),
+            "Mathematical Institute\n",
+            "University of St. Andrews\n",
+            "North Haugh, St. Andrews\n Fife, KY 16 9SS, Scotland" ] ),
+      Place         := "St. Andrews",
+      Institution   := "University of St. Andrews"),
 
 ],
 

@@ -10,22 +10,30 @@ F 2.1. IsomorphismPcpGroup
 F 2.1. Image
 F 2.1. ImageElm
 F 2.1. ImagesSet
-F 2.1. PreImagesRepresentative
+F 2.1. PreImage
 F 2.1. IsSolvableGroup
-F 2.1. IsSolvableMatGroup
 F 2.1. IsPolycyclicMatGroup
 S 2.2. Module series
 F 2.2. RadicalSeriesSolvableMatGroup
 F 2.2. HomogeneousSeriesAbelianMatGroup
 F 2.2. CompositionSeriesAbelianMatGroup
-S 2.3. Examples
-F 2.3. PolExamples
+S 2.3. Subgroups
+F 2.3. TriangNormalSubgroupFiniteInd
+F 2.3. TriangNormalSubgroupFiniteIndUnipo
+S 2.4. Examples
+F 2.4. PolExamples
 C example.tex 3. An example application
 S 3.1. Presentation for rational matrix groups
 S 3.2. Modules series
-C install.tex 4. Installing and loading the Polenta package
-I 4.0. Installing and loading the Polenta package
-S 4.1. Installing the Polenta package
-I 4.1. Installing the Polenta package
-S 4.2. Loading the Polenta package
-I 4.2. Loading the Polenta package
+S 3.3. Triangularizable subgroups
+C install.tex 4. Installation
+I 4.0. Installation
+S 4.1. Installing this package
+S 4.2. Getting and installing KASH
+S 4.3. Loading the Polenta package
+I 4.3. Loading the Polenta package
+S 4.4. Running the test suite
+C info.tex 5. Information Messages
+S 5.1. Info Class
+F 5.1. InfoPolenta
+S 5.2.  Example 
