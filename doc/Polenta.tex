@@ -35,7 +35,13 @@ these functions determine a PcpGroup isomorphic to <G> and an isomorphism
 onto this group. 
 If <G> is not polycyclic, then there are two cases: If $R=\Z$ or $\F_q$,
 then the algorithm returns 'fail'. In case that $R=\Q$ the algorithm may
-return 'fail' or may not terminate.
+return 'fail' or may not terminate. 
+
+Note, that the method {\tt
+IsomorphismPcpGroup}, installed in this package, cannot be
+applied directly to a group given by the function {\tt AlmostCrystallographicGroup}.
+Please use  {\tt POL_AlmostCrystallographicGroup} (with the same
+parameters as {\tt AlmostCrystallographicGroup}) instead. 
 
 \> Image( <map> ) 
 \> ImageElm( <map>, <elm> )
