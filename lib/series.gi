@@ -109,6 +109,8 @@ POL_RadicalNormalGens := function( gens, mats, d )
           commutes,extended,comElement,a2,y;
   
     # get commutators
+    # because Q^d ( k-1 ) \subset Rad, where k in the commutator 
+    # subgroup <mats>'
     coms := [];
     for i in [1..Length( mats )] do
         for j in [i+1..Length( mats )] do
@@ -117,7 +119,7 @@ POL_RadicalNormalGens := function( gens, mats, d )
         od;
     od;
 
-    # base is a basis for W
+    # base is a basis for the module W, the radical
     base := SpinnUpEchelonBase( [], coms, gens, OnRight );
     if Length( base ) = d then
         # for a radical to big
@@ -153,6 +155,9 @@ POL_RadicalNormalGens := function( gens, mats, d )
             subb := SpinnUpEchelonBase( [], subb, indm, OnRight );
             if Length( subb ) > 0 then 
                 base := PreimageByNHSEB( subb, nath );
+                # Rad_K_p(Q^d) = Rad_G(Q^d)
+                # therefore <base> must be also a G-modul 
+                base := SpinnUpEchelonBase( [], base, gens, OnRight );
                 if Length( base ) = d then
                     # radical cannot be so big
                     return fail;
@@ -193,6 +198,9 @@ POL_RadicalNormalGens := function( gens, mats, d )
             subb := SpinnUpEchelonBase( [], subb, indm, OnRight );
             if Length( subb ) > 0 then 
                 base := PreimageByNHSEB( subb, nath );
+                # Rad_K_p(Q^d) = Rad_G(Q^d)
+                # therefore <base> must be also a G-modul 
+                base := SpinnUpEchelonBase( [], base, gens, OnRight );
                 if Length( base ) = d then
                     # radical cannot be so big
                     return fail;
