@@ -2,7 +2,7 @@
 ##
 #W semi.gi               POLENTA package                     Bjoern Assmann
 ##
-## Methods for calculation of 
+## Methods for the calculation of 
 ## constructive pc-sequences for rational abelian semisimple matrix groups
 ##
 #H  @(#)$Id$
@@ -95,12 +95,12 @@ end;
 ##
 #F ExponentVector_AbelianSS( CPCS_nue_K_p, g )
 ##
-## g is a list which entries contains the induced action of an group
+## g is a list which entries contain the induced action of an group
 ## element to the blocks of the factor series
 ##
 ExponentVector_AbelianSS:=function( CPCS_nue_K_p, g )
    local trivial,freeGens,n,A,m,rels3,v,exp,i,rels,r2,F,
-         rels2,r,newGens,a; 
+         rels2,r,newGens,a,ll; 
    newGens := CPCS_nue_K_p.newGensOfBlockAction;
    # n is the number of blocks
    n:=Length(newGens);
@@ -116,7 +116,7 @@ ExponentVector_AbelianSS:=function( CPCS_nue_K_p, g )
    # compute the relations of A
    rels:=IdentityMat(n+1);
    for r in A do
-       # trivial case: we check if r contains just 1's
+       # trivial case: we check if r just contains  1's
        trivial:=true;
        for i in [1..Length(r)] do
            if not r[i]=r[i]^0 then
@@ -131,9 +131,12 @@ ExponentVector_AbelianSS:=function( CPCS_nue_K_p, g )
            rels:=LatticeIntersection(rels,r2);
        fi;
    od;
-   #if the action of g on the radical series is trivial we have to return [];
+   #if the action of g on the radical series is trivial we
+   #return an as the exponent vector [0 ... 0] of the length of the 
+   #pc sequence of nue(K_p)
    if trivial then
-      return [];
+      ll := Length( CPCS_nue_K_p.relOrders );
+      return List( [1..ll], x->0 );
    fi;
    rels := NormalFormIntMat(rels,0).normal;
    if not rels[1][1]=1 then return fail; fi;
@@ -171,32 +174,41 @@ CPCS_AbelianSSBlocks_ClosedUnderConj := function(gens_K_p,gens,radicalSeries)
     CPCS_nue_K_p:=CPCS_AbelianSSBlocks( gensOfBlockAction );
     if CPCS_nue_K_p = fail then return fail; fi;
     i := 1;
-    #test if the CPCS for the image is closed under conjugation
-    Info( InfoPolenta, 2, "Close under conjugation");
-    for g in gens_K_p do
-        for h in gens do
-            l := POL_InducedActionToSeries( [g^h], radicalSeries );
-            if InfoLevel( InfoPolenta ) >= 2 then Print( i ); fi;
-            test := Membership_AbelianSS( CPCS_nue_K_p, l );
-            if not test then
-                Info( InfoPolenta, 2, "Extending gens_K_p !\n");
-                Add(gens_K_p,g^h);
-                #now in gens_K_p we have a more complete list of
-                #the generators.
-                #don't forget to modify gens_K_p as well on a
-                #higher function level
-                gensOfBlockAction := 
-                           POL_InducedActionToSeries(gens_K_p,radicalSeries);
-                CPCS_nue_K_p := 
-                         CPCS_AbelianSSBlocks( gensOfBlockAction );
-                if CPCS_nue_K_p = fail then return fail; fi;
-            fi;
-            i := i+1;
-         od;
-     od;
-     Info( InfoPolenta, 2,
-           "loops inCPCS_AbelianSSBlocks_ClosedUnderConj  = ", 
-           Length(gens_K_p)*Length(gens),"\n");
+
+    # test if CPCS_nue_K_p is not  trivial
+    if Length( CPCS_nue_K_p.relOrders ) > 0 then
+
+       #test if the CPCS for the image is closed under conjugation
+       Info( InfoPolenta, 1, "Close the constructive polycyclic sequence \n",
+             "    computed with the normal subgroup generators of the kernel\n",
+             "    under the conjugation action of the whole group");
+       for g in gens_K_p do
+           for h in gens do
+               l := POL_InducedActionToSeries( [g^h], radicalSeries );
+               if InfoLevel( InfoPolenta ) >= 1 then Print( "." ); fi;
+               test := Membership_AbelianSS( CPCS_nue_K_p, l );
+               if not test then
+                   Info( InfoPolenta, 3, "Extending gens_K_p !\n");
+                   Add(gens_K_p,g^h);
+                   #now in gens_K_p we have a more complete list of
+                   #the generators.
+                   #don't forget to modify gens_K_p as well on a
+                   #higher function level
+                   gensOfBlockAction := 
+                              POL_InducedActionToSeries(gens_K_p,radicalSeries);
+                   CPCS_nue_K_p := 
+                            CPCS_AbelianSSBlocks( gensOfBlockAction );
+                   if CPCS_nue_K_p = fail then return fail; fi;
+               fi;
+               i := i+1;
+            od;
+        od;
+        if InfoLevel( InfoPolenta ) >= 1 then Print( "\n" ); fi;   
+    fi;
+   
+    Info( InfoPolenta, 3,
+          "loops inCPCS_AbelianSSBlocks_ClosedUnderConj  = ", 
+          Length(gens_K_p)*Length(gens),"\n");
      return rec( pcgs_nue_K_p := CPCS_nue_K_p, gens_K_p := gens_K_p);
 end;
 
