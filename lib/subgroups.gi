@@ -18,8 +18,9 @@
 ##
 InstallGlobalFunction( POL_TriangNSGFI_NonAbelianPRMGroup , function( arg )
     local   p, d, gens_p,G, bound_derivedLength, pcgs_I_p, gens_K_p,
-            homSeries, gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
-            gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p;
+            comSeries, gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
+            gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p,
+            recordSeries, radSeries, isTriang;
     # setup
     G := arg[1];
     gens := GeneratorsOfGroup( G );
@@ -61,30 +62,51 @@ InstallGlobalFunction( POL_TriangNSGFI_NonAbelianPRMGroup , function( arg )
        Info( InfoPolenta, 2,"The normal subgroup generators are" );
     Info( InfoPolenta, 2, gens_K_p );
     Info( InfoPolenta, 1, "  " );
+ 
+    # radical series
+    Info( InfoPolenta, 1, "Compute the radical series ...");
+    gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
+    recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
+                                                         gens_K_p_mutableCopy,
+                                                         d );
+    radSeries := recordSeries.sers;
+    if radSeries=fail then return fail; fi;
+    Info( InfoPolenta, 1,"finished.");   
+    Info( InfoPolenta, 1, "The radical series has length ", 
+                          Length( radSeries ), "." );
+    Info( InfoPolenta, 2, "The radical series is" );
+    Info( InfoPolenta, 2, radSeries );
+    Info( InfoPolenta, 1, " " );    
+
+    # test if G is unipotent by abelian
+    isTriang := POL_TestIsUnipotenByAbelianGroupByRadSeries( gens, radSeries );
+    if isTriang then
+        return G;  
+    fi;
 
     # compositions series
     Info( InfoPolenta, 1, "Compute the composition series ...");
-    gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
-    homSeries := POL_CompositionSeriesNormalGens( gens, 
-                                                  gens_K_p_mutableCopy,
-                                                  d );
-    if homSeries=fail then return fail; fi;
+    comSeries := POL_CompositionSeriesByRadicalSeries( gens_K_p_mutableCopy,
+                                                       d,
+                                                   recordSeries.sersFullData,
+                                                       1  );
+    if comSeries=fail then return fail; fi;
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The composition series has length ", 
-                          Length( homSeries ), "." );
+                          Length( comSeries ), "." );
     Info( InfoPolenta, 2, "The composition series is" );
-    Info( InfoPolenta, 2, homSeries );
+    Info( InfoPolenta, 2, comSeries );
     Info( InfoPolenta, 1, " " );
 
     # induce K_p to the factors of the composition series
-    gensOfBlockAction := POL_InducedActionToSeries(gens_K_p, homSeries);
+    gensOfBlockAction := POL_InducedActionToSeries(gens_K_p, comSeries);
    
     # let nue be the homomorphism which induces the action of K_p to
     # the factors of the series
     Info( InfoPolenta, 1, "Compute a constructive polycyclic sequence\n", 
      "    for the induced action of the kernel to the composition series ...");
     pcgs_nue_K_p := CPCS_AbelianSSBlocks_ClosedUnderConj( gens_K_p,
-                                                       gens, homSeries );
+                                                       gens, comSeries );
     if pcgs_nue_K_p = fail then return fail; fi;
     Info(InfoPolenta,1,"finished.");   
 
@@ -161,6 +183,7 @@ function( G, p )
          fi;
 
 end );
+
 #############################################################################
 ##
 #M TriangNormalSubgroupFiniteIndUnipo( G )
@@ -211,17 +234,24 @@ function( G,p )
         elif test = 0 then
             cpcs := CPCS_PRMGroup( G,p  );
             if IsAbelian( G ) then
-                K_p := cpcs.pcs;
                 U_p := cpcs.pcgs_U_p.pcs;
-                return rec( T := Group( K_p ),
+                return rec( T := G ,
                             U := Group( U_p ));
             else
                 U_p := cpcs.pcgs_U_p.pcs;
-                K_p := cpcs.pcgs_GU.preImgsNue;
-                K_p := Concatenation( K_p, U_p );
-                return rec( T := Group( K_p ),
-                            U := Group( U_p ));
+                # check if G is triangularizable
+                if Length( cpcs.pcgs_GU.pcgs_I_p.gens ) = 0 then
+                    #G triangularizable
+                    return rec( T := G,
+                                U := Group( U_p ));   
+                else 
+                    #G not triangularizable
+                    K_p := cpcs.pcgs_GU.preImgsNue;
+                    K_p := Concatenation( K_p, U_p );
+                    return rec( T := Group( K_p ),
+                              U := Group( U_p ));
                 fi;
+            fi;
         else
             TryNextMethod();
         fi;  
