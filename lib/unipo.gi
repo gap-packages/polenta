@@ -493,7 +493,6 @@ CPCS_Unipotent := function( gens_U_p )
                 pcs := pcs,rels := rels );
 end;
 
-
 #############################################################################
 ##
 #F CPCS_Unipotent_Conjugation( gens, gens_U_p )
@@ -504,7 +503,8 @@ end;
 CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
     local g,rec1,mats,A,dim,gens_U_p_mod,mat,mat3,h,
           mat2,pcpElement,conjugator,G,gensOfG,
-          pcp_rec,rels,pcs,newGens,i, gens2;
+          pcp_rec,rels,pcs,newGens,i, gens2, image, testMembership;
+
     dim := Length( gens[1] );
 
     #check for trivial elements
@@ -541,20 +541,32 @@ CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
     pcp_rec := POL_SubgroupUnitriangularPcpGroup_Mod( gensOfG );
 
     # check if <gens_U_p> is stable under conjugation 
+    Info( InfoPolenta, 3,"check if <gens_U_p> is stable under conjugation...");
     for g in gens_U_p do
         mat := g;  
         gens2 := Concatenation( gens, List( gens, x-> x^-1 ));
         for h in gens2 do
             mat2 := mat^h;
             mat3 := mat2^conjugator;
-            if not POL_MapToUnipotentPcp( mat3,pcp_rec ) in pcp_rec.pcp then
+            Info( InfoPolenta, 3, "compute image ..." );
+            image :=  POL_MapToUnipotentPcp( mat3,pcp_rec );
+            Info( InfoPolenta, 3, "... finished" );
+            Info( InfoPolenta, 3, "test membership ..." );
+            testMembership :=  (image in pcp_rec.pcp); 
+            Info( InfoPolenta, 3, "... finished" );
+            if not testMembership then
                 #extend gens_U_p
                 Info( InfoPolenta,3, "Extending gens_U_p \n" );
                 newGens := Concatenation( gens_U_p,[mat2] );
+                Info( InfoPolenta, 2,
+                "An extended list of the normal subgroup generators for the\n",
+                "    unipotent part is" );
+                Info( InfoPolenta, 2, newGens );  
                 return CPCS_Unipotent_Conjugation( gens,newGens );
             fi;
         od;
     od;        
+    Info( InfoPolenta, 3, "...finished" );
 
     # calculate a pc-sequence for <gens_U_p>
     pcs := [];

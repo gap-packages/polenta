@@ -115,9 +115,9 @@ ExponentVector_AbelianSS:=function( CPCS_nue_K_p, g )
    od;
    # compute the relations of A
    rels:=IdentityMat(n+1);
+   trivial:=true;
    for r in A do
        # trivial case: we check if r just contains  1's
-       trivial:=true;
        for i in [1..Length(r)] do
            if not r[i]=r[i]^0 then
                trivial:=false;
