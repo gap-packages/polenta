@@ -288,8 +288,22 @@ POL_CompleteRuntime_FullInfo:= function( func, input )
     system_time := StringTime( rec2.system_time - rec1.system_time ),
     system_time_child := StringTime( rec2.system_time_children - rec1.system_time_children ),
     );
-    
     return rec3;
+end;
+    
+POL_Runtime := function( rec1, rec2 )
+
+    local   user_time, user_time_child, system_time, 
+          system_time_child, sum;
+    user_time := rec2.user_time -rec1.user_time;
+    user_time_child := rec2.user_time_children -rec1.user_time_children;
+    system_time := rec2.system_time - rec1.system_time;
+    system_time_child := rec2.system_time_children - rec1.system_time_children;
+
+    sum := user_time + user_time_child + system_time + system_time_child;
+
+
+    return sum;
 end;
 
 #############################################################################
