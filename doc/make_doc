@@ -10,24 +10,36 @@
 ##  etc/convert.pl) documentation for the Example Package.
 ##
 
+#
+# Set default paths for convert.pl and manualindex, if they are not set already. 
+#
+if [ "$CONVERT"X == "X" ]; then
+    CONVERT=../../../etc/convert.pl 
+fi
+
+if [ "$MANUALINDEX"X == "X" ]; then
+    MANUALINDEX=../../../doc/manualindex
+fi
+
+
 echo "TeXing documentation"
 # TeX the manual
 tex manual
 # ... and build its bibliography (uncomment if there is a `manual.bib')
 bibtex manual
 # TeX the manual again to incorporate the ToC ... and build the index
-tex manual; ../../../doc/manualindex manual
+tex manual; $MANUALINDEX manual
 # Finally TeX the manual again to get cross-references right
 tex manual
 # Create the PostScript version (uncomment next line, if needed)
-#dvips -D300 manual -o
+dvips -D300 manual -o
 # Create PDF version
-pdftex manual; pdftex manual 
+pdftex manual; pdftex manual
 
 # The HTML version of the manual
 mkdir -p ../htm
 echo "Creating HTML documentation"
-../../../etc/convert.pl -t -c -n Polenta . ../htm
+$CONVERT -t -c -n ALNUTH . ../htm
 
 #############################################################################
 ##
