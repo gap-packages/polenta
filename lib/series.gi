@@ -222,7 +222,7 @@ end;
 #F POL_HomogeneousSeriesNormalGens(gens, mats, d )
 ##
 ## mats are normal subgroup generators for the Kernel K_p in G =<gens>
-## returned is homegeneous series of Q^d
+## returned is a homegeneous series of of K_p modul Q^d
 ##
 POL_HomogeneousSeriesNormalGens := function(gens, mats, d )
     local radb, splt, nath,inducedgens, l, sers, i, sub, full, acts, rads;
@@ -426,6 +426,9 @@ RadicalSeriesPRMGroup := function( G )
 
     # determine an admissible prime
     p := DetermineAdmissiblePrime(gens);
+    Info( InfoPolenta, 1, "Chosen admissible prime: " , p );
+    Info( InfoPolenta, 1, "  " );
+
 
     # calculate the gens of the group phi_p(<gens>) where phi_p is
     # natural homomorphism to GL(d,p)
@@ -433,22 +436,32 @@ RadicalSeriesPRMGroup := function( G )
 
     # determine un upperbound for the derived length of G
     bound_derivedLength := d+2;
- 
-    Info( InfoPolenta, 1,"determine a constructive polycyclic  sequence");
-    Info( InfoPolenta, 1,"for the image under the p-congruence homomorph.");
+    Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
+          "    for the image under the p-congruence homomorphism ..." );
     pcgs_I_p := CPCS_finite_word( gens_p, bound_derivedLength );
-    Info( InfoPolenta, 1, "finite image has relative orders ",
-                           RelativeOrdersPcgs_finite( pcgs_I_p ) );
- 
+    if pcgs_I_p = fail then return fail; fi;
+    Info(InfoPolenta,1,"finished.");
+    Info( InfoPolenta, 1, "Finite image has relative orders ",
+                           RelativeOrdersPcgs_finite( pcgs_I_p ), "." );
+    Info( InfoPolenta, 1, " " );
+    
+    # compute the normal the subgroup gens. for the kernel of phi_p
+    Info( InfoPolenta, 1,"Compute normal subgroup generators for the kernel\n",
+          "    of the p-congruence homomorphism ...");
     gens_K_p := POL_NormalSubgroupGeneratorsOfK_p( pcgs_I_p, gens );
-    # Print( "gens_K_p is equal to", gens_K_p, "\n" );
- 
-    # step 4
-    Info( InfoPolenta, 1, "compute the radical series \n");
+    gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) );
+    Info( InfoPolenta, 1,"finished.");
+    Info( InfoPolenta, 2,"The normal subgroup generators are" );
+    Info( InfoPolenta, 2, gens_K_p );
+    Info( InfoPolenta, 1, "  " );
+
+    # radical series
     gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
     radicalSeries := POL_RadicalSeriesNormalGens( gens, 
                                                   gens_K_p_mutableCopy,
-                                                   d );
+                                                  d );
+    if radicalSeries=fail then return fail; fi;
+    
     return radicalSeries;
 end;    
 
@@ -457,7 +470,7 @@ end;
 #F POL_HomogeneousSeriesPRMGroup( G )   
 ##
 ## G is a rational polycyclic matrix group,
-## returned is homgeneous series of the natural K_p-module Q^d
+## returned is a homgeneous series of the natural K_p-module Q^d
 ##
 POL_HomogeneousSeriesPRMGroup := function( G )
     local   p,d,gens_p,bound_derivedLength,pcgs_I_p,gens_K_p,
@@ -531,7 +544,6 @@ end;
 ##
 ## G is a matrix group over the Rationals
 ## 
-##
 InstallMethod( RadicalSeriesSolvableMatGroup, "for solvable matrix groups", 
                true, [ IsMatrixGroup ], 0, 
 function( G ) 
@@ -635,7 +647,7 @@ POL_CompositionSeriesNormalGens := function(gens, mats, d )
     splt := POL_SplitSemisimple( radb.algebra );
     nath := radb.nathom;
     
-    # refine radical factor to irreducible compoents 
+    # refine radical factor to irreducible components 
      l := Length( splt );
      irreducibles := [];
      # induce action to factor
@@ -688,7 +700,7 @@ end;
 #F CompositionSeriesAbelianRMGroup( mats, d )
 ##
 ## <mats> is an abelian rational matrix group
-## returned is composition series for the natrual <mats>-module Q^d
+## returned is a composition series for the natrual <mats>-module Q^d
 ##
 CompositionSeriesAbelianRMGroup := function( mats, d )
     local radb, splt, nath,inducedgens, l, sers, i, sub, full, acts,
@@ -711,7 +723,7 @@ CompositionSeriesAbelianRMGroup := function( mats, d )
     splt := POL_SplitSemisimple( radb.algebra );
     nath := radb.nathom;
     
-    # refine radical factor to irreducible compoents 
+    # refine radical factor to irreducible components 
      l := Length( splt );
      irreducibles := [];
      # induce action to factor

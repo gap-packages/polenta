@@ -2,7 +2,7 @@
 ##
 #W solvalble.gi           POLENTA package                     Bjoern Assmann
 ##
-## Methods for testing a matrix group 
+## Methods for testing if a matrix group 
 ## is solvable or polycyclic
 ##
 #H  @(#)$Id$
@@ -25,6 +25,9 @@ POL_IsSolvableRationalMatGroup_infinite := function( G )
 
     # determine an admissible prime
     p := DetermineAdmissiblePrime(gens);
+    Info( InfoPolenta, 1, "Chosen admissible prime: " , p );
+    Info( InfoPolenta, 1, "  " );
+
 
     # calculate the gens of the group phi_p(<gens>) where phi_p is
     # natural homomorphism to GL(d,p)
@@ -34,18 +37,28 @@ POL_IsSolvableRationalMatGroup_infinite := function( G )
     bound_derivedLength := d+2;
  
     # finite part
-    Info( InfoPolenta, 1,"determine a constructive polycyclic sequence",
-          "    for the image under the p-congruence homomorph.");
+    Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
+          "    for the image under the p-congruence homomorphism ..." );
     pcgs_I_p := CPCS_finite_word( gens_p, bound_derivedLength );
-    Info( InfoPolenta, 1, "finite image has relative orders ",
-                           RelativeOrdersPcgs_finite( pcgs_I_p ) );
     if pcgs_I_p = fail then return false; fi;
- 
+    Info( InfoPolenta, 1, "Finite image has relative orders ",
+                           RelativeOrdersPcgs_finite( pcgs_I_p ), "." );
+    Info( InfoPolenta, 1, " " );
+
+
+    # compute the normal the subgroup gens. for the kernel of phi_p
+    Info( InfoPolenta, 1,"Compute normal subgroup generators for the kernel\n",
+          "    of the p-congruence homomorphism ...");
     gens_K_p := POL_NormalSubgroupGeneratorsOfK_p( pcgs_I_p, gens );
-    gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) );   
+    gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) ); 
+    Info( InfoPolenta, 1,"finished.");
+    Info( InfoPolenta, 2,"The normal subgroup generators are" );
+    Info( InfoPolenta, 2, gens_K_p );
+    Info( InfoPolenta, 1, "  " );
+  
  
     # homogeneous series
-    Info( InfoPolenta, 1, "compute the homogeneous series ");
+    Info( InfoPolenta, 1, "Compute the homogeneous series ... ");
     gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
     homSeries := POL_HomogeneousSeriesNormalGens( gens, 
                                                   gens_K_p_mutableCopy,
@@ -53,8 +66,12 @@ POL_IsSolvableRationalMatGroup_infinite := function( G )
     if homSeries = fail then 
         return false;
     else
-        Info( InfoPolenta, 2, "homogeneous series has length ", 
-                          Length( homSeries ) );
+        Info( InfoPolenta, 1,"finished.");
+        Info( InfoPolenta, 1, "The homogeneous series has length ", 
+                          Length( homSeries ), "." );
+        Info( InfoPolenta, 2, "The homogeneous series is" );
+        Info( InfoPolenta, 2, homSeries );
+        Info( InfoPolenta, 1, " " );
         return true;
     fi;    
  
@@ -66,16 +83,20 @@ end;
 ##
 POL_IsSolvableFiniteMatGroup := function( G )
     local gens, d, CPCS, bound_derivedLength;
-    # calculate a constructive pc-sequenz
+    # calculate a constructive pc-sequence
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
     # determine un upperbound for the derived length of G
     bound_derivedLength := d+2;
+
+     Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
+           "    for the finite input group ..." );
     CPCS := CPCS_finite_word( gens, bound_derivedLength );
 
     if CPCS = fail then 
         return false;
     else 
+        Info(InfoPolenta,1,"finished.");
         return true;
     fi;
 end;
@@ -86,7 +107,7 @@ end;
 ##
 ## G is a matrix group over the Rationals or a finite field. 
 ##
-InstallMethod( IsSolvableMatGroup, "for matrix groups", true,
+InstallMethod( POL_IsSolvableMatGroup, "for matrix groups", true,
                [ IsMatrixGroup ], 0, 
 function( G ) 
         local test;
@@ -167,5 +188,3 @@ end );
 #############################################################################
 ##
 #E
-
-

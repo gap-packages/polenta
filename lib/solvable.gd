@@ -2,7 +2,7 @@
 ##
 #W solvalble.gi           POLENTA package                     Bjoern Assmann
 ##
-## Methods for testing a matrix group 
+## Methods for testing if a matrix group 
 ## is solvable or polycyclic
 ##
 #H  @(#)$Id$
@@ -16,7 +16,7 @@
 ##
 ## G is a matrix group over the Rationals or a finite field. 
 ##
-DeclareOperation( "IsSolvableMatGroup", [ IsMatrixGroup ] );
+DeclareOperation( "POL_IsSolvableMatGroup", [ IsMatrixGroup ] );
 
 #############################################################################
 ##

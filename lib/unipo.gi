@@ -2,7 +2,7 @@
 ##
 #W unipo.gi               POLENTA package                     Bjoern Assmann
 ##
-## Methods for calculation of 
+## Methods for the calculation of 
 ## constructive pc-sequences for unipotent matrix groups
 ##
 #H  @(#)$Id$
@@ -15,7 +15,7 @@
 #F POL_DetermineMultiplier(gens )
 ##
 ## input is a list of generators of a rational matrix group 
-## output is an a such that a*u in Gl(n,Z) for all u in gens
+## output is an 'a' such that a*u in Gl(n,Z) for all u in gens
 ##
 POL_DetermineMultiplier := function( gens )
     local a,g,d,i,j;
@@ -436,7 +436,7 @@ end;
 ##
 #F CPCS_Unipotent( gens_U_p )
 ##
-## calculate a constructive pc-sequence for
+## calculates a constructive pc-sequence for
 ## the unipotent group <gens_U_p>
 ## 
 CPCS_Unipotent := function( gens_U_p )
@@ -470,7 +470,7 @@ CPCS_Unipotent := function( gens_U_p )
     Assert( 2, POL_UpperTriangIntTest( gensOfG ) );
    
     # converte the conjugated group to a Pcp-group
-    Info( InfoPolenta, 1, "calculate the pcp-Group of the group\n",
+    Info( InfoPolenta, 3, "calculate the pcp-Group of the group\n",
                            gensOfG,"\n" );
     pcp_rec := POL_SubgroupUnitriangularPcpGroup_Mod( gensOfG );
 
@@ -498,7 +498,7 @@ end;
 ##
 #F CPCS_Unipotent_Conjugation( gens, gens_U_p )
 ##
-## calculate a constructive pc-sequence for
+## calculates a constructive pc-sequence for
 ## the unipotent group <gens_U_p>^<gens>
 ## 
 CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
@@ -549,7 +549,7 @@ CPCS_Unipotent_Conjugation := function( gens, gens_U_p )
             mat3 := mat2^conjugator;
             if not POL_MapToUnipotentPcp( mat3,pcp_rec ) in pcp_rec.pcp then
                 #extend gens_U_p
-                Info( InfoPolenta,2, "Extending gens_U_p \n" );
+                Info( InfoPolenta,3, "Extending gens_U_p \n" );
                 newGens := Concatenation( gens_U_p,[mat2] );
                 return CPCS_Unipotent_Conjugation( gens,newGens );
             fi;
@@ -617,7 +617,7 @@ CPCS_Unipotent_Conjugation_Version2 := function( gens, gens_U_p )
     Assert( 2, POL_UpperTriangIntTest( gensOfG ) );
    
     # converte the conjugated group to a Pcp-group
-    Info( InfoPolenta, 1, "Unipotent: alculate the pcp-Group of the group\n",
+    Info( InfoPolenta, 3, "Unipotent: calculate the pcp-Group of the group\n",
                            gensOfG,"\n" );
     pcp_rec := POL_SubgroupUnitriangularPcpGroup_Mod( gensOfG );
 
@@ -635,7 +635,7 @@ CPCS_Unipotent_Conjugation_Version2 := function( gens, gens_U_p )
             mat3 := mat2^conjugator;
             if not POL_MapToUnipotentPcp( mat3,pcp_rec ) in pcp_rec.pcp then
                 #extend gens_U_p
-                Info( InfoPolenta,2, "Extending gens_U_p \n" );
+                Info( InfoPolenta,3, "Extending gens_U_p \n" );
                 # newGens := Concatenation( gens_U_p,[mat2] );
                 newGens := Concatenation( gens_U_p_mod,[mat2] );
                 return CPCS_Unipotent_Conjugation( gens,newGens );
