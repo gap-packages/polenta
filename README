@@ -32,79 +32,71 @@ $G$ is a rational polycyclic matrix group, then we can compute the
 radical series of the natural
 $\Q[G]$-module $\Q^d$.
 
-The GAP-Packages Alnuth and Polycyclic are needed for this package. 
-They can be obtained at 
-
-     http://cayley.math.nat.tu-bs.de/software/content.html
-
 
 Installing this package
 =======================
 
-This package is available at 
+The Polenta package is part of the standard distribution of GAP and
+so normally there should be no need to install it separately.
 
+If by any chance it is not part of your GAP distribution, then 
+this package is available at
+                                                                             
       http://cayley.math.nat.tu-bs.de/software/assmann/Polenta
-     
+                                                                             
 in form of a gzipped tar-archive and as an uncompressed tar-archive.
+The standard method is to unpack the package into the `pkg'
+directory  of your GAP distribution.  This will create a `polenta'
+subdirectory. 
+For other non-standard options please see  Chapter 74.1 
+in the GAP Reference Manual.
 
-There are two ways of installing the package.  If you have permission
-to add files to the installation of GAP 4 on your system you may
-install the Polenta package into the pkg subdirectory of the GAP
-installation tree.  If you do not have the permission to do that you
-may install the Polenta package in your private area.
+Note that the GAP-Packages Alnuth and Polycyclic are needed for this package.
+Normally they should be contained in your distribution. If not 
+they can be obtained at
 
---  Installation in the GAP 4 pkg subdirectory on a Unix system.
-
-    We assume that the archive file polenta.tar.gz or polenta.tar is
-    present in pkg and that the current directory is pkg.  All that needs
-    to be done is to unpack the archive.
-
-    bash> tar xfz polenta.tar.gz        # for the gzipped tar-archive
-    bash> tar xf polenta.tar            # for the uncompressed tar-archive
-    bash> gap4
-    [... startup messages ...]
-    gap> RequirePackage("polenta");
-    true
-    gap>     
-
---  Installation in a private directory
-
-    We assume that we are in a directory called  <mygap>  which also
-    contains the archive file of the Polenta package.
-
-    bash> mkdir pkg
-    bash> mv polenta.tar.gz pkg
-    bash> tar xfz polenta.tar.gz
+             http://cayley.math.nat.tu-bs.de/software/content.html
 
 
-    When you start GAP 4 you have to use the option -l in the
-    following manner:
+Getting and installing KASH
+===========================
+                    
+Note that the GAP package Alnuth whose functionality is used by the Polenta
+package requires the installation of KANT respectively
+KASH, the shell
+of the computational algebraic number theory system KANT.  KASH itself
+is not part of the Alnuth package.  It has to be obtained and installed
+independently.
+                                                            
+KASH is available at
 
-    gap4 -l ";<mygap>"
+               www.math.tu-berlin.de/~kant/download.html
 
-    Note the semicolon!  It is imortant to have it there.  The effect
-    is that the directory <mygap> is appended to the list of
-    directories which GAP searches for input data.  Note that you do
-    not say <mygap>/pkg.
+Note that you have to download two files for a complete installation
+of KASH.  For the installation of version 2.4 of KASH on a Linux
+system you would do the following steps:
 
-
+ 1. Download the files
+    kash_2.4.common.tar.gz and kash_2.4.1.linux.tar.gz
+    into the same directory on your system.
+                                                                               
+ 2. Unpack the files using tar.  This will create a directory
+    KASH_2.4 containing among other files the KASH executable called
+    kash.  The place where KASH is put is independent of the place
+    where the Alnuth or Polenta package is installed.
+    
                                  
 Author
 ======
  
 The Polenta package was written by:
  
-Bjoern Assmann,
-Institut f\"ur Geometrie, Algebra und diskrete Mathematik,
-TU Braunschweig,
-Pockelsstr. 14, D-38106 Braunschweig, Germany
-e-mail: bjoerna77@gmx.de
- 
-
-
-
-
-
-
-
-
+  Bjoern Assmann, 
+  Mathematical Institute
+  University of St. Andrews
+  North Haugh
+  St. Andrews
+  Fife
+  KY 16 9SS
+  Scotland, UK
+  e-mail: BjoernAssmann@gmx.net
