@@ -33,17 +33,17 @@ DeclareGlobalFunction( "POL_TriangNSGFI_PRMGroup" );
 ## G is a matrix group over the Rationals. 
 ## Returned is triangularizable normal subgroup of finite index
 ##
-DeclareOperation( "TriangNormalSubgroupFiniteInd", [ IsMatrixGroup ] );
+#DeclareOperation( "TriangNormalSubgroupFiniteInd", [ IsMatrixGroup ] );
 
 #############################################################################
 ##
-#M TriangNormalSubgroupFiniteIndUnipo( G )
+#M SubgroupsUnipotentByAbelianByFinite( G )
 ##
 ## G is a matrix group over the Rationals. 
 ## Returned is triangularizable normal subgroup K of finite index
 ## and an unipotent normal subgroup U of K such that K/U is abelian.
 ##
-DeclareOperation( "TriangNormalSubgroupFiniteIndUnipo" , [ IsMatrixGroup ] );
+DeclareOperation( "SubgroupsUnipotentByAbelianByFinite" , [ IsMatrixGroup ] );
 
 #############################################################################
 ##
