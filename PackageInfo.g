@@ -7,10 +7,10 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.0",
+Version := "1.1",
 Date := "02/11/2003",
 
-ArchiveURL := "http://cayley.math.nat.tu-bs.de/software/assmann/Polenta/Polenta-1.0",
+ArchiveURL := "http://cayley.math.nat.tu-bs.de/software/assmann/Polenta/Polenta-1.1",
 ArchiveFormats := ".tar.gz",
 
 
@@ -68,7 +68,7 @@ Dependencies := rec(
   ExternalConditions := ["needs KANT/KASH Computer Algebra System"] ), 
 
 AvailabilityTest := ReturnTrue,             
-BannerString := "Loading Polenta 1.0 ... \n",     
+BannerString := "Loading Polenta 1.1 ... \n",     
 Autoload := true,
 TestFile := "tst/testall.g",
 Keywords := ["polycyclic presentations", "matrix groups" ]
