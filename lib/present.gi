@@ -51,6 +51,8 @@ POL_SetPcPresentation_infinite:= function(pcgs)
             SetRelativeOrder(ftl,i,ro[i]);
         fi;
     od;
+
+    Info( InfoPolenta, 1, "Compute power relations ..." );
     # Set power relations
     for i in [1..n] do
         if ro[i]<>0 then
@@ -61,18 +63,34 @@ POL_SetPcPresentation_infinite:= function(pcgs)
             SetPower(ftl,i,genList);
         fi;
     od;
+    Info( InfoPolenta, 1, "... finished." );
+
+    Info( InfoPolenta, 1, "Compute conjugation relations ..." );
     # Set the conjugation relations
     for i in [1..n] do
         for j in [1..(i-1)] do
+            # conjugtaion with g_j
             f_i:=pcgs.pcs[i];
             f_j:=pcgs.pcs[j];
             conj:=(pcsInv[j])*f_i*f_j;
             exp:=ExponentVector_CPCS_PRMGroup( conj,pcgs);
             genList:=POL_Exp2GenList(exp);
             SetConjugate(ftl,i,j,genList);
+            # conjugation with g_j^-1 if g_j has infinite order
+            if ro[i] = 0 then
+                conj:= f_j* f_i *(pcsInv[j]);
+                exp:=ExponentVector_CPCS_PRMGroup( conj,pcgs);
+                genList:=POL_Exp2GenList(exp);
+                SetConjugate(ftl,i,-j,genList);
+            fi;
         od;
     od;
+    Info( InfoPolenta, 1, "... finished." );
+
+    Info( InfoPolenta, 1, "Update polycyclic collector ... " );
     UpdatePolycyclicCollector(ftl);
+    Info( InfoPolenta, 1, "... finished." );
+
     return ftl;    
 end;
 # remark: some of the information (i.e. parts of the exponens vectors)
