@@ -59,10 +59,12 @@ POL_SetPcPresentation_infinite:= function(pcgs)
             f_i:=pcgs.pcs[i];
             r_i:=ro[i];
             exp:=ExponentVector_CPCS_PRMGroup(  f_i^r_i,pcgs );
+            if InfoLevel( InfoPolenta ) >= 2 then Print( "." ); fi;
             genList := POL_Exp2GenList(exp);
             SetPower(ftl,i,genList);
         fi;
     od;
+    if InfoLevel( InfoPolenta ) >= 2 then Print( "\n" ); fi;
     Info( InfoPolenta, 1, "... finished." );
 
     Info( InfoPolenta, 1, "Compute conjugation relations ..." );
@@ -74,17 +76,20 @@ POL_SetPcPresentation_infinite:= function(pcgs)
             f_j:=pcgs.pcs[j];
             conj:=(pcsInv[j])*f_i*f_j;
             exp:=ExponentVector_CPCS_PRMGroup( conj,pcgs);
+            if InfoLevel( InfoPolenta ) >= 2 then Print( "." ); fi;
             genList:=POL_Exp2GenList(exp);
             SetConjugate(ftl,i,j,genList);
             # conjugation with g_j^-1 if g_j has infinite order
             if ro[i] = 0 then
                 conj:= f_j* f_i *(pcsInv[j]);
                 exp:=ExponentVector_CPCS_PRMGroup( conj,pcgs);
+                if InfoLevel( InfoPolenta ) >= 2 then Print( "." ); fi;
                 genList:=POL_Exp2GenList(exp);
                 SetConjugate(ftl,i,-j,genList);
             fi;
         od;
     od;
+    if InfoLevel( InfoPolenta ) >= 2 then Print( "\n" ); fi;
     Info( InfoPolenta, 1, "... finished." );
 
     Info( InfoPolenta, 1, "Update polycyclic collector ... " );
@@ -125,7 +130,11 @@ POL_PcpGroupByMatGroup_infinite := function( arg )
     Info( InfoPolenta, 1, " " );
 
     Info( InfoPolenta, 1,"Construct the polycyclic presented group ..." );
-    K := PcpGroupByCollector( pcp );
+    if AssertionLevel() = 0 then
+        K := PcpGroupByCollectorNC( pcp );
+    else
+        K := PcpGroupByCollector( pcp );
+    fi;
     Info( InfoPolenta, 1,"finished.");
     Info( InfoPolenta, 1, " " );
 

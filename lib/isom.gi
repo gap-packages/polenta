@@ -33,7 +33,11 @@ POL_IsomorphismToMatrixGroup_infinite := function( arg )
     Info( InfoPolenta, 1, " " );
 
     Info( InfoPolenta, 1,"Construct the polycyclic presented group ..." );
-    H := PcpGroupByCollector( pcp );
+    if AssertionLevel() = 0 then
+        H := PcpGroupByCollector( pcp );
+    else
+        H := PcpGroupByCollector( pcp );
+    fi;
     Info( InfoPolenta, 1,"finished.");
     Info( InfoPolenta, 1, " " );
 
