@@ -83,14 +83,14 @@ end;
 
 #############################################################################
 ##
-#F POL_PcpGroupByMatGroup_infinite( G )
+#F POL_PcpGroupByMatGroup_infinite( arg )
 ##
-## G is a subgroup of GL(d, Q ). The algorithm return a PcpGroup if G
+## arg[1]=G is a subgroup of GL(d, Q ). The algorithm return a PcpGroup if G
 ## is polycyclic.
 ##
-POL_PcpGroupByMatGroup_infinite := function( G )
+POL_PcpGroupByMatGroup_infinite := function( arg )
     local CPCS, pcp, K;
-    CPCS := CPCS_PRMGroup( G );
+    CPCS := CPCS_PRMGroup( arg );
     if CPCS = fail then return fail; fi;
     pcp := POL_SetPcPresentation_infinite( CPCS );
     K := PcpGroupByCollector( pcp );
@@ -183,16 +183,6 @@ InstallGlobalFunction( POL_IsMatGroupOverFiniteField, function( G )
     F := Field( gens[1][1] );
     k := Characteristic(  F );
     if k = false then return false; fi;
-    d := Length( gens[1] );
-    for g in gens do 
-        for i in [1..d] do
-            for j in [1..d] do
-                if not g[i][j] in F then
-                    return false;
-                fi;
-            od;
-        od;
-    od;
     return k;
 end );
 
@@ -213,6 +203,20 @@ function( G )
             TryNextMethod();
         elif test = 0 then
             return POL_PcpGroupByMatGroup_infinite( G ); 
+        else
+            return POL_PcpGroupByMatGroup_finite( G );
+        fi;  
+end );
+
+InstallOtherMethod( PcpGroupByMatGroup, "for polycyclic matrix groups", true,
+               [ IsMatrixGroup, IsInt], 0, 
+function( G, p ) 
+        local test;
+        test := POL_IsMatGroupOverFiniteField( G );
+        if IsBool( test ) then
+            TryNextMethod();
+        elif test = 0 then
+            return POL_PcpGroupByMatGroup_infinite( G,p ); 
         else
             return POL_PcpGroupByMatGroup_finite( G );
         fi;  
