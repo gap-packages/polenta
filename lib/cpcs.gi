@@ -520,6 +520,7 @@ end );
 ##
 InstallGlobalFunction( ExponentVector_CPCS_PRMGroup, function(matrix,pcgs)
     local exp1,m1,m2,exp2,exp;
+    if matrix=matrix^0 then return List( pcgs.rels, x->0 );fi;
     # we have G = G/U * U, so matrix = m1 * m2
     exp1 := ExponentVector_CPCS_FactorGU_p( pcgs.pcgs_GU, matrix);
     if exp1 = fail then return fail; fi;

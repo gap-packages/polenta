@@ -79,8 +79,9 @@ InstallGlobalFunction( POL_TriangNSGFI_NonAbelianPRMGroup , function( arg )
     recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
                                                          gens_K_p_mutableCopy,
                                                          d );
+    
+    if recordSeries=fail then return fail; fi;
     radSeries := recordSeries.sers;
-    if radSeries=fail then return fail; fi;
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The radical series has length ", 
                           Length( radSeries ), "." );
@@ -152,6 +153,8 @@ InstallGlobalFunction( POL_TriangNSGFI_PRMGroup , function( arg )
 end );
 
 
+# this code has to be reviewed. In the current form we can only assure,
+# that it returns normal subgroup generators for K_p.
 #############################################################################
 ##
 #M TriangNormalSubgroupFiniteInd( G )
@@ -160,49 +163,49 @@ end );
 ## Returned is triangularizable normal subgroup of finite index
 ##
 ##
-InstallMethod( TriangNormalSubgroupFiniteInd, "for polycyclic matrix groups", 
-                true, [ IsMatrixGroup ], 0, 
-function( G ) 
-        local test;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        elif test = 0 then
-            return  POL_TriangNSGFI_PRMGroup(G );
-        else
-            TryNextMethod();
-        fi;
-end) ;
-
-InstallOtherMethod( TriangNormalSubgroupFiniteInd, 
-               "for polycyclic matrix groups", true,
-               [ IsMatrixGroup, IsInt], 0, 
-function( G, p ) 
-        local test;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        elif test = 0 then
-            if not IsPrime(p) then
-                Print( "Second argument must be a prime number.\n" );
-                return fail;
-            fi;    
-            return POL_TriangNSGFI_PRMGroup(G ); 
-         else
-            TryNextMethod();
-         fi;
-
-end );
+#InstallMethod( TriangNormalSubgroupFiniteInd, "for polycyclic matrix groups", 
+#                true, [ IsMatrixGroup ], 0, 
+#function( G ) 
+#        local test;
+#        test := POL_IsMatGroupOverFiniteField( G );
+#        if IsBool( test ) then
+#            TryNextMethod();
+#        elif test = 0 then
+#            return  POL_TriangNSGFI_PRMGroup(G );
+#        else
+#            TryNextMethod();
+#        fi;
+#end) ;
+#
+#InstallOtherMethod( TriangNormalSubgroupFiniteInd, 
+#               "for polycyclic matrix groups", true,
+#               [ IsMatrixGroup, IsInt], 0, 
+#function( G, p ) 
+#        local test;
+#        test := POL_IsMatGroupOverFiniteField( G );
+#        if IsBool( test ) then
+#            TryNextMethod();
+#        elif test = 0 then
+#            if not IsPrime(p) then
+#                Print( "Second argument must be a prime number.\n" );
+#                return fail;
+#            fi;    
+#            return POL_TriangNSGFI_PRMGroup(G ); 
+#         else
+#            TryNextMethod();
+#         fi;
+#
+#end );
 
 #############################################################################
 ##
-#M TriangNormalSubgroupFiniteIndUnipo( G )
+#M SubgroupsUnipotentByAbelianByFinite( G )
 ##
 ## G is a matrix group over the Rationals. 
 ## Returned is triangularizable normal subgroup K of finite index
 ## and an unipotent normal subgroup U of K such that K/U is abelian.
 ##
-InstallMethod( TriangNormalSubgroupFiniteIndUnipo, 
+InstallMethod( SubgroupsUnipotentByAbelianByFinite, 
                "for polycyclic matrix groups", 
                 true, [ IsMatrixGroup ], 0, 
 function( G ) 
@@ -215,24 +218,31 @@ function( G )
             cpcs := CPCS_PRMGroup( G );
             if cpcs = fail then return fail; fi;
             if IsAbelian( G ) then
-                K_p := cpcs.pcs;
                 U_p := cpcs.pcgs_U_p.pcs;
-                return rec( T := POL_Group( K_p, G ),
-                            U := POL_Group( U_p, G ) );
+                return rec( T := G ,
+                            U := POL_Group( U_p, G ));
             else
                 U_p := cpcs.pcgs_U_p.pcs;
-                K_p := cpcs.pcgs_GU.preImgsNue;
-                K_p := Concatenation( K_p, U_p );
-                return rec( T := POL_Group( K_p, G ),
-                            U := POL_Group( U_p, G ));
-             fi;
+                # check if G is triangularizable
+                if Length( cpcs.pcgs_GU.pcgs_I_p.gens ) = 0 then
+                    #G triangularizable
+                    return rec( T := G,
+                                U := POL_Group( U_p, G ));   
+                else 
+                    #G not triangularizable
+                    K_p := cpcs.pcgs_GU.preImgsNue;
+                    K_p := Concatenation( K_p, U_p );
+                    return rec( T := POL_Group( K_p, G ),
+                              U := POL_Group( U_p, G ));
+                fi;
+            fi;
         else
             TryNextMethod();
         fi;  
 end );
 
 
-InstallOtherMethod( TriangNormalSubgroupFiniteIndUnipo , 
+InstallOtherMethod( SubgroupsUnipotentByAbelianByFinite , 
                "for polycyclic matrix groups", true,
                [ IsMatrixGroup, IsInt], 0, 
 function( G,p ) 
@@ -243,6 +253,9 @@ function( G,p )
             TryNextMethod();
         elif test = 0 then
             cpcs := CPCS_PRMGroup( G,p  );
+            if cpcs = fail then return fail; fi;
+
+
             if IsAbelian( G ) then
                 U_p := cpcs.pcgs_U_p.pcs;
                 return rec( T := G ,

@@ -154,6 +154,7 @@ function( nat, h )
     H := Range( nat );
     e := ExponentVector_CPCS_PRMGroup( h, CPCS );
     if e=fail then return fail; fi;
+    if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
 end);
  
@@ -166,6 +167,7 @@ function( nat, h )
     H := Range( nat );
     e := ExponentVector_CPCS_PRMGroup( h, CPCS );
     if e=fail then return fail; fi;
+    if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
 end);
  
@@ -182,6 +184,7 @@ function( nat, elms )
     od;
     return List( exps, function(x)
                           if x=fail then return fail;
+                          elif Length(e)=0 then return OneOfPcp( Pcp( H ) );
                           else return MappedVector( x, Pcp(H) );
                           fi;
                           end );
@@ -200,6 +203,7 @@ function( nat, h )
     H := Range( nat );
     e := ExponentvectorPcgs_finite( CPCS, h );
     if e=fail then return fail; fi;
+    if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
 end);
  
@@ -212,6 +216,7 @@ function( nat, h )
     H := Range( nat );
     e := ExponentvectorPcgs_finite( CPCS, h );
     if e=fail then return fail; fi;
+    if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
 end);
  
@@ -228,6 +233,7 @@ function( nat, elms )
     od;
     return List( exps, function(x)
                           if x=fail then return fail;
+                          elif Length(e)=0 then return OneOfPcp( Pcp( H ) );
                           else return MappedVector( x, Pcp(H) );
                           fi;
                           end );

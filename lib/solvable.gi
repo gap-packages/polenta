@@ -240,8 +240,8 @@ POL_IsTriangularizableRationalMatGroup_infinite := function( G )
     recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
                                                       gens_K_p_mutableCopy,
                                                       d );
+    if recordSeries=fail then return false; fi;
     radSeries := recordSeries.sers;
-    if radSeries=fail then return false; fi;
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The radical series has length ", 
                           Length( radSeries ), "." );

@@ -1075,7 +1075,7 @@ POL_CompositionSeriesTriangularizableRMGroup := function( gens, d )
     recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
                                                       gens_K_p_mutableCopy,
                                                       d );
-    if radSeries=fail then return fail; fi;
+    if recordSeries=fail then return fail; fi;
     radSeries := recordSeries.sers;
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The radical series has length ", 
@@ -1249,7 +1249,7 @@ POL_HomogeneousSeriesTriangularizableRMGroup := function( gens, d )
                                                       gens_K_p_mutableCopy,
                                                       d );
     
-    if radSeries=fail then return fail; fi;
+    if recordSeries=fail then return fail; fi;
     radSeries := recordSeries.sers;
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The radical series has length ", 
