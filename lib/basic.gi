@@ -2,8 +2,8 @@
 ##
 #W basic.gi               POLENTA package                     Bjoern Assmann
 ##
-## Methods for calculation of 
-## constructive pc-sequences for a polycyclic rational matrix groups
+## Methods for the calculation of 
+## constructive pc-sequences for polycyclic rational matrix groups
 ##
 #H  @(#)$Id$
 ##
@@ -12,11 +12,12 @@
 
 #############################################################################
 ##
-#F DetermineAdmissiblePrime(gensOfG).........calculates a prime number which
-##                                           does not divide one of
-##                                           the entries of gensOfG or its
-##                                           inverse
-##
+#F DetermineAdmissiblePrime(gensOfG)
+## 
+## determines a prime number which does not divide  the denominators
+## of the entries of the matrices in gensOfG and which does not divide the 
+## the entries of the inverses of the matrices in gensOfG
+##                      
 ## input is a list of generators of a rational polycyclic matrix group
 ##
 InstallGlobalFunction( DetermineAdmissiblePrime , function(gensOfG)
@@ -25,13 +26,13 @@ InstallGlobalFunction( DetermineAdmissiblePrime , function(gensOfG)
        list1:=[];
        list2:=[];
  
-       # construct a list of all elements in gensOfG and their inverse
+       # construct a list of all elements in gensOfG and their inverses
        for g in gensOfG do
            Add(list1,g);
            Add(list1,g^-1);
        od;
  
-       #write 1/denomiator of all matrix entries in list
+       #write denomiators of all matrix entries in list
        for g in list1 do
            for i in [1..d] do
                for j in [1..d] do
@@ -40,6 +41,7 @@ InstallGlobalFunction( DetermineAdmissiblePrime , function(gensOfG)
            od;
        od;
        antiPrime:=ConsideredPrimes(list2);
+
         #choose a small prime which is not in antiPrime
        found:=false;
        p:=3;
@@ -55,9 +57,9 @@ end );
 ##
 #F POL_NormalSubgroupGeneratorsOfK_p(pcgs,gensOfRealG)
 ##
-## pcgs is a constructive pc-Sequenz for I_p(G) 
+## pcgs is a constructive pc-Sequence for I_p(G) 
 ## (image of G under the p-congruence hom.).
-## This functions calculate the normal subgroupgenerators for K_p(G)
+## This function calculates  normal subgroupgenerators for K_p(G)
 ## (the kernel of the p-congruence hom.)
 ##
 InstallGlobalFunction( POL_NormalSubgroupGeneratorsOfK_p ,
@@ -69,26 +71,27 @@ InstallGlobalFunction( POL_NormalSubgroupGeneratorsOfK_p ,
    n := Length(pcgs.gens);
    preimages := [];
    relations := [];
+
    # catch the trivial case
    if Length(pcgs.gens)=0 then
        return gensOfRealG;
    fi;
  
-   # calcucalte all preimages of pcgs.gens
+   # calcuclate all preimages of pcgs.gens
    for i in [1..n] do
        preimage := SubsWord( pcgs.wordGens[i], gensOfRealG );
        Add( preimages, preimage);
    od;
  
-   # Attention: In pcgs.gens we have the pc-Sequenz in inversed order
-   # because we had to build up  the structure
+   # Attention: In pcgs.gens we have the pc-sequence in inversed order,
+   # because we built up  the structure bottom up
    pcSeq := StructuralCopy(Reversed(pcgs.gens));
    revPreimages := StructuralCopy(Reversed(preimages));
  
    # calculate the relative orders
    ro := RelativeOrdersPcgs_finite( pcgs );
  
-   # Exprime the power relations in terms of gensOfRealG
+   # exprime the power relations in terms of gensOfRealG
    for i in [1..n] do
        f_i := pcSeq[i];
        r_i := ro[i];
@@ -177,8 +180,8 @@ end );
 ##
 #F POL_NormalSubgroupGeneratorsU_p( pcgs_GU, gens, gens_K_p )
 ##
-## pcgs_GU  is a constructive pc-Sequenz for G/U,
-## this functions calculate normal subgroupgenerators for U_p(G)
+## pcgs_GU  is a constructive pc-Sequence for G/U,
+## this function calculates normal subgroup generators for U_p(G)
 ##
 InstallGlobalFunction( POL_NormalSubgroupGeneratorsU_p ,
                        function( pcgs_GU, gens, gens_K_p )

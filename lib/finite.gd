@@ -2,7 +2,7 @@
 ##
 #W finite.gd               POLENTA package                     Bjoern Assmann
 ##
-## Methods for calculation of 
+## Methods for the calculation of 
 ## constructive pc-sequences for finite matrix groups
 ##
 #H  @(#)$Id$
@@ -98,9 +98,9 @@ DeclareGlobalFunction( "ExtractIndexPart" );
 ##
 #F POL_SetPcPresentation(pcgs)
 ##
-## pcgs is a constructive pc-Sequenz, calculated
+## pcgs is a constructive pc-sequence, calculated
 ## by ConstructivePcSequenceFinitePart
-## this functions calculate a PcPresentation for the Group described
+## this function calculates a PcPresentation for the Group described
 ## by pcgs
 ##
 DeclareGlobalFunction( "POL_SetPcPresentation" ); 

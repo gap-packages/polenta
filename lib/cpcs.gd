@@ -2,7 +2,7 @@
 ##
 #W cpcs.gd              POLENTA package                     Bjoern Assmann
 ##
-## Methods for calculation of 
+## Methods for the calculation of 
 ## constructive pc-sequences for rational matrix groups
 ##
 #H  @(#)$Id$
@@ -30,7 +30,7 @@ DeclareGlobalFunction( "CPCS_NonAbelianPRMGroup" );
 ##
 #F CPCS_AbelianPRMGroup( G )
 ##
-## G is an abelian rational polycyclic rational matrix group
+## G is an abelian polycyclic rational matrix group
 ##
 DeclareGlobalFunction( "CPCS_AbelianPRMGroup" );
 

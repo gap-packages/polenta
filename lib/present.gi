@@ -30,8 +30,8 @@ end;
 ##
 #F POL_SetPcPresentation_infinite(pcgs)
 ##
-## pcgs is a constructive pc-Sequenz,calculated by CPCS_PRMGroup
-## this functions calculate a PcPresentation for the Group described
+## pcgs is a constructive pc-Sequence,calculated by CPCS_PRMGroup
+## this function calculates a PcPresentation for the group described
 ## by pcgs
 ##
 POL_SetPcPresentation_infinite:= function(pcgs)
@@ -78,14 +78,14 @@ end;
 # remark: some of the information (i.e. parts of the exponens vectors)
 # which we need in the last algorithm,
 # arrise naturally in the computation of the normal subgroup
-# generators. It could be transferred from there. 
+# generators. It could be transfered from there. 
 
 
 #############################################################################
 ##
 #F POL_PcpGroupByMatGroup_infinite( arg )
 ##
-## arg[1]=G is a subgroup of GL(d, Q ). The algorithm return a PcpGroup if G
+## arg[1]=G is a subgroup of GL(d, Q ). The algorithm returns a PcpGroup if G
 ## is polycyclic.
 ##
 POL_PcpGroupByMatGroup_infinite := function( arg )
@@ -98,8 +98,19 @@ POL_PcpGroupByMatGroup_infinite := function( arg )
         CPCS := CPCS_PRMGroup( G );
     fi;
     if CPCS = fail then return fail; fi;
+    Info( InfoPolenta, 1, " " );
+
+    Info( InfoPolenta, 1,"Compute the relations of the polycyclic\n",
+          "    presentation of the group ..." );
     pcp := POL_SetPcPresentation_infinite( CPCS );
+    Info( InfoPolenta, 1,"finished." );
+    Info( InfoPolenta, 1, " " );
+
+    Info( InfoPolenta, 1,"Construct the polycyclic presented group ..." );
     K := PcpGroupByCollector( pcp );
+    Info( InfoPolenta, 1,"finished.");
+    Info( InfoPolenta, 1, " " );
+
     return K;
 end;  
 
@@ -107,9 +118,9 @@ end;
 ##
 #F POL_SetPcPresentation_finite(pcgs)
 ##
-## pcgs is a constructive pc-Sequenz of a finite group, calculated
+## pcgs is a constructive pc-sequence of a finite group, calculated
 ## by CPCS_finite.
-## this functions calculate a PcPresentation for the Group described
+## this function calculates a PcPresentation for the group described
 ## by pcgs
 ##
 POL_SetPcPresentation_finite:= function(pcgs)
@@ -118,8 +129,8 @@ POL_SetPcPresentation_finite:= function(pcgs)
     n := Length(pcgs.gens);
     ftl := FromTheLeftCollector(n);
 
-    # Attention: In pcgs.gens we have the pc-Sequenz in inversed order
-    # because we had to build up  the structure
+    # Attention: In pcgs.gens we have the pc-Sequence in inversed order
+    # because we  built up  the structure bottom up
     pcs := StructuralCopy(Reversed(pcgs.gens));
     pcsInv:=[];
     for i in [1..n] do
@@ -162,11 +173,14 @@ end;
 ##
 #F POL_PcpGroupByMatGroup_finite( G )
 ##
-## G is a subgroup of GL(d, Q ). The algorithm return a PcpGroup if G
+## G is a subgroup of GL(d, Q ). The algorithm returns a PcpGroup if G
 ## is polycyclic.
 ##
 POL_PcpGroupByMatGroup_finite := function( G )
     local CPCS, pcp, K, gens, d, bound_derivedLength;
+
+    Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
+           "    for the input group ...");
     # setup
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
@@ -174,8 +188,20 @@ POL_PcpGroupByMatGroup_finite := function( G )
     bound_derivedLength := d+2;
     CPCS := CPCS_finite_word( gens, bound_derivedLength );
     if CPCS = fail then return fail; fi;
+    Info( InfoPolenta, 1, "finished." );
+    Info( InfoPolenta, 1, " " );
+
+    Info( InfoPolenta, 1,"Compute the relations of the polycyclic\n",
+          "    presentation of the group ..." );
     pcp := POL_SetPcPresentation_finite( CPCS );
+    Info( InfoPolenta, 1,"finished." );
+    Info( InfoPolenta, 1, " " );
+
+    Info( InfoPolenta, 1,"Construct the polycyclic presented group ..." );
     K := PcpGroupByCollector( pcp );
+    Info( InfoPolenta, 1,"finished.");
+    Info( InfoPolenta, 1, " " );
+
     return K;
 end;  
 
@@ -235,14 +261,4 @@ end );
 #############################################################################
 ##
 #E
-
-
-
-
-
-
-
-
-
-
 

@@ -2,8 +2,8 @@
 ##
 #W basic.gd               POLENTA package                     Bjoern Assmann
 ##
-## Methods for calculation of 
-## constructive pc-sequences for a polycyclic rational matrix groups
+## Methods for the calculation of 
+## constructive pc-sequences for polycyclic rational matrix groups
 ##
 #H  @(#)$Id$
 ##
@@ -13,10 +13,11 @@
 
 #############################################################################
 ##
-#F DetermineAdmissiblePrime(gensOfG).........calculates a prime number which
-##                                           does not divide one of
-##                                           the entries of gensOfG or its
-##                                           inverse
+#F DetermineAdmissiblePrime(gensOfG)
+##
+## determines a prime number which does not divide  the denominators
+## of the entries of the matrices in gensOfG and which does not divide the
+## the entries of the inverses of the matrices in gensOfG
 ##
 ## input is a list of generators of a rational polycyclic matrix group
 ##
@@ -26,9 +27,9 @@ DeclareGlobalFunction( "DetermineAdmissiblePrime" );
 ##
 #F POL_NormalSubgroupGeneratorsOfK_p(pcgs,gensOfRealG)
 ##
-## pcgs is a constructive pc-Sequenz for I_p(G) 
+## pcgs is a constructive pc-Sequence for I_p(G) 
 ## (image of G under the p-congruence hom.).
-## This functions calculate the normal subgroupgenerators for K_p(G)
+## This function calculates  normal subgroupgenerators for K_p(G)
 ## (the kernel of the p-congruence hom.)
 ##
 DeclareGlobalFunction( "POL_NormalSubgroupGeneratorsOfK_p" );
@@ -55,8 +56,8 @@ DeclareGlobalFunction( "POL_CopyVectorList" );
 ##
 #F POL_NormalSubgroupGeneratorsU_p( pcgs_GU, gens, gens_K_p )
 ##
-## pcgs_GU  is a constructive pc-Sequenz for G/U,
-## this functions calculate normal subgroupgenerators for U_p(G)
+## pcgs_GU  is a constructive pc-Sequence for G/U,
+## this function calculates normal subgroupgenerators for U_p(G)
 ##
 DeclareGlobalFunction( "POL_NormalSubgroupGeneratorsU_p" );
 

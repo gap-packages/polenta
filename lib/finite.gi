@@ -2,7 +2,7 @@
 ##
 #W finite.gi               POLENTA package                     Bjoern Assmann
 ##
-## Methods for calculation of 
+## Methods for the calculation of 
 ## constructive pc-sequences for finite matrix groups
 ##
 #H  @(#)$Id$
@@ -20,12 +20,15 @@
 ##
 POL_SuitableOrbitPoints := function( gens)
     local MM,cs,l,i,x,fac,F,n,csR;
+
     # calculate the module
     F := Field( gens[1][1][1] );
     MM := GModuleByMats(gens, F);
+
     # use the meataxe to calculate a decomposition series
     cs := SMTX.BasesCompositionSeries(MM);
     csR := Reversed( cs );
+
     # build a basis through this series 
     n := Length( cs );
     l := [];
@@ -82,9 +85,9 @@ end;
 ## 
 ## Calculates a constructive pc-sequence for <N,g>^gens
 ##
-## Every arrising groupelement is realized as a record 
+## Every arrising group element is realized as a record 
 ## containing the real element
-## and the wordinformation corresponding to gens
+## and the word information corresponding to gens
 ##
 InstallGlobalFunction( ClosureBasePcgs_word,function( pcgsN, g, gens, lim )
     local pcgsU,listU,u,u2,c,l,i,comm,tempWord,x,j,a,commElement;
@@ -206,11 +209,9 @@ end );
 ##
 ## 
 InstallGlobalFunction( CPCS_finite_word , function( gensOfG , b)
-    local c,f,d,trv,pcgsOfN,x,epsilon,info_string,h,H,i,n,
-          suitableOrbitPoints,pcgsOfN_hilf,j,k ;
-
-    info_string := "determining a constructive pcgs for the finite part...";
-    Info(InfoPolenta,1,info_string);  
+    local c,f,d,trv,pcgsOfN,x,epsilon,h,H,i,n,
+          suitableOrbitPoints,pcgsOfN_hilf,j,k;
+    Info( InfoPolenta, 5, "determining a constructive pcgs for the finite part...");  
 
     # Setup of N
     f := Field( gensOfG[1][1][1] );
@@ -235,7 +236,7 @@ InstallGlobalFunction( CPCS_finite_word , function( gensOfG , b)
          pcgsOfN := ClosureBasePcgs_word(pcgsOfN,h,gensOfG ,b);
          if pcgsOfN = fail then return fail; fi;  
     od;
-    Info(InfoPolenta,1,"finished");
+    Info(InfoPolenta,5,"finished");
     return pcgsOfN;
 end );
 
@@ -308,8 +309,6 @@ InstallGlobalFunction( ExtendedBasePcgsMod , function( pcgs, g, d )
 
         # take base point (if necessary, add new base point)
         if i > Length( pcgs.orbit ) then
-##          # Achtung hier ist eine Aenderung von mir. vorher stand in
-##          #dieser zeile ein g
             #b := SmallOrbitPoint( pcgs, g );
             b := POL_NextOrbitPoint2( pcgs, h);
             Add( pcgs.orbit, [b] );
@@ -527,16 +526,16 @@ end;
 ##
 #F POL_SetPcPresentation(pcgs)
 ##
-## pcgs is a constructive pc-Sequenz, calculated
+## pcgs is a constructive pc-sequence, calculated
 ## by ConstructivePcSequenceFinitePart
-## this functions calculate a PcPresentation for the Group described
+## this function calculates a PcPresentation for the group described
 ## by pcgs
 ##
 InstallGlobalFunction( POL_SetPcPresentation, function(pcgs)
    local genList,ftl,n,ro,i,j,exp,conj,f_i,f_j,r_i,pcSeq;
 
-   # Attention: In pcgs.gens we have the pc-Sequenz in inversed order
-   # because we had to build up  the structure
+   # Attention: In pcgs.gens we have the pc-Sequence in inversed order
+   # because we  built up  the structure bottom up
    pcSeq := StructuralCopy(Reversed(pcgs.gens));
 
    # Setup
@@ -590,8 +589,6 @@ TestPOL_SetPcPresentation := function(pcgs)
        fi;
    od;
 end;
-
-
 
 
 #############################################################################

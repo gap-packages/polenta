@@ -2,7 +2,7 @@
 ##
 #W cpcs.gi               POLENTA package                     Bjoern Assmann
 ##
-## Methods for calculation of 
+## Methods for the calculation of 
 ## constructive pc-sequences for rational matrix groups
 ##
 #H  @(#)$Id$
@@ -34,7 +34,7 @@ end );
 ##
 #F CPCS_NonAbelianPRMGroup( arg )
 ##
-## arg[1] = G is an non-abelian rational polycyclic rational matrix group
+## arg[1] = G is an non-abelian  polycyclic rational matrix group
 ##
 InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     local   p, d, gens_p,G, bound_derivedLength, pcgs_I_p, gens_K_p,
@@ -45,12 +45,18 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
 
+    Info( InfoPolenta, 1, "Determine a constructive polycyclic sequence\n",
+          "    for the input group ..." );    
+    Info( InfoPolenta, 1, " " );
+
     # determine an admissible prime or take the wished one
     if Length( arg ) = 2 then
         p := arg[2];
     else
         p := DetermineAdmissiblePrime(gens);
     fi;
+    Info( InfoPolenta, 1, "Chosen admissible prime: " , p );
+    Info( InfoPolenta, 1, "  " );
 
     # calculate the gens of the group phi_p(<gens>) where phi_p is
     # natural homomorphism to GL(d,p)
@@ -60,61 +66,86 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     bound_derivedLength := d+2;
  
     # finite part
-    Info( InfoPolenta, 1,"determine a constructive polycyclic sequence\n",
-          "    for the image under the p-congruence homomorph.");
+    Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
+          "    for the image under the p-congruence homomorphism ..." );
     pcgs_I_p := CPCS_finite_word( gens_p, bound_derivedLength );
-    Info( InfoPolenta, 1, "finite image has relative orders ",
-                           RelativeOrdersPcgs_finite( pcgs_I_p ) );
     if pcgs_I_p = fail then return fail; fi;
+    Info(InfoPolenta,1,"finished.");
+    Info( InfoPolenta, 1, "Finite image has relative orders ",
+                           RelativeOrdersPcgs_finite( pcgs_I_p ), "." );
+    Info( InfoPolenta, 1, " " );
  
+    # compute the normal the subgroup gens. for the kernel of phi_p
+    Info( InfoPolenta, 1,"Compute normal subgroup generators for the kernel\n",
+          "    of the p-congruence homomorphism ...");      
     gens_K_p := POL_NormalSubgroupGeneratorsOfK_p( pcgs_I_p, gens );
-    gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) );   
- 
+    gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) );
+    Info( InfoPolenta, 1,"finished.");   
+    Info( InfoPolenta, 2,"The normal subgroup generators are" );
+    Info( InfoPolenta, 2, gens_K_p );
+    Info( InfoPolenta, 1, "  " );
+
     # compositions series
-    Info( InfoPolenta, 1, "compute the composition series ");
+    Info( InfoPolenta, 1, "Compute the composition series ...");
     gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
     homSeries := POL_CompositionSeriesNormalGens( gens, 
                                                   gens_K_p_mutableCopy,
                                                   d );
     if homSeries=fail then return fail; fi;
-    Info( InfoPolenta, 2, "composition series has length ", 
-                          Length( homSeries ) );
+    Info( InfoPolenta, 1,"finished.");   
+    Info( InfoPolenta, 1, "The composition series has length ", 
+                          Length( homSeries ), "." );
+    Info( InfoPolenta, 2, "The composition series is" );
+    Info( InfoPolenta, 2, homSeries );
+    Info( InfoPolenta, 1, " " );
 
     # induce K_p to the factors of the composition series
     gensOfBlockAction := POL_InducedActionToSeries(gens_K_p, homSeries);
    
     # let nue be the homomorphism which induces the action of K_p to
     # the factors of the series
-    Info( InfoPolenta, 1, "compute a constructive polycyclic sequence\n", 
-          "    for the induced action to the composition series");
+    Info( InfoPolenta, 1, "Compute a constructive polycyclic sequence\n", 
+          "    for the induced action of the kernel to the composition series ...");
     pcgs_nue_K_p := CPCS_AbelianSSBlocks_ClosedUnderConj( gens_K_p,
                                                        gens, homSeries );
     if pcgs_nue_K_p = fail then return fail; fi;
-   
+    Info(InfoPolenta,1,"finished.");   
+
     # update generators of K_p
     gens_K_p := pcgs_nue_K_p.gens_K_p;
     pcgs_nue_K_p := pcgs_nue_K_p.pcgs_nue_K_p;
-    Info( InfoPolenta, 1, "direct product of mult. subgroups of field",
-                          "has relative orders ",
-                           pcgs_nue_K_p.relOrders  );
+    Info( InfoPolenta, 1, "This polycyclic sequence has relative orders ",
+                           pcgs_nue_K_p.relOrders, "."  );
+    Info( InfoPolenta, 1, " " );
 
     # constructive pc-sequence for G/U_p
     pcgs_GU := CPCS_FactorGU_p( gens, pcgs_I_p, gens_K_p,
                                 pcgs_nue_K_p, homSeries, p );
   
     # normal subgroup generators for  U_p
-    Info( InfoPolenta, 1, "calculating normal subgroup generators for the",
-                          "\n    unipotent part" );
+    Info( InfoPolenta, 1, "Calculate normal subgroup generators for the",
+                          "\n    unipotent part ..." );
     gens_U_p := POL_NormalSubgroupGeneratorsU_p( pcgs_GU, gens, gens_K_p );
+    Info( InfoPolenta, 1, "finished." );
+    Info( InfoPolenta, 2,"The normal subgroup generators for the unipotent part are" );
+    Info( InfoPolenta, 2, gens_U_p );
+    Info( InfoPolenta, 1, " " );
 
     # determine a constructive pc-sequence for the unipotent group U_p
-    Info( InfoPolenta, 1 ,"determine a constructive polycyclic  sequence\n", 
-                          "    for the unipotent part");
+    Info( InfoPolenta, 1 ,"Determine a constructive polycyclic  sequence\n", 
+                          "    for the unipotent part ...");
     pcgs_U_p := CPCS_Unipotent_Conjugation( gens, gens_U_p );
     if pcgs_U_p = fail then return fail; fi;
+    Info(InfoPolenta,1,"finished.");
+    Info(InfoPolenta,1, "The unipotent part has relative orders ");
+    Info(InfoPolenta,1,  pcgs_U_p.rels, "." );
+    Info( InfoPolenta, 1, " " );
 
     # construct a pcs for the hole group
     pcgs := POL_MergeCPCS( pcgs_U_p, pcgs_GU);
+
+    Info( InfoPolenta, 1, "... computation of a constructive \n",
+          "    polycycyclic sequence for the whole group finished." );
  
     return pcgs;
 end ); 
@@ -133,45 +164,71 @@ InstallGlobalFunction( CPCS_AbelianPRMGroup , function( G )
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
 
+    Info( InfoPolenta, 1, "Determine a constructive polycyclic sequence\n",
+          "    for the input group ..." );
+    Info( InfoPolenta, 1, " " );
+
     # skip the the p-congruence homomorphism
     pcgs_I_p := rec( gens := [], relOrders := [], wordGens := []);
     gens_K_p := gens;
     p := 0;
 
     # composition series
-    Info( InfoPolenta, 1, "compute the composition series ");
+     Info( InfoPolenta, 1, "Compute the composition series ...");
     gens_mutableCopy := CopyMatrixList( gens );
     homSeries := CompositionSeriesAbelianRMGroup( gens_mutableCopy, d );
     if homSeries = fail then return fail; fi; 
-    Info( InfoPolenta, 2, "composition series has length ", 
-                          Length( homSeries ) );
-
+     Info( InfoPolenta, 1,"finished.");
+    Info( InfoPolenta, 1, "The composition series has length ",
+                          Length( homSeries ), "." );
+    Info( InfoPolenta, 2, "The composition series is" );
+    Info( InfoPolenta, 2, homSeries );
+    Info( InfoPolenta, 1, " " );
+ 
     # induce K_p to the factors of the composition series
     gensOfBlockAction := POL_InducedActionToSeries(gens_K_p, homSeries);
    
     # let nue be the homomorphism which induces the action of K_p to
     # the factors of the series
-    Info( InfoPolenta, 1, "compute a constructive polycyclic sequence\n", 
-          "    for the induced action to the composition series");
+    Info( InfoPolenta, 1, "Compute a constructive polycyclic sequence\n",
+          "    for the induced action of the kernel to the composition series ...");
     pcgs_nue_K_p := CPCS_AbelianSSBlocks( gensOfBlockAction );
+    Info(InfoPolenta,1,"finished.");
+    Info( InfoPolenta, 1, "This polycyclic sequence has relative orders ",
+                           pcgs_nue_K_p.relOrders, "."  );
+    Info( InfoPolenta, 1, " " );
+
   
     # constructive pc-sequence for G/U_p
     pcgs_GU := CPCS_FactorGU_p( gens, pcgs_I_p, gens_K_p,
                                 pcgs_nue_K_p, homSeries, p );
   
     # normal subgroup generators for  U_p
-    Info( InfoPolenta, 1, "calculating normal subgroup generators for the",
-                          "\n    unipotent part" );
+    Info( InfoPolenta, 1, "Calculate normal subgroup generators for the",
+                          "\n    unipotent part ..." );
     gens_U_p := POL_NormalSubgroupGeneratorsU_p( pcgs_GU, gens, gens_K_p );
+    Info( InfoPolenta, 1, "finished." );
+    Info( InfoPolenta, 2,"The normal subgroup generators for the unipotent part are"
+);
+    Info( InfoPolenta, 2, gens_U_p );
+    Info( InfoPolenta, 1, " " );
 
     # determine a constructive pc-sequence for the unipotent group U_p
-    Info( InfoPolenta, 1 ,"determine a constructive polycyclic  sequence\n", 
-                          "    for the unipotent part");
+    Info( InfoPolenta, 1 ,"Determine a constructive polycyclic  sequence\n",
+                          "    for the unipotent part ...");
     pcgs_U_p := CPCS_Unipotent_Conjugation( gens, gens_U_p );
     if pcgs_U_p = fail then return fail; fi;
+    Info(InfoPolenta,1,"finished.");
+    Info(InfoPolenta,1, "The unipotent part has relative orders ");
+    Info(InfoPolenta,1,  pcgs_U_p.rels, "." );
+    Info( InfoPolenta, 1, " " );
+
 
     # construct a pcs for the hole group
     pcgs := POL_MergeCPCS( pcgs_U_p, pcgs_GU);
+
+    Info( InfoPolenta, 1, "... computation of a constructive \n",
+          "    polcycyclic sequence for the whole group finished." );
  
     return pcgs;
 end ); 

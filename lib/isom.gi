@@ -17,17 +17,31 @@
 POL_IsomorphismToMatrixGroup_infinite := function( arg )
     local CPCS, pcp, H, nat,G;
     G := arg[1];
-    # calculate a constructive pc-sequenz
+    # calculate a constructive pc-sequence
     if Length( arg ) = 2 then
         CPCS := CPCS_PRMGroup( G, arg[2] );
     else
         CPCS := CPCS_PRMGroup( G );
     fi;
     if CPCS = fail then return fail; fi;
+    Info( InfoPolenta, 1, " " );
+
+    Info( InfoPolenta, 1,"Compute the relations of the polycyclic\n",
+          "    presentation of the group ..." );
     pcp := POL_SetPcPresentation_infinite( CPCS );
+    Info( InfoPolenta, 1,"finished." );
+    Info( InfoPolenta, 1, " " );
+
+    Info( InfoPolenta, 1,"Construct the polycyclic presented group ..." );
     H := PcpGroupByCollector( pcp );
+    Info( InfoPolenta, 1,"finished.");
+    Info( InfoPolenta, 1, " " );
+
+    Info( InfoPolenta, 1,"Construct the ismorphism on the polycyclic\n",
+          "    presented group ..." );
     nat := GroupHomomorphismByImagesNC( G, H, CPCS.pcs, AsList(Pcp(H)) );
- 
+    Info( InfoPolenta, 1,"finished."); 
+
     # add infos
     SetIsBijective( nat, true );
     SetIsMapping( nat, true );
@@ -44,18 +58,37 @@ end;
 ##
 POL_IsomorphismToMatrixGroup_finite := function( G )
     local CPCS, pcp, H, nat, gens, d, pcs, bound_derivedLength;
-    # calculate a constructive pc-sequenz
+
+     Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
+           "    for the input group ...");
+    # calculate a constructive pc-sequence
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
     # determine un upperbound for the derived length of G
     bound_derivedLength := d+2;
     CPCS := CPCS_finite_word( gens, bound_derivedLength );
     if CPCS = fail then return fail; fi;
+    Info( InfoPolenta, 1, "finished." );
+    Info( InfoPolenta, 1, " " );
+
+    Info( InfoPolenta, 1,"Compute the relations of the polycyclic\n",
+          "    presentation of the group ..." );
     pcp := POL_SetPcPresentation_finite( CPCS );
+    Info( InfoPolenta, 1,"finished." );
+    Info( InfoPolenta, 1, " " );
+
+    Info( InfoPolenta, 1,"Construct the polycyclic presented group ..." );
     H := PcpGroupByCollector( pcp );
+    Info( InfoPolenta, 1,"finished.");
+    Info( InfoPolenta, 1, " " );
+
     # new generating set for G
     pcs := Reversed(CPCS.gens);
+    Info( InfoPolenta, 1,"Construct the ismorphism on the polycyclic\n",
+          "    presented group ..." );
     nat := GroupHomomorphismByImagesNC( G, H, pcs, AsList(Pcp(H)) );
+    Info( InfoPolenta, 1,"finished.");
+    Info( InfoPolenta, 1, " " );
  
     # add infos
     SetIsBijective( nat, true );
