@@ -38,6 +38,7 @@ POL_Test_CPCS_PRMGroup := function( G )
     Print( "Start testing\n" );
     numberOfTests := 10;
     pcgs := CPCS_PRMGroup( G );
+    if pcgs = fail then return 0;fi;
     gens := GeneratorsOfGroup( G );
     for i in [1..numberOfTests] do
         Print(i);
@@ -50,6 +51,108 @@ end;
 
 #############################################################################
 ##
+#F POL_Test_Series_PRMGroup( G )
+##
+## G is a rational polycyclic matrix group
+##
+POL_Test_Series_PRMGroup := function( G )
+    local radSer, homSer, comSer;
+    SetAssertionLevel( 2 );
+    radSer :=RadicalSeriesSolvableMatGroup( G );
+    homSer := HomogeneousSeriesAbelianMatGroup( G );
+    comSer := CompositionSeriesAbelianMatGroup( G );   
+    homSer := HomogeneousSeriesTriangularizableMatGroup( G );
+    comSer := CompositionSeriesTriangularizableMatGroup( G );
+end;
+
+#############################################################################
+##
+#F POL_Test_SubgroupComp_PRMGroup( G )
+##
+## G is a rational polycyclic matrix group
+##
+POL_Test_SubgroupComp_PRMGroup := function( G )
+    local T, reco;
+    SetAssertionLevel( 2 );
+    T := TriangNormalSubgroupFiniteInd( G );
+    reco := TriangNormalSubgroupFiniteIndUnipo( G );
+end;
+
+#############################################################################
+##
+#F POL_Test_Properties_PRMGroup( G )
+##
+## G is a rational polycyclic matrix group
+##
+POL_Test_Properties_PRMGroup := function( G )
+    local t;
+    SetAssertionLevel( 2 );
+    t := IsSolvableGroup( G );
+    t := IsTriangularizableMatGroup(G );
+    t := IsPolycyclicMatGroup( G );
+end;
+
+#############################################################################
+##
+#F POL_Test_Isom_PRMGroup( G )
+##
+## G is a rational polycyclic matrix group
+##
+POL_Test_Isom_PRMGroup := function( G )
+    local iso, src,mats,n,numberOfTests,i, exp1,mat1,img1,mat2;
+    SetAssertionLevel( 2 );
+
+    iso := IsomorphismPcpGroup( G );
+    if iso = fail then return 0;fi;
+    mats := GeneratorsOfGroup( G );
+    n := Length( mats );
+    numberOfTests := 5;
+    for i in [1..numberOfTests] do
+       Print( i );
+       #exp1 := List( [1..n], x-> Random( Integers ) );
+       #mat1 := MappedVector( exp1, mats );
+       mat1 := POL_RandomGroupElement( mats );
+       img1 := ImageElm( iso, mat1 );
+       mat2 := PreImage( iso, img1 );
+       if not mat1 = mat2 then
+           Error( "Isomorphism calculated wrong preimage\n" );
+       fi;
+     od;
+     Print( "\n" );
+end;
+
+#############################################################################
+##
+#F POL_Test_AllFunctions_PRMGroup( G )
+##
+## G is a rational polycyclic matrix group
+##
+POL_Test_AllFunctions_PRMGroup := function( G )
+    SetAssertionLevel( 2 );
+    POL_Test_Isom_PRMGroup( G );
+    POL_Test_Properties_PRMGroup( G );
+    POL_Test_SubgroupComp_PRMGroup( G );
+    POL_Test_Series_PRMGroup( G );
+end;
+
+#############################################################################
+##
+#F POL_Test_AllFunctions_PolExamples( anfang, ende )
+##
+## G is a rational polycyclic matrix group
+##
+POL_Test_AllFunctions_PolExamples := function( anfang, ende )
+    local i, G;
+    SetAssertionLevel( 2 );
+    for i in [anfang..ende] do
+         Print( "Test of group ", i, "\n" );
+         G := PolExamples( i );
+         POL_Test_AllFunctions_PRMGroup( G );
+     od;
+end;
+
+#############################################################################
+##
 #F POL_Test_CPCS_PRMGroupExams( anfang, ende )
 ##
 ## G is a rational polycyclic matrix group
@@ -58,7 +161,7 @@ POL_Test_CPCS_PRMGroupExams := function( anfang, ende )
      local i,G;
      SetInfoLevel( InfoPolenta, 3 );
      for i in [anfang..ende] do
-         Print( "Test of group ", i, "\n" );
+         Print( "Test of PolExamples(  ", i, " )\n" );
          G := PolExamples( i );
          POL_Test_CPCS_PRMGroup( G );
      od;
