@@ -12,11 +12,14 @@ F 2.1. ImageElm
 F 2.1. ImagesSet
 F 2.1. PreImage
 F 2.1. IsSolvableGroup
+F 2.1. IsTriangularizableMatGroup
 F 2.1. IsPolycyclicMatGroup
 S 2.2. Module series
 F 2.2. RadicalSeriesSolvableMatGroup
 F 2.2. HomogeneousSeriesAbelianMatGroup
+F 2.2. HomogeneousSeriesTriangularizableMatGroup
 F 2.2. CompositionSeriesAbelianMatGroup
+F 2.2. CompositionSeriesTriangularizableMatGroup
 S 2.3. Subgroups
 F 2.3. TriangNormalSubgroupFiniteInd
 F 2.3. TriangNormalSubgroupFiniteIndUnipo
