@@ -86,6 +86,9 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     Info( InfoPolenta, 2, gens_K_p );
     Info( InfoPolenta, 1, "  " );
 
+    # if the input group was finite gens_K_p is an empty list
+    if Length( gens_K_p ) = 0 then Add( gens_K_p, gens[1]^0 );fi;
+
     # radical series
     Info( InfoPolenta, 1, "Compute the radical series ...");
     gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
