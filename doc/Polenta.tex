@@ -73,6 +73,12 @@ of <H>.
 This function tests if <G> is
 solvable and returns 'true' or 'false'. 
 
+\> IsTriangularizableMatGroup( <G> )
+
+<G> is  a subgroup of $GL(d,\Q)$.
+ This function tests if <G> is triangularizable 
+and returns 'true' or 'false'. 
+
 \> IsPolycyclicMatGroup( <G> )
 
 <G> is  a subgroup of $GL(d,R)$ where $R=\Q,\Z $ or $\F_q$.
@@ -81,6 +87,7 @@ solvable and returns 'true' or 'false'.
 If <G> is not polycyclic, then there are two cases. If $R=\Z$ or $\F_q$,
 then the function returns 'false'. If  $R=\Q$ then the algorithm may
 return 'false' or may not terminate.
+
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Module series}
@@ -113,6 +120,15 @@ This function returns a
 homogeneous series for the $\Q[G]$-module $\Q^d$, where <G> is an
 abelian subgroup of $GL(d,\Q)$.  
 
+\> HomogeneousSeriesTriangularizableMatGroup( <G> )
+
+A module is said to be homogeneous if it is the direct sum of pairwise
+irreducible isomorphic submodules. A homogeneous series of a module 
+is a submodule series such that the factors are homogeneous.
+This function returns a 
+homogeneous series for the $\Q[G]$-module $\Q^d$, where <G> is an
+triangularizable subgroup of $GL(d,\Q)$.  
+
 A homogeneous series can be refined to a composition series.
 
 \> CompositionSeriesAbelianMatGroup( <G> )
@@ -121,6 +137,13 @@ A composition series of a module is a submodule series such that
 the factors are irreducible. This function returns a 
 composition series for the $\Q[G]$-module $\Q^d$, where <G> is an
 abelian subgroup of $GL(d,\Q)$.
+
+\> CompositionSeriesTriangularizableMatGroup( <G> )
+
+A composition series of a module is a submodule series such that 
+the factors are irreducible. This function returns a 
+composition series for the $\Q[G]$-module $\Q^d$, where <G> is an
+triangularizable subgroup of $GL(d,\Q)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Subgroups}

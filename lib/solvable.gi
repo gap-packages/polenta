@@ -218,7 +218,7 @@ POL_IsTriangularizableRationalMatGroup_infinite := function( G )
     Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
           "    for the image under the p-congruence homomorphism ..." );
     pcgs_I_p := CPCS_finite_word( gens_p, bound_derivedLength );
-    if pcgs_I_p = fail then return fail; fi;
+    if pcgs_I_p = fail then return false; fi;
     Info(InfoPolenta,1,"finished.");
     Info( InfoPolenta, 1, "Finite image has relative orders ",
                            RelativeOrdersPcgs_finite( pcgs_I_p ), "." );
@@ -241,7 +241,7 @@ POL_IsTriangularizableRationalMatGroup_infinite := function( G )
                                                       gens_K_p_mutableCopy,
                                                       d );
     radSeries := recordSeries.sers;
-    if radSeries=fail then return fail; fi;
+    if radSeries=fail then return false; fi;
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The radical series has length ", 
                           Length( radSeries ), "." );

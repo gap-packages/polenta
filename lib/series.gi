@@ -357,9 +357,10 @@ POL_RadicalSeriesNormalGensFullData := function(gens, mats, d )
     record := POL_RadicalSeriesNormalGensFullData(inducedgens,acts,
                                             Length(radb.radical) );
 
+    if record = fail then return fail; fi;
     rads := record.sers;
     radsFullData := record.sersFullData;
-    if rads = fail then return fail; fi;
+   
 
     rads := List( rads, function(x) if x=[] then return []; else
                             return x * radb.radical; fi;end );
@@ -1119,7 +1120,6 @@ CompositionSeriesTriangularizableMatGroup := function( G )
     fi;
     
 end;
-
 
 #############################################################################
 ##
