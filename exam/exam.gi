@@ -1414,7 +1414,14 @@ POL_PolExamples2 := function( n )
                        [ 0, 0, 0, -1, -1, -2 ] ] ];
           return Group( gens );
      fi;
-       
+     
+     # finite examples
+     if n = -17 then
+        return ImfMatrixGroup( 4,1,1 );
+     fi;
+     if n = -18 then
+        return ImfMatrixGroup(6,2,1);
+     fi;       
 
 
 
