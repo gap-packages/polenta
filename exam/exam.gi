@@ -1490,7 +1490,25 @@ POL_PolExamples2 := function( n )
                   ];
              return Group( gens );
         fi;
+ 
+
   end;
    
-
-
+# ideas for the construction of further examples
+# - semidirect product
+# - wreath product for example with S_4
+# - extensions
+# - use library for finite integral matrix groups
+# - subdirect product
+# - use galois group of the arrising number fields
+# - direct product with finite group
+# - subdirect products S_4 \times G 
+#     S_4 \times G
+#      |      | 
+#      |alpha | beta
+#      V      V
+#        S_3 or C_2
+# 
+#   H = { (\sigma,g) : \sigma \alpha = g \beta}
+#   K < G \times H
+    
