@@ -33,7 +33,8 @@ end) ;
 ## G is a rational polycyclic matrix group
 ##
 POL_Test_CPCS_PRMGroup := function( G )
-    local numberOfTests, pcgs, gens, i, g, exp;
+    local numberOfTests, pcgs, gens, i, g, exp, a_level;
+    a_level := AssertionLevel();
     SetAssertionLevel( 2 );
     Print( "Start testing\n" );
     numberOfTests := 10;
@@ -49,6 +50,7 @@ POL_Test_CPCS_PRMGroup := function( G )
             Error( "Wrong exponent vector!\n" );
         fi;
     od;
+    SetAssertionLevel( a_level );
     Print( "\n" );
 end;
 
@@ -59,13 +61,15 @@ end;
 ## G is a rational polycyclic matrix group
 ##
 POL_Test_Series_PRMGroup := function( G )
-    local radSer, homSer, comSer;
+    local radSer, homSer, comSer, a_level;
+    a_level := AssertionLevel();
     SetAssertionLevel( 2 );
     radSer :=RadicalSeriesSolvableMatGroup( G );
     homSer := HomogeneousSeriesAbelianMatGroup( G );
     comSer := CompositionSeriesAbelianMatGroup( G );   
     homSer := HomogeneousSeriesTriangularizableMatGroup( G );
     comSer := CompositionSeriesTriangularizableMatGroup( G );
+    SetAssertionLevel( a_level );
 end;
 
 #############################################################################
@@ -75,9 +79,11 @@ end;
 ## G is a rational polycyclic matrix group
 ##
 POL_Test_SubgroupComp_PRMGroup := function( G )
-    local T, reco;
+    local T, reco, a_level;
+    a_level := AssertionLevel();
     SetAssertionLevel( 2 );
     reco := SubgroupsUnipotentByAbelianByFinite( G );
+    SetAssertionLevel( a_level );
 end;
 
 #############################################################################
@@ -87,11 +93,13 @@ end;
 ## G is a rational polycyclic matrix group
 ##
 POL_Test_Properties_PRMGroup := function( G )
-    local t;
+    local t,a_level;
+    a_level := AssertionLevel();
     SetAssertionLevel( 2 );
     t := IsSolvableGroup( G );
     t := IsTriangularizableMatGroup(G );
     t := IsPolycyclicMatGroup( G );
+    SetAssertionLevel( a_level ); 
 end;
 
 #############################################################################
@@ -101,7 +109,8 @@ end;
 ## G is a rational polycyclic matrix group
 ##
 POL_Test_Isom_PRMGroup := function( G )
-    local iso, src,mats,n,numberOfTests,i, exp1,mat1,img1,mat2;
+    local iso, src,mats,n,numberOfTests,i, exp1,mat1,img1,mat2, a_level;
+    a_level := AssertionLevel();
     SetAssertionLevel( 2 );
 
     iso := IsomorphismPcpGroup( G );
@@ -120,6 +129,7 @@ POL_Test_Isom_PRMGroup := function( G )
            Error( "Isomorphism calculated wrong preimage\n" );
        fi;
      od;
+     SetAssertionLevel( a_level );
      Print( "\n" );
 end;
 
@@ -130,6 +140,8 @@ end;
 ## G is a rational polycyclic matrix group
 ##
 POL_Test_AllFunctions_PRMGroup := function( G )
+    local a_level;
+    a_level := AssertionLevel();
     SetAssertionLevel( 2 );
     Info( InfoPolenta, 2, "POL_Test_Isom_PRMGroup" );
     POL_Test_Isom_PRMGroup( G );
@@ -139,6 +151,7 @@ POL_Test_AllFunctions_PRMGroup := function( G )
     POL_Test_SubgroupComp_PRMGroup( G );
     Info( InfoPolenta, 2, "POL_Test_Series_PRMGroup" );
     POL_Test_Series_PRMGroup( G );
+    SetAssertionLevel( a_level );
 end;
 
 #############################################################################
@@ -148,13 +161,15 @@ end;
 ## G is a rational polycyclic matrix group
 ##
 POL_Test_AllFunctions_PolExamples := function( anfang, ende )
-    local i, G;
+    local i, G, a_level;
+    a_level := AssertionLevel();
     SetAssertionLevel( 2 );
     for i in [anfang..ende] do
          Print( "Test of group ", i, "\n" );
          G := PolExamples( i );
          POL_Test_AllFunctions_PRMGroup( G );
-     od;
+    od;
+    SetAssertionLevel( a_level );
 end;
 
 #############################################################################
@@ -164,13 +179,15 @@ end;
 ## G is a rational polycyclic matrix group
 ##
 POL_Test_AllFunctions_PolExamples2 := function( anfang, ende )
-    local i, G;
+    local i, G, a_level;
+    a_level := AssertionLevel();
     SetAssertionLevel( 2 );
     for i in [anfang..ende] do
          Print( "Test of group ", i, "\n" );
          G := POL_PolExamples2( i );
          POL_Test_AllFunctions_PRMGroup( G );
      od;
+    SetAssertionLevel( a_level );
 end;
 
 
