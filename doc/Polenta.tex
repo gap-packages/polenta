@@ -34,7 +34,7 @@ If <G> is polycyclic, then
 these functions determine a PcpGroup isomorphic to <G> and an isomorphism
 onto this group. 
 If <G> is not polycyclic, then there are two cases: If $R=\Z$ or $\F_q$,
-then algorithms returns 'fail'. In case that $R=\Q$ the algorithm may
+then the algorithm returns 'fail'. In case that $R=\Q$ the algorithm may
 return 'fail' or may not terminate.
 
 \> Image( <map> ) 
@@ -49,7 +49,6 @@ These functions can be used to compute with such an isomorphism.
 If the input <elm>  is an element of <G>, then the function {\tt
 ImageElm} can be used to compute the image of <elm> under <map>. 
 If <elm> is not contained in <G>
-<map>,
 then the function {\tt ImageElm} returns 'fail'. 
 The input <pcpelm> is an element
 of <H>. 
@@ -74,7 +73,7 @@ return 'false' or may not terminate.
 \Section{Module series}
 
 Let $G$ be a finitely generated solvable subgroup of $GL(d,\Q)$. The vectors
-space $\Q^d$ is a modul for the algebra $\Q[G]$. The following
+space $\Q^d$ is a module for the algebra $\Q[G]$. The following
 functions provide the possiblity to compute certain module series of
 $\Q^d$. Recall that the radical $Rad_G(\Q^d)$ is definied to be the
 intersection of maximal $\Q[G]$-submodules of $\Q^d$. Further the
@@ -89,7 +88,7 @@ is definied by $R_{i+1}:= Rad_G(R_i)$.
 return the radical series for the solvable rational matrix group
 <G>. 
 
-A modul is said to homogeneous if it is the direct sum of
+A module is said to homogeneous if it is the direct sum of
 irreducible and isomorphic submodules. 
 A radical series of $\Q^d$ can be refinied to a homogeneous series. 
 That is a submodule series such that the factors are homogeneous.
