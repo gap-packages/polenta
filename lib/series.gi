@@ -585,6 +585,11 @@ POL_InducedActionToSeries := function(gens_K_p,radicalSeries)
     l:=Length(radicalSeries)-1;
     for i in [1..l] do
         radicalSeries[i] := SemiEchelonMat(  radicalSeries[i] ).vectors;
+        #TriangulizeMat( radicalSeries[i] );
+        # we cannot use TriangulizeMat, because 
+        # TriangulizeMat( radicalSeries[i] ) can change 
+        # radicalSeries[i+1]! Then radicalSeries[i+1] can fail to be 
+        # a module.
     od;
     for i in [1..l] do
        homs[i]:=NaturalHomomorphismBySemiEchelonBases( radicalSeries[i],
