@@ -14,10 +14,15 @@
 ##
 #F POL_IsomorphismToMatrixGroup_infinite
 ##
-POL_IsomorphismToMatrixGroup_infinite := function( G )
-    local CPCS, pcp, H, nat;
+POL_IsomorphismToMatrixGroup_infinite := function( arg )
+    local CPCS, pcp, H, nat,G;
+    G := arg[1];
     # calculate a constructive pc-sequenz
-    CPCS := CPCS_PRMGroup( G );
+    if Length( arg ) = 2 then
+        CPCS := CPCS_PRMGroup( G, arg[2] );
+    else
+        CPCS := CPCS_PRMGroup( G );
+    fi;
     if CPCS = fail then return fail; fi;
     pcp := POL_SetPcPresentation_infinite( CPCS );
     H := PcpGroupByCollector( pcp );
@@ -79,6 +84,25 @@ function( G )
         return POL_IsomorphismToMatrixGroup_finite( G );
     fi;  
 end);
+
+InstallOtherMethod( IsomorphismPcpGroup, "for matrix groups", true,
+[IsMatrixGroup, IsInt], 0,
+function( G, p ) 
+    local test;
+    test := POL_IsMatGroupOverFiniteField( G );
+    if IsBool( test ) then
+        TryNextMethod();
+    elif test = 0 then
+        if not IsPrime(p) then
+            Print( "Second argument must be a prime number.\n" );
+            return fail;
+        fi;  
+        return POL_IsomorphismToMatrixGroup_infinite( G, p ); 
+    else
+        return POL_IsomorphismToMatrixGroup_finite( G );
+    fi;  
+end);
+
 
 #############################################################################
 ##
