@@ -1,0 +1,110 @@
+
+The GAP 4 package `Polenta'
+========================
+
+ 
+This package provides functions for the computation with matrix
+groups. Let $G$ be a subgroup of $GL(d,R)$ where the ring $R$ is
+either equal to $\Q,\Z$ or a finite field $\F_q$.
+Then:
+   - We can test whether $G$ is solvable.
+   - If $G$ is polycyclic, then we can determine a polycyclic
+    presentation for $G$.
+    
+A group $G$ which is given by a polycyclic presentations can be largely
+investigated by algorithms implemented in the GAP-package
+Polycyclic. For example
+we can determine if $G$ is torsion-free
+and calculate the torsion subgroup. Further we can compute the derived
+series and the Hirschlength of the group $G$. Also various methods for
+computations with subgroups, factorsgroups and extensions are
+available.
+ 
+In the case that the matrix group
+$G$ is a subgroup of $GL(d,\F_q)$ or $GL(d,\Z)$, the
+group $G$ is solvable if and only if $G$ is polycyclic.
+Therefore, in this case, we can test if $G$ is polycyclic.
+ 
+As a by-product, the Polenta package
+provides some functionality to compute certain module series for
+modules of solvable groups. For example, if
+$G$ is a rational polycyclic matrix group, then we can compute the
+radical series of the natural
+$\Q[G]$-module $\Q^d$.
+
+The GAP-Packages Alnuth and Polycyclic are needed for this package. 
+They can be obtained at 
+
+     http://cayley.math.nat.tu-bs.de/software/content.html
+
+
+Installing this package
+=======================
+
+This package is available at 
+
+      http://cayley.math.nat.tu-bs.de/software/assmann/Polenta
+     
+in form of a gzipped tar-archive and as an uncompressed tar-archive.
+
+There are two ways of installing the package.  If you have permission
+to add files to the installation of GAP 4 on your system you may
+install the Polenta package into the pkg subdirectory of the GAP
+installation tree.  If you do not have the permission to do that you
+may install the Polenta package in your private area.
+
+--  Installation in the GAP 4 pkg subdirectory on a Unix system.
+
+    We assume that the archive file polenta.tar.gz or polenta.tar is
+    present in pkg and that the current directory is pkg.  All that needs
+    to be done is to unpack the archive.
+
+    bash> tar xfz polenta.tar.gz        # for the gzipped tar-archive
+    bash> tar xf polenta.tar            # for the uncompressed tar-archive
+    bash> gap4
+    [... startup messages ...]
+    gap> RequirePackage("polenta");
+    true
+    gap>     
+
+--  Installation in a private directory
+
+    We assume that we are in a directory called  <mygap>  which also
+    contains the archive file of the Polenta package.
+
+    bash> mkdir pkg
+    bash> mv polenta.tar.gz pkg
+    bash> tar xfz polenta.tar.gz
+
+
+    When you start GAP 4 you have to use the option -l in the
+    following manner:
+
+    gap4 -l ";<mygap>"
+
+    Note the semicolon!  It is imortant to have it there.  The effect
+    is that the directory <mygap> is appended to the list of
+    directories which GAP searches for input data.  Note that you do
+    not say <mygap>/pkg.
+
+
+                                 
+Author
+======
+ 
+The Polenta package was written by:
+ 
+Bjoern Assmann,
+Institut f\"ur Geometrie, Algebra und diskrete Mathematik,
+TU Braunschweig,
+Pockelsstr. 14, D-38106 Braunschweig, Germany
+e-mail: bjoerna77@gmx.de
+ 
+
+
+
+
+
+
+
+
