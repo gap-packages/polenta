@@ -12,17 +12,17 @@
 
 #############################################################################
 ##
-#F CPCS_PRMGroup( G )
+#F CPCS_PRMGroup( arg )
 ##
-## G is a rational polycyclic rational matrix group
+## arg[1]=G is a rational polycyclic rational matrix group
 ##
 DeclareGlobalFunction( "CPCS_PRMGroup" );
 
 #############################################################################
 ##
-#F CPCS_NonAbelianPRMGroup( G )
+#F CPCS_NonAbelianPRMGroup( arg )
 ##
-## G is an non-abelian rational polycyclic rational matrix group
+## arg[1]=G is an non-abelian rational polycyclic rational matrix group
 ##
 DeclareGlobalFunction( "CPCS_NonAbelianPRMGroup" );
 

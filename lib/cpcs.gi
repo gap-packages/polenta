@@ -12,34 +12,45 @@
 
 #############################################################################
 ##
-#F CPCS_PRMGroup( G )
+#F CPCS_PRMGroup( arg )
 ##
-## G is a rational polycyclic rational matrix group
+## arg[1] = G is a rational polycyclic rational matrix group
 ##
-InstallGlobalFunction( CPCS_PRMGroup , function( G ) 
+InstallGlobalFunction( CPCS_PRMGroup , function( arg ) 
+    local G;
+    G := arg[1];
     if IsAbelian( G ) then
         return CPCS_AbelianPRMGroup( G );
-    else 
-        return CPCS_NonAbelianPRMGroup( G );
+    else
+        if IsBound( arg[2] ) then
+             return CPCS_NonAbelianPRMGroup( arg[1], arg[2] );
+        else 
+             return CPCS_NonAbelianPRMGroup( G );
+        fi;
     fi;
 end );
 
 #############################################################################
 ##
-#F CPCS_NonAbelianPRMGroup( G )
+#F CPCS_NonAbelianPRMGroup( arg )
 ##
-## G is an non-abelian rational polycyclic rational matrix group
+## arg[1] = G is an non-abelian rational polycyclic rational matrix group
 ##
-InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( G )
-    local   p, d, gens_p, bound_derivedLength, pcgs_I_p, gens_K_p,
+InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
+    local   p, d, gens_p,G, bound_derivedLength, pcgs_I_p, gens_K_p,
             homSeries, gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
             gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p;
     # setup
+    G := arg[1];
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
 
-    # determine an admissible prime
-    p := DetermineAdmissiblePrime(gens);
+    # determine an admissible prime or take the wished one
+    if Length( arg ) = 2 then
+        p := arg[2];
+    else
+        p := DetermineAdmissiblePrime(gens);
+    fi;
 
     # calculate the gens of the group phi_p(<gens>) where phi_p is
     # natural homomorphism to GL(d,p)
