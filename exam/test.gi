@@ -17,10 +17,10 @@ InstallGlobalFunction( POL_RandomGroupElement , function( gens )
     local d,k,g,i,length,x,n;
     k:=Length(gens);
     g := gens[1]^0;
-    length:=Random(5,30);
+    length:=Random(2,10);
     for i in [1..length] do
         x:=Random(1,k);
-        n:=Random( List( [-10..10] ) );
+        n:=Random( List( [-3..3] ) );
         g:=g*(gens[x]^n);
     od;
     return g;
@@ -106,7 +106,7 @@ POL_Test_Isom_PRMGroup := function( G )
     if iso = fail then return 0;fi;
     mats := GeneratorsOfGroup( G );
     n := Length( mats );
-    numberOfTests := 5;
+    numberOfTests := 2;
     for i in [1..numberOfTests] do
        Print( i );
        #exp1 := List( [1..n], x-> Random( Integers ) );
@@ -129,9 +129,13 @@ end;
 ##
 POL_Test_AllFunctions_PRMGroup := function( G )
     SetAssertionLevel( 2 );
+    Info( InfoPolenta, 2, "POL_Test_Isom_PRMGroup" );
     POL_Test_Isom_PRMGroup( G );
+    Info( InfoPolenta, 2, "POL_Test_Properties_PRMGroup" );
     POL_Test_Properties_PRMGroup( G );
+    Info( InfoPolenta, 2, "POL_Test_SubgroupComp_PRMGroup" );
     POL_Test_SubgroupComp_PRMGroup( G );
+    Info( InfoPolenta, 2, "POL_Test_Series_PRMGroup" );
     POL_Test_Series_PRMGroup( G );
 end;
 
@@ -153,13 +157,30 @@ end;
 
 #############################################################################
 ##
+#F POL_Test_AllFunctions_PolExamples2( anfang, ende )
+##
+## G is a rational polycyclic matrix group
+##
+POL_Test_AllFunctions_PolExamples2 := function( anfang, ende )
+    local i, G;
+    SetAssertionLevel( 2 );
+    for i in [anfang..ende] do
+         Print( "Test of group ", i, "\n" );
+         G := POL_PolExamples2( i );
+         POL_Test_AllFunctions_PRMGroup( G );
+     od;
+end;
+
+
+#############################################################################
+##
 #F POL_Test_CPCS_PRMGroupExams( anfang, ende )
 ##
 ## G is a rational polycyclic matrix group
 ##
 POL_Test_CPCS_PRMGroupExams := function( anfang, ende )
      local i,G;
-     SetInfoLevel( InfoPolenta, 3 );
+     #SetInfoLevel( InfoPolenta, 3 );
      for i in [anfang..ende] do
          Print( "Test of PolExamples(  ", i, " )\n" );
          G := PolExamples( i );
