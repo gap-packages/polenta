@@ -89,8 +89,14 @@ end;
 ## is polycyclic.
 ##
 POL_PcpGroupByMatGroup_infinite := function( arg )
-    local CPCS, pcp, K;
-    CPCS := CPCS_PRMGroup( arg );
+    local CPCS, pcp, K,G,p;
+    G := arg[1];
+    if Length(arg)=2 then
+        p := arg[2];
+        CPCS := CPCS_PRMGroup( G, p );
+    else 
+        CPCS := CPCS_PRMGroup( G );
+    fi;
     if CPCS = fail then return fail; fi;
     pcp := POL_SetPcPresentation_infinite( CPCS );
     K := PcpGroupByCollector( pcp );
@@ -216,6 +222,10 @@ function( G, p )
         if IsBool( test ) then
             TryNextMethod();
         elif test = 0 then
+            if not IsPrime(p) then
+                Print( "Second argument must be a prime number.\n" );
+                return fail;
+            fi;    
             return POL_PcpGroupByMatGroup_infinite( G,p ); 
         else
             return POL_PcpGroupByMatGroup_finite( G );
