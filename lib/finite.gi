@@ -12,6 +12,72 @@
 
 #############################################################################
 ##
+#F POL_SuitableOrbitPoints( gens)
+##
+## gens are some matrices over GF(q)
+## we calculate suitable orbit points for a stabilizer chain
+## of <gens>, i.e. points with small orbits
+##
+POL_SuitableOrbitPoints := function( gens)
+    local MM,cs,l,i,x,fac,F,n,csR;
+    # calculate the module
+    F := Field( gens[1][1][1] );
+    MM := GModuleByMats(gens, F);
+    # use the meataxe to calculate a decomposition series
+    cs := SMTX.BasesCompositionSeries(MM);
+    csR := Reversed( cs );
+    # build a basis through this series 
+    n := Length( cs );
+    l := [];
+    for i in [1..(n-1)] do 
+        x :=  BaseSteinitzVectors(csR[i],csR[i+1]).factorspace;
+        Append( l, x );       
+        #l:=List([1..(n-1)],
+        #x->BaseSteinitzVectors(csR[x],csR[x+1]).factorspace[1]);
+    od;   
+    return l ;
+end;
+
+POL_NextOrbitPoint := function( pcgs, h )
+    local k,p,i;
+    #k := Length( pcgs.suitableOrbitPoints );
+    #Print( "pcgs.suitableOrbitPoints", pcgs.suitableOrbitPoints, "\n" );
+    p := pcgs.suitableOrbitPoints[1];
+    i := 2;
+    while pcgs.oper( p, h ) = p do
+        p :=  pcgs.suitableOrbitPoints[i];
+        i := i+1;
+    od;
+    #Print( "genommenes i ist",i,"\n");
+    return p;   
+end;
+
+POL_NextOrbitPoint2 := function( pcgs, h )
+    local k,p,i;
+    k := Length( pcgs.suitableOrbitPoints );
+    #Print( "pcgs.suitableOrbitPoints", pcgs.suitableOrbitPoints, "\n" );
+    p := pcgs.suitableOrbitPoints[k];
+    i := 1;
+    while pcgs.oper( p, h ) = p do
+        p :=  pcgs.suitableOrbitPoints[k-i];
+        i := i+1;
+    od;
+    #Print( "genommenes i ist",i,"\n");
+    return p;   
+end;
+
+POL_NextOrbitPoint3 := function( pcgs, h )
+    local k,p,i;
+    k := Length( pcgs.suitableOrbitPoints );
+    #Print( "pcgs.suitableOrbitPoints", pcgs.suitableOrbitPoints, "\n" );
+    p := pcgs.suitableOrbitPoints[k];
+    Unbind( pcgs.suitableOrbitPoints[k] );
+    return p;   
+end;
+
+
+#############################################################################
+##
 #F ClosureBasePcgs_word(pcgsN, g, gens, lim)
 ## 
 ## Calculates a constructive pc-sequence for <N,g>^gens
@@ -140,7 +206,8 @@ end );
 ##
 ## 
 InstallGlobalFunction( CPCS_finite_word , function( gensOfG , b)
-    local c,f,d,trv,pcgsOfN,x,epsilon,info_string,h,H,i,n,pcgsOfN_hilf,j,k ;
+    local c,f,d,trv,pcgsOfN,x,epsilon,info_string,h,H,i,n,
+          suitableOrbitPoints,pcgsOfN_hilf,j,k ;
 
     info_string := "determining a constructive pcgs for the finite part...";
     Info(InfoPolenta,1,info_string);  
@@ -149,10 +216,12 @@ InstallGlobalFunction( CPCS_finite_word , function( gensOfG , b)
     f := Field( gensOfG[1][1][1] );
     d := Length( gensOfG[1] );   
     trv := function( x ) return x = x^0; end; 
+    suitableOrbitPoints := POL_SuitableOrbitPoints( gensOfG );
     pcgsOfN := rec( orbit := [], trans := [], trels := [], defns := [],
                  pcref := [], 
                  acton := f^d, oper := OnRight, trivl := trv, 
-                 gens:= [], wordGens:=[], gensOfG:=gensOfG );
+                 gens:= [], wordGens:=[], gensOfG:=gensOfG,
+                 suitableOrbitPoints := suitableOrbitPoints );
     c :=0;
     epsilon := [];
     for k in [1..Length(gensOfG)] do
@@ -241,7 +310,8 @@ InstallGlobalFunction( ExtendedBasePcgsMod , function( pcgs, g, d )
         if i > Length( pcgs.orbit ) then
 ##          # Achtung hier ist eine Aenderung von mir. vorher stand in
 ##          #dieser zeile ein g
-            b := SmallOrbitPoint( pcgs, h );
+            #b := SmallOrbitPoint( pcgs, g );
+            b := POL_NextOrbitPoint2( pcgs, h);
             Add( pcgs.orbit, [b] );
             Add( pcgs.trans, [] );
             Add( pcgs.defns, [] );
@@ -520,6 +590,9 @@ TestPOL_SetPcPresentation := function(pcgs)
        fi;
    od;
 end;
+
+
+
 
 #############################################################################
 ##
