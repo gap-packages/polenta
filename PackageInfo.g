@@ -63,7 +63,7 @@ PackageDoc := rec(
 Dependencies := rec(
   GAP := ">= 4.3fix4",
   NeededOtherPackages := [[ "polycyclic", ">=1.1" ],
-                          [ "alnuth" , "1,0"], ],
+                          [ "alnuth" , "2.0"], ],
   SuggestedOtherPackages := [ ["aclib", "1.0"]], 
   ExternalConditions := ["needs KANT/KASH Computer Algebra System Version >=2.4"] ), 
 
