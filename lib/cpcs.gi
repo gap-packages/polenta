@@ -169,7 +169,7 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     pcgs := POL_MergeCPCS( pcgs_U_p, pcgs_GU);
 
     Info( InfoPolenta, 1, "... computation of a constructive \n",
-          "    polycycyclic sequence for the whole group finished." );
+          "    polycyclic sequence for the whole group finished." );
  
     return pcgs;
 end ); 
