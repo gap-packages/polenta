@@ -103,6 +103,12 @@ end;
 ## 
 ## mats are normal subgroup generators for the Kernel K_p in G =<gens>
 ##
+## returned is
+## radical  .... a basis for the radical
+## nathom  ..... homomorphism for Q^d to Q^d/radical
+## algebra .... basis for the algebra Q[K_p^G] in flat form
+##              where K_p and G are induced to Q^d/radical
+##
 POL_RadicalNormalGens := function( gens, mats, d )
     local coms, i, j, new, base, full, nath, indm, l, algb, 
           newv, tmpb, subb, f, g, h, mat,k,a,left,inducedk,right,
@@ -135,7 +141,7 @@ POL_RadicalNormalGens := function( gens, mats, d )
     i := 1;
     algb := [];
     while i <= Length( indm ) do    
-        # check if the new element commutes with all elements in algb
+         # check if the new element commutes with all elements in algb
         # if not we get a nontrivial element of the commutator
         commutes:=true;
         for a in algb do
@@ -311,6 +317,60 @@ end;
 
 #############################################################################
 ##
+#F POL_RadicalSeriesNormalGensFullData(gens, mats, d )
+##
+## mats are normal subgroup generators for the Kernel K_p in G=<gens>,
+## which is a rational polycyclic matrix group.
+## returned is a radical series of Q^d
+## and full data of the used homomomorphisms and algebras
+##
+POL_RadicalSeriesNormalGensFullData := function(gens, mats, d )
+    local radb, splt, nath,inducedgens, l, sers, i, sub, full, acts, 
+          sersFullData, rads, radsFullData, record;
+
+    # catch the trivial case and set up
+    if d = 0 then
+        return rec( sers := [], sersFullData := [] ); 
+    fi;
+    full := IdentityMat( d );
+    if Length( mats ) = 0 then
+        sers := [full, []];
+        sersFullData := 
+             [ rec(radical := [], nathom := [], algebra := []) ]; 
+        return rec( sers:= sers, sersFullData := sersFullData ); 
+    fi;
+    sers := [full];
+
+    # get the radical 
+    radb := POL_RadicalNormalGens(gens, mats, d );
+    if radb = fail then return fail; fi;
+    nath := radb.nathom;
+    Add( sers, radb.radical );
+    sersFullData := [radb ];
+
+    # induce action to radical
+    nath := NaturalHomomorphismBySemiEchelonBases( full, radb.radical);
+    acts := List( mats, x -> InducedActionSubspaceByNHSEB( x, nath ));
+    inducedgens:=List( gens, x -> InducedActionSubspaceByNHSEB( x, nath ) );
+
+    # use recursive call to refine radical
+    record := POL_RadicalSeriesNormalGensFullData(inducedgens,acts,
+                                            Length(radb.radical) );
+
+    rads := record.sers;
+    radsFullData := record.sersFullData;
+    if rads = fail then return fail; fi;
+
+    rads := List( rads, function(x) if x=[] then return []; else
+                            return x * radb.radical; fi;end );
+    Append( sers, rads{[2..Length(rads)]} );
+    Append( sersFullData , radsFullData );
+
+    return rec( sers := sers, sersFullData := sersFullData );
+end;
+
+#############################################################################
+##
 #F RadicalSeriesAbelianRMGroup( mats, d )
 ##
 ## G is an abelian rational matrix group
@@ -349,11 +409,11 @@ end;
 
 #############################################################################
 ##
-#F HomogeneousSeriesAbelianRMGroup( mats, d )
+#F POL_HomogeneousSeriesAbelianRMGroup( mats, d )
 ##
 ## <mats> is an abelian rational matrix group
 ##
-HomogeneousSeriesAbelianRMGroup := function( mats, d )
+POL_HomogeneousSeriesAbelianRMGroup := function( mats, d )
     local radb, splt, nath,inducedgens, l, sers, i, sub, full, acts, rads;
 
     # catch the trivial case and set up
@@ -386,7 +446,7 @@ HomogeneousSeriesAbelianRMGroup := function( mats, d )
     acts := List( mats, x -> InducedActionSubspaceByNHSEB( x, nath ));
    
     # use recursive call to refine radical
-    rads := HomogeneousSeriesAbelianRMGroup( acts, Length(radb.radical) );
+    rads := POL_HomogeneousSeriesAbelianRMGroup( acts, Length(radb.radical) );
     if rads = fail then return fail; fi;
     rads := List( rads, function(x) if x=[] then return []; else
                             return x * radb.radical; fi;end );
@@ -408,7 +468,7 @@ HomogeneousSeriesAbelianMatGroup := function( G )
     fi;
     mats := GeneratorsOfGroup( G );
     d := Length( mats[1] );
-    return HomogeneousSeriesAbelianRMGroup( mats, d );
+    return POL_HomogeneousSeriesAbelianRMGroup( mats, d );
 end;
 
 #############################################################################
@@ -523,7 +583,9 @@ POL_InducedActionToSeries := function(gens_K_p,radicalSeries)
     blockGens:=[];
     l:=Length(radicalSeries)-1;
     for i in [1..l] do
-       TriangulizeMat( radicalSeries[i] );
+        radicalSeries[i] := SemiEchelonMat(  radicalSeries[i] ).vectors;
+    od;
+    for i in [1..l] do
        homs[i]:=NaturalHomomorphismBySemiEchelonBases( radicalSeries[i],
                                                        radicalSeries[i+1]);
     od;
@@ -697,12 +759,189 @@ end;
 
 #############################################################################
 ##
-#F CompositionSeriesAbelianRMGroup( mats, d )
+#F POL_CompositionSeriesByRadicalSeries( mats , d, sersFullData, pos )
+##
+## mats are generators of a triangularizable matrix group
+## sersFullData contains the full data, which were obtained in the
+## computation of the radical series
+## returned is composition series of the <mats>-module Q^d 
+##
+POL_CompositionSeriesByRadicalSeries := function( mats, d, sersFullData, pos)
+    local radb, splt, nath,inducedgens, l, sers, i,j, sub, full, acts,
+          preImageSub, irreducibleList, k, rads, induced,
+          irreducibles, factorMats, isomIrreds, basis, sub2, indm,
+          indm_flat, algebra;
+
+    # catch the trivial case and set up
+    if d = 0 then
+        return []; 
+    fi;
+    full := IdentityMat( d );
+    if Length( mats ) = 0 then 
+        return [full, []]; 
+    fi;
+    sers := [full];
+
+    # get the radical 
+    radb := sersFullData[pos];
+    if radb = fail then return fail; fi;
+    nath := radb.nathom;
+    splt := POL_SplitSemisimple( radb.algebra );
+        
+    # refine radical factor to irreducible components 
+     l := Length( splt );
+     irreducibles := [];
+     # induce action to factor
+     factorMats := List( mats, x -> InducedActionFactorByNHSEB( x, nath ));
+     for i in [1..l] do
+         # split i^th homogeneous component into isomorphic comp.
+         basis := POL_CopyVectorList( splt[i].basis );
+         Assert( 2, POL_IsRationalModule( basis, factorMats ),
+                    "hom. component fails to be a module" );
+         isomIrreds := POL_SplitHomogeneous( basis, factorMats );
+         for j in [1..Length( isomIrreds )] do
+             Assert( 2, POL_IsRationalModule( isomIrreds[j], factorMats ),
+                    "irred. component fails to be a module" );
+         od;
+         irreducibles := Concatenation( irreducibles, isomIrreds );
+     od; 
+
+    # initialize series
+    k := Length( irreducibles );
+    for i in [2..k] do
+        sub := Concatenation( List( [i..k], x -> irreducibles[x] ) );
+        sub2 := POL_CopyVectorList( sub );
+        TriangulizeMat( sub2 ); 
+        Assert( 2, POL_IsRationalModule( sub2, factorMats ),
+                    "sum of irred. components fails to be a module\n" );
+        preImageSub := PreimageByNHSEB( sub2, nath );
+        Assert( 2, POL_IsRationalModule( preImageSub, mats ),
+                    "sum of irred. components fails to be a module\n" );
+        Add( sers, preImageSub );
+    od;
+    Add( sers, radb.radical );
+
+    # induce action to radical
+    nath := NaturalHomomorphismBySemiEchelonBases( full, radb.radical);
+    acts := List( mats, x -> InducedActionSubspaceByNHSEB( x, nath ));
+
+    # use recursive call to refine radical
+    rads := POL_CompositionSeriesByRadicalSeries(acts,
+                                                 Length(radb.radical),
+                                                 sersFullData, 
+						 pos +1 );
+    if rads = fail then return fail; fi;
+    rads := List( rads, function(x) if x=[] then return []; else
+                            return x * radb.radical; fi;end );
+    Append( sers, rads{[2..Length(rads)]} );
+    return sers;
+end;
+
+#############################################################################
+##
+#F POL_CompositionSeriesByRadicalSeriesRecalAlg( mats , d, sersFullData, pos )
+##
+## mats are generators of a triangularizable matrix group
+## sersFullData contains the full data, which were obtained in the
+## computation of the radical series
+## returned is composition series of the <mats>-module Q^d 
+##
+## the algebras which are used for the splitting are recalculated in this 
+## version. This is for example necessary if the algebra basis in 
+## sersFullData are computed with a different group (for example K_p(<mats>))
+## than <mats>.
+##
+POL_CompositionSeriesByRadicalSeriesRecalAlg
+                               := function( mats, d, sersFullData, pos)
+    local radb, splt, nath,inducedgens, l, sers, i,j, sub, full, acts,
+          preImageSub, irreducibleList, k, rads, induced,
+          irreducibles, factorMats, isomIrreds, basis, sub2, indm,
+          indm_flat, algebra;
+
+    # catch the trivial case and set up
+    if d = 0 then
+        return []; 
+    fi;
+    full := IdentityMat( d );
+    if Length( mats ) = 0 then 
+        return [full, []]; 
+    fi;
+    sers := [full];
+
+    # get the radical 
+    radb := sersFullData[pos];
+    if radb = fail then return fail; fi;
+    nath := radb.nathom;
+
+    #compute a base for the algebra Q[ indmats ] where 
+    #indmats is the induced action  of Q^d/radical
+    #and bring it in flat format
+    indm := List( mats, x ->InducedActionFactorByNHSEB(x,nath ));
+    indm_flat := List( indm, x-> Flat( x ));
+    algebra := SpinnUpEchelonBase( [  ], indm_flat, indm, OnMatVector ); 
+    
+
+    #splt := POL_SplitSemisimple( radb.algebra );
+    splt := POL_SplitSemisimple( algebra );
+    
+    # refine radical factor to irreducible components 
+     l := Length( splt );
+     irreducibles := [];
+     # induce action to factor
+     factorMats := List( mats, x -> InducedActionFactorByNHSEB( x, nath ));
+     for i in [1..l] do
+         # split i^th homogeneous component into isomorphic comp.
+         basis := POL_CopyVectorList( splt[i].basis );
+         Assert( 2, POL_IsRationalModule( basis, factorMats ),
+                    "hom. component fails to be a module" );
+         isomIrreds := POL_SplitHomogeneous( basis, factorMats );
+         for j in [1..Length( isomIrreds )] do
+             Assert( 2, POL_IsRationalModule( isomIrreds[j], factorMats ),
+                    "irred. component fails to be a module" );
+         od;
+         irreducibles := Concatenation( irreducibles, isomIrreds );
+     od; 
+
+    # initialize series
+    k := Length( irreducibles );
+    for i in [2..k] do
+        sub := Concatenation( List( [i..k], x -> irreducibles[x] ) );
+        sub2 := POL_CopyVectorList( sub );
+        TriangulizeMat( sub2 ); 
+        Assert( 2, POL_IsRationalModule( sub2, factorMats ),
+                    "sum of irred. components fails to be a module\n" );
+        preImageSub := PreimageByNHSEB( sub2, nath );
+        Assert( 2, POL_IsRationalModule( preImageSub, mats ),
+                    "sum of irred. components fails to be a module\n" );
+        Add( sers, preImageSub );
+    od;
+    Add( sers, radb.radical );
+
+    # induce action to radical
+    nath := NaturalHomomorphismBySemiEchelonBases( full, radb.radical);
+    acts := List( mats, x -> InducedActionSubspaceByNHSEB( x, nath ));
+
+    # use recursive call to refine radical
+    rads := POL_CompositionSeriesByRadicalSeriesRecalAlg(acts,
+                                                 Length(radb.radical),
+                                                 sersFullData, 
+						 pos +1 );
+    if rads = fail then return fail; fi;
+    rads := List( rads, function(x) if x=[] then return []; else
+                            return x * radb.radical; fi;end );
+    Append( sers, rads{[2..Length(rads)]} );
+    return sers;
+end;
+
+
+#############################################################################
+##
+#F POL_CompositionSeriesAbelianRMGroup( mats, d )
 ##
 ## <mats> is an abelian rational matrix group
 ## returned is a composition series for the natrual <mats>-module Q^d
 ##
-CompositionSeriesAbelianRMGroup := function( mats, d )
+POL_CompositionSeriesAbelianRMGroup := function( mats, d )
     local radb, splt, nath,inducedgens, l, sers, i, sub, full, acts,
           rads, preImageSub, irreducibleList, k,
           irreducibles, factorMats, isomIrreds, basis, sub2;
@@ -753,7 +992,7 @@ CompositionSeriesAbelianRMGroup := function( mats, d )
     acts := List( mats, x -> InducedActionSubspaceByNHSEB( x, nath ));
    
     # use recursive call to refine radical
-    rads := CompositionSeriesAbelianRMGroup( acts, Length(radb.radical) );
+    rads := POL_CompositionSeriesAbelianRMGroup( acts, Length(radb.radical) );
     if rads = fail then return fail; fi;
     rads := List( rads, function(x) if x=[] then return []; else
                             return x * radb.radical; fi;end );
@@ -775,8 +1014,286 @@ CompositionSeriesAbelianMatGroup := function( G )
     fi;
     mats := GeneratorsOfGroup( G );
     d := Length( mats[1] );
-    return CompositionSeriesAbelianRMGroup( mats, d );
+    return POL_CompositionSeriesAbelianRMGroup( mats, d );
 end;
+
+
+#############################################################################
+##
+#F POL_CompositionSeriesTriangularizablRMGroup( gens, d )
+##
+## <mats> is a triang. rational matrix group
+## returned is a composition series for the natrual <gens>-module Q^d
+##
+POL_CompositionSeriesTriangularizableRMGroup := function( gens, d )
+  local     p, gens_p,G, bound_derivedLength, pcgs_I_p, gens_K_p,
+            gens_K_p_m, gens_K_p_mutableCopy, pcgs,
+            gensOfBlockAction,
+            radSeries, comSeries, recordSeries, isTriang,gens_mutableCopy; 
+
+    # determine an admissible prime
+    p := DetermineAdmissiblePrime(gens);
+    Info( InfoPolenta, 1, "Chosen admissible prime: " , p );
+    Info( InfoPolenta, 1, "  " );
+
+    # calculate the gens of the group phi_p(<gens>) where phi_p is
+    # natural homomorphism to GL(d,p)
+    gens_p := InducedByField( gens, GF(p) );
+
+    # determine un upperbound for the derived length of G
+    bound_derivedLength := d+2;
+ 
+    # finite part
+    Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
+          "    for the image under the p-congruence homomorphism ..." );
+    pcgs_I_p := CPCS_finite_word( gens_p, bound_derivedLength );
+    if pcgs_I_p = fail then return fail; fi;
+    Info(InfoPolenta,1,"finished.");
+    Info( InfoPolenta, 1, "Finite image has relative orders ",
+                           RelativeOrdersPcgs_finite( pcgs_I_p ), "." );
+    Info( InfoPolenta, 1, " " );
+ 
+    # compute the normal the subgroup gens. for the kernel of phi_p
+    Info( InfoPolenta, 1,"Compute normal subgroup generators for the kernel\n",
+          "    of the p-congruence homomorphism ...");      
+    gens_K_p := POL_NormalSubgroupGeneratorsOfK_p( pcgs_I_p, gens );
+    gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) );
+    Info( InfoPolenta, 1,"finished.");   
+    Info( InfoPolenta, 2,"The normal subgroup generators are" );
+    Info( InfoPolenta, 2, gens_K_p );
+    Info( InfoPolenta, 1, "  " );
+
+    # radical series
+    Info( InfoPolenta, 1, "Compute the radical series ...");
+    gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
+    recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
+                                                      gens_K_p_mutableCopy,
+                                                      d );
+    radSeries := recordSeries.sers;
+    if radSeries=fail then return fail; fi;
+    Info( InfoPolenta, 1,"finished.");   
+    Info( InfoPolenta, 1, "The radical series has length ", 
+                          Length( radSeries ), "." );
+    Info( InfoPolenta, 2, "The radical series is" );
+    Info( InfoPolenta, 2, radSeries );
+    Info( InfoPolenta, 1, " " );    
+
+    # test if G is unipotent by abelian
+    isTriang := POL_TestIsUnipotenByAbelianGroupByRadSeries( gens, radSeries );
+    if isTriang then
+        Info( InfoPolenta, 1, "Group is triangularizable!" );
+        gens_mutableCopy := CopyMatrixList( gens );
+  
+        # compositions series
+        comSeries := POL_CompositionSeriesByRadicalSeriesRecalAlg( 
+                                                      gens_mutableCopy,
+                                                       d,
+                                                   recordSeries.sersFullData,
+                                                       1  );
+        if comSeries=fail then return fail; fi;
+        return comSeries;     
+    else 
+        Print( "The input group is not triangularizable.\n" );
+        return fail;
+    fi;
+end;
+
+#############################################################################
+##
+#F CompositionSeriesTriangularizableMatGroup( G )
+##
+## <G> is a triangularizable  rational matrix group
+##
+CompositionSeriesTriangularizableMatGroup := function( G )
+    local mats,d;
+    if not IsRationalMatrixGroup( G ) then 
+        Print( "input must be a rational matrix group.\n" );
+        return fail;
+    fi;
+    mats := GeneratorsOfGroup( G );
+    d := Length( mats[1] );
+    if IsAbelian( G ) then   
+       return POL_CompositionSeriesAbelianRMGroup( mats, d );
+    else
+       return POL_CompositionSeriesTriangularizableRMGroup( mats, d );
+    fi;
+    
+end;
+
+
+#############################################################################
+##
+#F POL_HomogeneousSeriesByRadicalSeriesRecalAlg( mats , d, sersFullData, pos )
+##
+## mats are generators of a triangularizable matrix group
+## sersFullData contains the full data, which were obtained in the
+## computation of the radical series
+## returned is homog. series of the <mats>-module Q^d 
+##
+## the algebras which are used for the splitting are recalculated in this 
+## version. This is for example necessary if the algebra basis in 
+## sersFullData are computed with a different group (for example K_p(<mats>))
+## than <mats>.
+##
+POL_HomogeneousSeriesByRadicalSeriesRecalAlg
+                               := function( mats, d, sersFullData, pos)
+    local radb, splt, nath,inducedgens, l, sers, i,j, sub, full, acts,
+          preImageSub, irreducibleList, k, rads, induced,
+          irreducibles, factorMats, isomIrreds, basis, sub2, indm,
+          indm_flat, algebra;
+
+    # catch the trivial case and set up
+    if d = 0 then
+        return []; 
+    fi;
+    full := IdentityMat( d );
+    if Length( mats ) = 0 then 
+        return [full, []]; 
+    fi;
+    sers := [full];
+
+    # get the radical 
+    radb := sersFullData[pos];
+    if radb = fail then return fail; fi;
+    nath := radb.nathom;
+
+    #compute a base for the algebra Q[ indmats ] where 
+    #indmats is the induced action  of Q^d/radical
+    #and bring it in flat format
+    indm := List( mats, x ->InducedActionFactorByNHSEB(x,nath ));
+    indm_flat := List( indm, x-> Flat( x ));
+    algebra := SpinnUpEchelonBase( [  ], indm_flat, indm, OnMatVector ); 
+    
+    #splt := POL_SplitSemisimple( radb.algebra );
+    splt := POL_SplitSemisimple( algebra );
+    
+    # refine radical factor and initialize series
+    l := Length( splt );
+    for i in [2..l] do
+        sub := Concatenation( List( [i..l], x -> splt[x].basis ) );
+        TriangulizeMat( sub ); 
+        Add( sers, PreimageByNHSEB( sub, nath ) );
+    od;
+    Add( sers, radb.radical );
+
+    # induce action to radical
+    nath := NaturalHomomorphismBySemiEchelonBases( full, radb.radical);
+    acts := List( mats, x -> InducedActionSubspaceByNHSEB( x, nath ));
+   
+    # use recursive call to refine radical
+    rads := POL_HomogeneousSeriesByRadicalSeriesRecalAlg(acts,
+                                                 Length(radb.radical),
+                                                 sersFullData, 
+						 pos +1 );
+    if rads = fail then return fail; fi;
+    rads := List( rads, function(x) if x=[] then return []; else
+                            return x * radb.radical; fi;end );
+    Append( sers, rads{[2..Length(rads)]} );
+    return sers;
+end;
+
+#############################################################################
+##
+#F POL_HomogeneousSeriesTriangularizablRMGroup( gens, d )
+##
+## <mats> is a triang. rational matrix group
+## returned is a homogeneous series for the natrual <gens>-module Q^d
+##
+POL_HomogeneousSeriesTriangularizableRMGroup := function( gens, d )
+  local     p, gens_p,G, bound_derivedLength, pcgs_I_p, gens_K_p,
+            gens_K_p_m, gens_K_p_mutableCopy, pcgs,
+            gensOfBlockAction,
+            radSeries, comSeries, recordSeries, isTriang,gens_mutableCopy; 
+
+    # determine an admissible prime
+    p := DetermineAdmissiblePrime(gens);
+    Info( InfoPolenta, 1, "Chosen admissible prime: " , p );
+    Info( InfoPolenta, 1, "  " );
+
+    # calculate the gens of the group phi_p(<gens>) where phi_p is
+    # natural homomorphism to GL(d,p)
+    gens_p := InducedByField( gens, GF(p) );
+
+    # determine un upperbound for the derived length of G
+    bound_derivedLength := d+2;
+ 
+    # finite part
+    Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
+          "    for the image under the p-congruence homomorphism ..." );
+    pcgs_I_p := CPCS_finite_word( gens_p, bound_derivedLength );
+    if pcgs_I_p = fail then return fail; fi;
+    Info(InfoPolenta,1,"finished.");
+    Info( InfoPolenta, 1, "Finite image has relative orders ",
+                           RelativeOrdersPcgs_finite( pcgs_I_p ), "." );
+    Info( InfoPolenta, 1, " " );
+ 
+    # compute the normal the subgroup gens. for the kernel of phi_p
+    Info( InfoPolenta, 1,"Compute normal subgroup generators for the kernel\n",
+          "    of the p-congruence homomorphism ...");      
+    gens_K_p := POL_NormalSubgroupGeneratorsOfK_p( pcgs_I_p, gens );
+    gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) );
+    Info( InfoPolenta, 1,"finished.");   
+    Info( InfoPolenta, 2,"The normal subgroup generators are" );
+    Info( InfoPolenta, 2, gens_K_p );
+    Info( InfoPolenta, 1, "  " );
+
+    # radical series
+    Info( InfoPolenta, 1, "Compute the radical series ...");
+    gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
+    recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
+                                                      gens_K_p_mutableCopy,
+                                                      d );
+    radSeries := recordSeries.sers;
+    if radSeries=fail then return fail; fi;
+    Info( InfoPolenta, 1,"finished.");   
+    Info( InfoPolenta, 1, "The radical series has length ", 
+                          Length( radSeries ), "." );
+    Info( InfoPolenta, 2, "The radical series is" );
+    Info( InfoPolenta, 2, radSeries );
+    Info( InfoPolenta, 1, " " );    
+
+    # test if G is unipotent by abelian
+    isTriang := POL_TestIsUnipotenByAbelianGroupByRadSeries( gens, radSeries );
+    if isTriang then
+        Info( InfoPolenta, 1, "Group is triangularizable!" );
+        gens_mutableCopy := CopyMatrixList( gens );
+  
+        # homogeneouss series
+        comSeries := POL_HomogeneousSeriesByRadicalSeriesRecalAlg( 
+                                                      gens_mutableCopy,
+                                                       d,
+                                                   recordSeries.sersFullData,
+                                                       1  );
+        if comSeries=fail then return fail; fi;
+        return comSeries;     
+    else 
+        Print( "The input group is not triangularizable.\n" );
+        return fail;
+    fi;
+end;
+
+#############################################################################
+##
+#F HomogeneousSeriesTriangularizableMatGroup( G )
+##
+## <G> is a triangularizable  rational matrix group
+##
+HomogeneousSeriesTriangularizableMatGroup := function( G )
+    local mats,d;
+    if not IsRationalMatrixGroup( G ) then 
+        Print( "input must be a rational matrix group.\n" );
+        return fail;
+    fi;
+    mats := GeneratorsOfGroup( G );
+    d := Length( mats[1] );
+    if IsAbelian( G ) then   
+       return POL_HomogeneousSeriesAbelianRMGroup( mats, d );
+    else
+       return POL_HomogeneousSeriesTriangularizableRMGroup( mats, d );
+    fi;
+    
+end;
+
 
 #############################################################################
 ##

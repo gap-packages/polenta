@@ -92,6 +92,20 @@ DeclareGlobalFunction( "POL_MergeCPCS" );
 ##
 DeclareGlobalFunction( "ExponentVector_CPCS_PRMGroup" );
 
+##############################################################################
+##
+#F POL_TestIsUnipotenByAbelianGroupByRadSeries( gens, radSers )
+##
+DeclareGlobalFunction(  "POL_TestIsUnipotenByAbelianGroupByRadSeries" );
+
+#############################################################################
+##
+#F CPCS_UnipotentByAbelianByRadSeries( gens, recordSeries )
+##
+## G is an abelian rational polycyclic rational matrix group
+##
+DeclareGlobalFunction( "CPCS_UnipotentByAbelianGroupByRadSeries" );   
+
 #############################################################################
 ##
 #E
