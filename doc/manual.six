@@ -21,8 +21,7 @@ F 2.2. HomogeneousSeriesTriangularizableMatGroup
 F 2.2. CompositionSeriesAbelianMatGroup
 F 2.2. CompositionSeriesTriangularizableMatGroup
 S 2.3. Subgroups
-F 2.3. TriangNormalSubgroupFiniteInd
-F 2.3. TriangNormalSubgroupFiniteIndUnipo
+F 2.3. SubgroupsUnipotentByAbelianByFinite
 S 2.4. Examples
 F 2.4. PolExamples
 C example.tex 3. An example application

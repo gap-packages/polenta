@@ -18,7 +18,7 @@ from the previous chapter.
 \Section{Presentation for rational matrix groups}
 
 \beginexample
-gap>mats := 
+gap> mats := 
 [ [ [ 1, 0, -1/2, 0 ], [ 0, 1, 0, 1 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],
   [ [ 1, 1/2, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 1 ], [ 0, 0, 0, 1 ] ],
   [ [ 1, 0, 0, 1 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],
@@ -42,25 +42,26 @@ gap> mats2 := List( h, x -> PreImage( nat, x ) );;
 # take a random element of G
 gap> exp :=  [ 1, 1, 1, 1, 0, 0, 0, 0, 1 ];;
 gap> g := MappedVector( exp, mats2 );
-[ [ -1, 17/2, -1, 173/6 ], 
-  [ 0, 1, 0, -2 ], 
-  [ 0, 1, -1, 2 ], 
-  [ 0, 0,  0, 1 ] ]
-
-# map g into the image of nat
-gap> i := ImageElm( nat, g );
-g1*g2*g3*g4
-
-# exponent vector 
-gap> Exponents( i );
-[ 1, 1, 1, 1, 0, 0, 0, 0 ]
-
-# compare the preimage with g
-gap> PreImagesRepresentative( nat, i );
-[ [ -1, 17/2, -1, 173/6 ], 
+[ [ -1, 17/2, -1, 233/6 ], 
   [ 0, 1, 0, -2 ], 
   [ 0, 1, -1, 2 ], 
   [ 0, 0, 0, 1 ] ]
+
+# map g into the image of nat
+gap> i := ImageElm( nat, g );
+g1*g2*g3*g4*g9
+
+# exponent vector 
+gap> Exponents( i );
+[ 1, 1, 1, 1, 0, 0, 0, 0, 1 ]
+
+# compare the preimage with g
+gap> PreImagesRepresentative( nat, i );
+[ [ -1, 17/2, -1, 233/6 ], 
+  [ 0, 1, 0, -2 ], 
+  [ 0, 1, -1, 2 ], 
+  [ 0, 0, 0, 1 ] ]
+
 
 gap> last = g;
 true
@@ -108,10 +109,11 @@ gap> GeneratorsOfGroup( G );
     [ 14/5, -63/5, -4/5, -79/5 ], 
     [ -1/10, 9/20, 1/10, 37/20 ] ] ]
 
-gap> T := TriangNormalSubgroupFiniteInd( G );
-<matrix group with 2 generators>
+gap> subgroups := SubgroupsUnipotentByAbelianByFinite( G );
+rec( T := <matrix group with 2 generators>,
+  U := <matrix group with 4 generators> )
 
-gap> GeneratorsOfGroup( T );
+gap> GeneratorsOfGroup( subgroups.T );
 [ [ [ 73/10, -35/2, 42/5, 63/2 ], 
     [ 27/20, -11/4, 9/5, 27/4 ],
     [ -3/5, 1, -4/5, -9 ], 

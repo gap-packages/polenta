@@ -45,6 +45,9 @@ POL_Test_CPCS_PRMGroup := function( G )
         g := POL_RandomGroupElement( gens );
         Info( InfoPolenta, 3, "g is equal to ", g );
         exp := ExponentVector_CPCS_PRMGroup( g, pcgs);
+        if not Exp2Groupelement( pcgs.pcs, exp ) = g then 
+            Error( "Wrong exponent vector!\n" );
+        fi;
     od;
     Print( "\n" );
 end;
@@ -74,8 +77,7 @@ end;
 POL_Test_SubgroupComp_PRMGroup := function( G )
     local T, reco;
     SetAssertionLevel( 2 );
-    T := TriangNormalSubgroupFiniteInd( G );
-    reco := TriangNormalSubgroupFiniteIndUnipo( G );
+    reco := SubgroupsUnipotentByAbelianByFinite( G );
 end;
 
 #############################################################################
