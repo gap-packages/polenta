@@ -47,7 +47,6 @@ gap> g := MappedVector( exp, mats2 );
   [ 0, 1, -1, 2 ], 
   [ 0, 0,  0, 1 ] ]
 
-
 # map g into the image of nat
 gap> i := ImageElm( nat, g );
 g1*g2*g3*g4
@@ -58,10 +57,11 @@ gap> Exponents( i );
 
 # compare the preimage with g
 gap> PreImagesRepresentative( nat, i );
-[ [ 229793843, -345584045, -503782245, 823202280 ],
-  [ 397912065, -598518263, -872506665, 1425593295 ],
-  [ 141954212, -213549855, -311309508, 508615375 ],
-  [ 189806315, -285510521, -416211500, 680033928 ] ]
+[ [ -1, 17/2, -1, 173/6 ], 
+  [ 0, 1, 0, -2 ], 
+  [ 0, 1, -1, 2 ], 
+  [ 0, 0, 0, 1 ] ]
+
 gap> last = g;
 true
 
