@@ -183,18 +183,18 @@ POL_UpperTriangIntTest := function( gens )
            for j in [1..d] do
                if i=j then
                    if not g[i][j]=1 then
-                       Print( i,"problemplace ",j,"\n" );
+                       Info( InfoPolenta,4, i,"problemplace ",j,"\n" );
                        goodForm := false;
                        return goodForm;
                   fi;
                elif i < j then
                    if DenominatorRat( g[i][j] )>1 then
-                        Print( i,"problemplace ",j,"\n" );
+                        Info( InfoPolenta, 4,i,"problemplace ",j,"\n" );
                         goodForm := false;
                         return goodForm;
                    fi;
                elif not g[i][j]=0 then
-                    Print( i,"problemplace ",j,"\n" );
+                    Info( InfoPolenta, 4,i,"problemplace ",j,"\n" );
                     goodForm := false;
                     return goodForm;
                fi;
@@ -275,7 +275,9 @@ POL_FirstCloseUnderConjugation := function( gens,gens_U_p )
             if not POL_UpperTriangIntTest( [matrix^conjugator] ) then
                 # we have to extend our gens_U_p
                 newGens := Concatenation( gens_U_p,[matrix] );
-                Print( "newGens ist gleich",newGens,"\n" );
+                Info( InfoPolenta, 3,  
+                      "Extending in FirstCloseUnderConjugation\n",
+                      "newGens are",newGens,"\n" );
                 rec1 := POL_FirstCloseUnderConjugation( gens,newGens );
                 return rec1;
             fi;

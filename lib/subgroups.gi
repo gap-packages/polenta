@@ -12,6 +12,16 @@
 
 #############################################################################
 ##
+POL_Group := function( subGens, G )
+    if Length( subGens ) = 0 then
+        return TrivialSubgroup( G );
+    else
+        return Group( subGens );
+    fi;
+end;
+
+#############################################################################
+##
 #F POL_TriangNSGFI_NonAbelianPRMGroup( arg )
 ##
 ## arg[1] = G is an non-abelian  polycyclic rational matrix group
@@ -20,7 +30,7 @@ InstallGlobalFunction( POL_TriangNSGFI_NonAbelianPRMGroup , function( arg )
     local   p, d, gens_p,G, bound_derivedLength, pcgs_I_p, gens_K_p,
             comSeries, gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
             gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p,
-            recordSeries, radSeries, isTriang;
+            recordSeries, radSeries, isTriang, H;
     # setup
     G := arg[1];
     gens := GeneratorsOfGroup( G );
@@ -117,7 +127,7 @@ InstallGlobalFunction( POL_TriangNSGFI_NonAbelianPRMGroup , function( arg )
                            pcgs_nue_K_p.relOrders, "."  );
     Info( InfoPolenta, 1, " " );
 
-    return Group( gens_K_p );
+    return POL_Group( gens_K_p, G );   
 
 end );
 
@@ -197,7 +207,7 @@ InstallMethod( TriangNormalSubgroupFiniteIndUnipo,
                 true, [ IsMatrixGroup ], 0, 
 function( G ) 
 
-        local test, U_p, K_p, cpcs;
+        local test, U_p, K_p, cpcs,T,U;
         test := POL_IsMatGroupOverFiniteField( G );
         if IsBool( test ) then
             TryNextMethod();
@@ -207,14 +217,14 @@ function( G )
             if IsAbelian( G ) then
                 K_p := cpcs.pcs;
                 U_p := cpcs.pcgs_U_p.pcs;
-                return rec( T := Group( K_p ),
-                            U := Group( U_p ) );
+                return rec( T := POL_Group( K_p, G ),
+                            U := POL_Group( U_p, G ) );
             else
                 U_p := cpcs.pcgs_U_p.pcs;
                 K_p := cpcs.pcgs_GU.preImgsNue;
                 K_p := Concatenation( K_p, U_p );
-                return rec( T := Group( K_p ),
-                            U := Group( U_p ));
+                return rec( T := POL_Group( K_p, G ),
+                            U := POL_Group( U_p, G ));
              fi;
         else
             TryNextMethod();
@@ -236,20 +246,20 @@ function( G,p )
             if IsAbelian( G ) then
                 U_p := cpcs.pcgs_U_p.pcs;
                 return rec( T := G ,
-                            U := Group( U_p ));
+                            U := POL_Group( U_p, G ));
             else
                 U_p := cpcs.pcgs_U_p.pcs;
                 # check if G is triangularizable
                 if Length( cpcs.pcgs_GU.pcgs_I_p.gens ) = 0 then
                     #G triangularizable
                     return rec( T := G,
-                                U := Group( U_p ));   
+                                U := POL_Group( U_p, G ));   
                 else 
                     #G not triangularizable
                     K_p := cpcs.pcgs_GU.preImgsNue;
                     K_p := Concatenation( K_p, U_p );
-                    return rec( T := Group( K_p ),
-                              U := Group( U_p ));
+                    return rec( T := POL_Group( K_p, G ),
+                              U := POL_Group( U_p, G ));
                 fi;
             fi;
         else
