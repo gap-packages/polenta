@@ -42,7 +42,7 @@ fi;
 #F PolExamples( n ) .............. .. Examples for polycyc rat. matrix groups
 ##
 PolExamples := function( n )
-    local i,M,P, nat, G, gens, d, l;
+    local i,M,P, nat, G, gens, d, l,r,s;
 
     # check if aclib is needed
     l := Concatenation( [9..19],[21..24]);
@@ -156,8 +156,20 @@ PolExamples := function( n )
     fi;
     if n in [21..24] then
         return POL_KroneckerProduct( PolExamples( n-12 ), 1 );
-    fi; 
-   
+    fi;
+    if n = 25 then 
+        #Marco Costantini example
+        r := [ [ 1, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 1, 0, 0, 0, 0, 0 ],
+               [ 0, 0, 0, 1, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1, 0, 0, 0 ],
+               [ 0, 0, 0, 0, 0, 1, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 1, 0 ],
+               [ 0, 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 0, 0, 0, 0, 0, 0 ] ];
+        s :=
+             [ [ 1, 0, 0, 0, 0, 0, 0, 1 ], [ 0, E(7)^6, 0, 0, 0, 0, 0, 0 ],
+               [ 0, 0, E(7), 0, 0, 0, 0, 0 ], [ 0, 0, 0, 1, 0, 0, 0, 0 ],
+               [ 0, 0, 0, 0, 1, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 1, 0, 0 ],
+               [ 0, 0, 0, 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 1 ] ];
+        return Group( [r,s^7] );
+     fi;   
 end;
 
 
