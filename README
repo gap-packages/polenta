@@ -3,7 +3,7 @@ The GAP 4 package `Polenta'
 ========================
 
  
-This package provides functions for the computation with matrix
+This package provides functions for  computation with matrix
 groups. Let $G$ be a subgroup of $GL(d,R)$ where the ring $R$ is
 either equal to $\Q,\Z$ or a finite field $\F_q$.
 Then:
@@ -73,15 +73,15 @@ KASH is available at
                www.math.tu-berlin.de/~kant/download.html
 
 Note that you have to download two files for a complete installation
-of KASH.  For the installation of version 2.4 of KASH on a Linux
-system you would do the following steps:
+of KASH. To install  version 2.4 of KASH on a Linux
+system you should do the following:
 
  1. Download the files
     kash_2.4.common.tar.gz and kash_2.4.1.linux.tar.gz
     into the same directory on your system.
                                                                                
  2. Unpack the files using tar.  This will create a directory
-    KASH_2.4 containing among other files the KASH executable called
+    KASH_2.4 containing, amongst other files, the KASH executable called
     kash.  The place where KASH is put is independent of the place
     where the Alnuth or Polenta package is installed.
     
@@ -97,6 +97,6 @@ The Polenta package was written by:
   North Haugh
   St. Andrews
   Fife
-  KY 16 9SS
+  KY16 9SS
   Scotland, UK
   e-mail: BjoernAssmann@gmx.net
