@@ -1,0 +1,117 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%W  example.tex           POLENTA documentation            Bjoern Assmann
+%W                                                     
+%W                                                     
+%W                                                       
+%%
+%H  @(#)$Id$
+%%
+%Y 2003
+%%
+\Chapter{An example application}
+
+In this section we outline two example computations with the functions
+of the previous chapter. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Presentation for rational matrix groups}
+
+\beginexample
+gap> G := MatExamples(2);
+<matrix group with 6 generators>
+
+gap> mats := GeneratorsOfGroup( G );
+[ [ [ 2, -1, -1, 3 ], [ -1, 0, 1, -4 ], [ 0, 1, 2, -2 ], [ -1, 1, 2, -4 ] ],
+  [ [ 1, 1, 1, -2 ], [ 1, 1, -1, 1 ], [ -2, 1, 0, -3 ], [ -1, 1, 0, -2 ] ],
+  [ [ 1, 0, -1, 0 ], [ -2, 5, 5, -11 ], [ -1, 0, 2, 0 ], [ -1, 1, 2, -2 ] ],
+  [ [ 0, 3, 2, -7 ], [ -1, 6, 4, -13 ], [ -1, 2, 1, -5 ], [ -1, 3, 2, -7 ] ],
+  [ [ 0, 4, 5, -12 ], [ 2, -4, 1, 5 ], [ 1, -4, -1, 8 ], [ 1, -3, 0, 5 ] ],
+  [ [ 1, 0, -1, 0 ], [ -2, 5, 5, -11 ], [ -1, 0, 2, 0 ], [ -1, 1, 2, -2 ] ] ]
+
+# calculate an isomorphism from G to a pcp-group
+gap> nat := IsomorphismPcpGroup( G );;   
+     
+gap> H := Image( nat );
+Pcp-group with orders [ 2, 2, 3, 3, 4, 0, 0, 0 ]
+
+gap> h := GeneratorsOfGroup( H );
+[ g1, g2, g3, g4, g5, g6, g7, g8 ]
+
+gap> mats2 := List( h, x -> PreImage( nat, x ) );;
+
+# take a random element of G
+gap> exp :=  [ 1, 1, 1, 1, 0, 0, 0, 0 ];;
+gap> g := MappedVector( exp, mats2 );
+[ [ 229793843, -345584045, -503782245, 823202280 ],
+  [ 397912065, -598518263, -872506665, 1425593295 ],
+  [ 141954212, -213549855, -311309508, 508615375 ],
+  [ 189806315, -285510521, -416211500, 680033928 ] ]
+
+# map g into the image of nat
+gap> i := ImageElm( nat, g );
+g1*g2*g3*g4
+
+# exponent vector 
+gap> Exponents( i );
+[ 1, 1, 1, 1, 0, 0, 0, 0 ]
+
+# compare the preimage with g
+gap> PreImagesRepresentative( nat, i );
+[ [ 229793843, -345584045, -503782245, 823202280 ],
+  [ 397912065, -598518263, -872506665, 1425593295 ],
+  [ 141954212, -213549855, -311309508, 508615375 ],
+  [ 189806315, -285510521, -416211500, 680033928 ] ]
+gap> last = g;
+true
+
+\endexample
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Modules series}
+
+\beginexample
+gap> gens := 
+[ [ [ 1746/1405, 524/7025, 418/1405, -77/2810 ], 
+    [ 815/843, 899/843, -1675/843, 415/281 ],
+    [ -3358/4215, -3512/21075, 4631/4215, -629/1405 ],
+    [ 258/1405, 792/7025, 1404/1405, 832/1405 ] ],
+  [ [ -2389/2810, 3664/21075, 8942/4215, -35851/16860 ],
+    [ 395/281, 2498/2529, -5105/5058, 3260/2529 ],
+    [ 3539/2810, -13832/63225, -12001/12645, 87053/50580 ],
+    [ 5359/1405, -3128/21075, -13984/4215, 40561/8430 ] ] ];
+
+gap> H := Group( gens );
+<matrix group with 2 generators>
+     
+gap> RadicalSeriesSolvableMatGroup( H );
+[ [ [ 1, 0, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],
+  [ [ 0, 0, 1, -197/414 ], [ 1, 0, -3, 2 ], [ 0, 1, 55/4, -55/8 ] ],
+  [ [ 0, 1, 55/4, -55/8 ], [ 1, 4/15, 2/3, 1/6 ] ], 
+  [ [ 1, 4/15, 2/3, 1/6 ] ],
+  [  ] ]
+
+\endexample
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

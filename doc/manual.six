@@ -1,0 +1,31 @@
+C intro.tex 1. Introduction
+I 1.0. Polenta
+I 1.0. Polycyclic
+S 1.1. The package
+S 1.2. Polycyclic groups
+C Polenta.tex 2. Methods for matrix groups
+S 2.1. Polycyclic presentations of matrix groups
+F 2.1. PcpGroupByMatGroup
+F 2.1. IsomorphismPcpGroup
+F 2.1. Image
+F 2.1. ImageElm
+F 2.1. ImagesSet
+F 2.1. PreImagesRepresentative
+F 2.1. IsSolvableGroup
+F 2.1. IsSolvableMatGroup
+F 2.1. IsPolycyclicMatGroup
+S 2.2. Module series
+F 2.2. RadicalSeriesSolvableMatGroup
+F 2.2. HomogeneousSeriesAbelianMatGroup
+F 2.2. CompositionSeriesAbelianMatGroup
+S 2.3. Examples
+F 2.3. PolExamples
+C example.tex 3. An example application
+S 3.1. Presentation for rational matrix groups
+S 3.2. Modules series
+C install.tex 4. Installing and loading the Polenta package
+I 4.0. Installing and loading the Polenta package
+S 4.1. Installing the Polenta package
+I 4.1. Installing the Polenta package
+S 4.2. Loading the Polenta package
+I 4.2. Loading the Polenta package
