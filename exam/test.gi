@@ -190,6 +190,25 @@ POL_Test_AllFunctions_PolExamples2 := function( anfang, ende )
     SetAssertionLevel( a_level );
 end;
 
+POL_Test_AllFunctions_FeasibleExamples2 := function()
+    local l1,l2,l3,l4,l5,ll,a_level,i,G;
+    l1 := [-18..-1];
+    l2 := [1..16];
+    l3 := [18];
+    l4 := [29..44];
+    l5 := [46..59];
+    ll := Concatenation( l1, l2, l3, l4, l5 );
+
+    a_level := AssertionLevel();
+    SetAssertionLevel( 2 );
+    for i in ll do
+         Print( "Test of group ", i, "\n" );
+         G := POL_PolExamples2( i );
+         POL_Test_AllFunctions_PRMGroup( G );
+     od;
+    SetAssertionLevel( a_level );
+end;
+
 
 #############################################################################
 ##
