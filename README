@@ -1,4 +1,4 @@
-
+  
 The GAP 4 package `Polenta'
 ========================
 
@@ -32,7 +32,7 @@ $G$ is a rational polycyclic matrix group, then we can compute the
 radical series of the natural
 $\Q[G]$-module $\Q^d$.
 
-
+ 
 Installing this package
 =======================
 
