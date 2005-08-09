@@ -32,16 +32,9 @@ Persons := [
 ],
 
 Status := "accepted",
-#Status := "deposited",
-
-##  You must provide the next two entries if and only if the status is 
-##  "accepted" because is was successfully refereed:
-# format: 'name (place)'
-# CommunicatedBy := "Mike Atkinson (St. Andrews)",
-#CommunicatedBy := "",
-# format: mm/yyyy
+CommunicatedBy := "Charles Wright (Eugene)",
 AcceptDate := "08/2005",
-#AcceptDate := "",
+
 
 README_URL := "http://www.icm.tu-bs.de/ag_algebra/software/assmann/Polenta/README",
 PackageInfoURL := "http://www.icm.tu-bs.de/ag_algebra/software/assmann/Polenta/PackageInfo.g",
