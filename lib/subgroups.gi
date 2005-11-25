@@ -24,7 +24,13 @@ end;
 ##
 #F POL_TriangNSGFI_NonAbelianPRMGroup( arg )
 ##
-## arg[1] = G is an non-abelian  polycyclic rational matrix group
+## 
+##
+## IN: arg[1] ..... G is an non-abelian  polycyclic rational matrix group
+##     arg[2] ..... optional prime p
+##
+## OUT: Normal subgroup of finite index, 
+##      actually the p-congruence subgroup
 ##
 InstallGlobalFunction( POL_TriangNSGFI_NonAbelianPRMGroup , function( arg )
     local   p, d, gens_p,G, bound_derivedLength, pcgs_I_p, gens_K_p,
