@@ -30,9 +30,8 @@ following functions determine a PcpGroup isomorphic to $G$.
 <G> is  a subgroup of $GL(d,R)$ where $R=\Q,\Z $ or $\F_q$.
 If <G> is polycyclic, then 
 this function determines a PcpGroup isomorphic to <G>. 
-If <G> is not polycyclic, then there are two cases. If $R=\Z$ or $\F_q$,
-then the algorithm returns 'fail'. If $R=\Q$ then the algorithm may
-return 'fail' or may not terminate. 
+If <G> is not polycyclic, then 
+this function returns 'fail'. 
 
 \> IsomorphismPcpGroup( <G> )
  
@@ -40,9 +39,9 @@ return 'fail' or may not terminate.
 If <G> is polycyclic, then 
 this function determines  an isomorphism
 onto a PcpGroup. 
-If <G> is not polycyclic, then there are two cases. If $R=\Z$ or $\F_q$,
-then the algorithm returns 'fail'. If $R=\Q$ then the algorithm may
-return 'fail' or may not terminate. 
+If <G> is not polycyclic, then
+this function returns 'fail'.
+
 
 Note that the method `IsomorphismPcpGroup', 
 installed in this package, cannot be
@@ -82,13 +81,9 @@ and returns 'true' or 'false'.
 \> IsPolycyclicMatGroup( <G> )
 
 <G> is  a subgroup of $GL(d,R)$ where $R=\Q,\Z $ or $\F_q$.
- This function tries to test if <G> is polycyclic. If <G> is polycyclic,
- then it returns 'true'. 
-If <G> is not polycyclic, then there are two cases. If $R=\Z$ or $\F_q$,
-then the function returns 'false'. If  $R=\Q$ then the algorithm may
-return 'false' or may not terminate.
+This function tests if <G> is
+polycyclic and returns 'true' or 'false'.
 
- 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Module series}
 
@@ -165,9 +160,8 @@ The group $T$ is unipotent-by-abelian
 (and thus triangularizable) and 
 of finite index in <G>. 
 The group $U$ is unipotent and is such that $T/U$ is abelian.  
-If <G> is not polycyclic, then there are two cases. If $R=\Z$,
-then the algorithm returns 'fail'. In case that $R=\Q$ then the algorithm may
-return 'fail' or may not terminate.  
+If <G> is not polycyclic, 
+then the algorithm returns 'fail'. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Examples}
@@ -219,15 +213,5 @@ PolExamples      number generators      subgroup of      Hirsch length
 %%  fill-column:    73
 %%  End:
 %%
-
-
-
-
-
-
-
-
-
-
 
 
