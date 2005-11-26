@@ -40,7 +40,8 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     local   p, d, gens_p,G, bound_derivedLength, pcgs_I_p, gens_K_p,
             gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
             gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p,
-            radSeries, comSeries, recordSeries, isTriang;
+            radSeries, comSeries, recordSeries, isTriang, isFiniteGen,
+	    testIsPoly;
     # setup
     G := arg[1];
     gens := GeneratorsOfGroup( G );
@@ -51,13 +52,21 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     Info( InfoPolenta, 1, " " );
 
     # determine an admissible prime or take the wished one
-    if Length( arg ) = 2 then
+    if (Length( arg )) >= 2 and (arg[2] <> 0 ) then
         p := arg[2];
     else
         p := DetermineAdmissiblePrime(gens);
     fi;
     Info( InfoPolenta, 1, "Chosen admissible prime: " , p );
     Info( InfoPolenta, 1, "  " );
+
+    # check whether this function is used for testing if G is polycyclic
+    testIsPoly := false;
+    if Length( arg ) = 3 then
+       if arg[3] = "testIsPoly" then
+	  testIsPoly := true;
+       fi;
+    fi;
 
     # calculate the gens of the group phi_p(<gens>) where phi_p is
     # natural homomorphism to GL(d,p)
@@ -108,7 +117,9 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     isTriang := POL_TestIsUnipotenByAbelianGroupByRadSeries( gens, radSeries );
     if isTriang then
         Info( InfoPolenta, 1, "Group is triangularizable!" );
-        return CPCS_UnipotentByAbelianGroupByRadSeries( gens,recordSeries );  
+        return CPCS_UnipotentByAbelianGroupByRadSeries( gens,
+							recordSeries,
+							testIsPoly );  
     fi;
 
     # compositions series
@@ -118,6 +129,7 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
                                                    recordSeries.sersFullData,
                                                        1  );
     if comSeries=fail then return fail; fi;
+    
     Info( InfoPolenta, 1,"finished.");   
     Info( InfoPolenta, 1, "The composition series has length ", 
                           Length( comSeries ), "." );
@@ -157,6 +169,18 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
           "The normal subgroup generators for the unipotent part are" );
     Info( InfoPolenta, 2, gens_U_p );
     Info( InfoPolenta, 1, " " );
+
+    # test whether U_p is finitely generated. 
+    Info( InfoPolenta, 3, "Testing wheter U_p is finitely generated ..." );
+    isFiniteGen := POL_IsFinitelgeneratedU_p( gens_U_p, gens, pcgs_GU.pcs );
+    Info( InfoPolenta, 3, "... finished" );
+    if testIsPoly then
+       return isFiniteGen;
+    fi;
+    if not isFiniteGen then
+       return fail;
+    fi;
+    Info( InfoPolenta, 3, " " );
 
     # determine a constructive pc-sequence for the unipotent group U_p
     Info( InfoPolenta, 1 ,"Determine a constructive polycyclic  sequence\n", 
@@ -261,15 +285,16 @@ end );
 
 #############################################################################
 ##
-#F CPCS_UnipotentByAbelianGroupByRadSeries( gens, recordSeries )
+#F CPCS_UnipotentByAbelianGroupByRadSeries( gens, recordSeries, testIsPoly )
 ##
 ## G is an abelian rational polycyclic rational matrix group
 ##
 InstallGlobalFunction( CPCS_UnipotentByAbelianGroupByRadSeries , 
-                       function( gens, recordSeries )
+                       function( gens, recordSeries, testIsPoly )
     local   p, d, gens_p, bound_derivedLength, pcgs_I_p, gens_K_p,
             comSeries, gens_mutableCopy, pcgs,
-            gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p;
+            gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p,
+	    isFiniteGen;
     # setup
     d := Length(gens[1][1]);
 
@@ -320,6 +345,18 @@ InstallGlobalFunction( CPCS_UnipotentByAbelianGroupByRadSeries ,
           "The normal subgroup generators for the unipotent part are" );
     Info( InfoPolenta, 2, gens_U_p );
     Info( InfoPolenta, 1, " " );
+
+    # test whether U_p is finitely generated.
+    Info( InfoPolenta, 3, "Testing wheter U_p is finitely generated ..." );
+    isFiniteGen := POL_IsFinitelgeneratedU_p( gens_U_p, gens, pcgs_GU.pcs );
+    Info( InfoPolenta, 3, "... finished" );
+    if testIsPoly then
+       return isFiniteGen;
+    fi;
+    if not isFiniteGen then
+       return fail;
+    fi;
+    Info( InfoPolenta, 3, " " );
 
     # determine a constructive pc-sequence for the unipotent group U_p
     Info( InfoPolenta, 1 ,"Determine a constructive polycyclic  sequence\n",
@@ -567,9 +604,4 @@ end );
 #############################################################################
 ##
 #E
-
-
-
-
-
 

@@ -152,13 +152,13 @@ end );
 #F POL_IsPolycyclicRationalMatGroup( G )
 ##
 POL_IsPolycyclicRationalMatGroup := function( G )
-     local  cpcs;
-     cpcs := CPCS_PRMGroup( G );
-     if cpcs = fail then
-         return false;
-     else 
-         return true;
-     fi; 
+     local  test;
+     test := CPCS_NonAbelianPRMGroup( G, 0, "testIsPoly" );
+     if test=false or test=fail then
+	return false;
+     else
+        return true;
+     fi;
 end;
 
 
