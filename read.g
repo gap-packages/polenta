@@ -21,6 +21,7 @@ ReadPkg( "polenta/lib/basic.gi" );
 ReadPkg( "polenta/lib/unipo.gi" );
 ReadPkg( "polenta/lib/series.gi" );
 ReadPkg( "polenta/lib/semi.gi" );
+ReadPkg( "polenta/lib/ispoly.gi" );
 ReadPkg( "polenta/lib/cpcs.gi" );
 ReadPkg( "polenta/lib/present.gi" );
 ReadPkg( "polenta/lib/isom.gi" );
