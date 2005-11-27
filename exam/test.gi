@@ -361,6 +361,19 @@ POL_Runtime := function( rec1, rec2 )
     return sum;
 end;
 
+POL_GroupData := function( G )
+    local gens, noGens, degree,ring;
+    gens := GeneratorsOfGroup( G );
+    noGens := Length( gens );
+    degree := Length( gens[1] );
+    ring := "Q";
+    if IsIntegerMatrixGroup( G ) then
+       ring := "Z";
+    fi;
+    return [ degree, noGens, ring ];
+
+end;
+
 #############################################################################
 ##
 #E
