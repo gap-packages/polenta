@@ -10,7 +10,9 @@ Subtitle := "Polycyclic presentations for matrix groups",
 Version := "1.2.1",
 Date := "09/08/2005",
 
-ArchiveURL := "http://www.icm.tu-bs.de/ag_algebra/software/assmann/Polenta/Polenta-1.2.1",
+ArchiveURL := Concatenation([ 
+"http://www.icm.tu-bs.de/ag_algebra/software/assmann/Polenta/Polenta-", 
+~.Version]),
 ArchiveFormats := ".tar.gz",
 
 
@@ -58,10 +60,16 @@ Dependencies := rec(
   NeededOtherPackages := [[ "polycyclic", ">=1.1" ],
                           [ "alnuth" , "2.0"], ],
   SuggestedOtherPackages := [ ["aclib", "1.0"]], 
-  ExternalConditions := ["needs KANT/KASH Computer Algebra System Version >=2.4"] ), 
+  ExternalConditions := 
+[["needs KANT/KASH Computer Algebra System Version >=2.4",
+"http://www.math.tu-berlin.de/~kant/" ]] 
+), 
 
 AvailabilityTest := ReturnTrue,             
-BannerString := "Loading Polenta 1.2.1 ... \n",     
+BannerString := Concatenation([ 
+"Loading Polenta ",
+~.Version,
+" ... \n" ]),     
 Autoload := true,
 TestFile := "tst/testall.g",
 Keywords := ["polycyclic presentations", "matrix groups", "test solvability", "triangularizable subgroup", "unipotent subgroup", "radical series", "composition series of triangularizable groups" ]
