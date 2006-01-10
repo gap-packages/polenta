@@ -118,6 +118,9 @@ function( G )
         if IsAbelian( G ) then
             return true;
         elif test = 0 then
+            if not IsRationalMatrixGroup( G ) then 
+                TryNextMethod();
+            fi;
             return POL_IsSolvableRationalMatGroup_infinite( G ); 
         else
             return POL_IsSolvableFiniteMatGroup( G );
@@ -141,6 +144,9 @@ function( G )
         if IsAbelian( G ) then
             return true;
         elif test = 0 then
+            if not IsRationalMatrixGroup( G ) then 
+                TryNextMethod();
+            fi;
             return POL_IsSolvableRationalMatGroup_infinite( G ); 
         else
             return POL_IsSolvableFiniteMatGroup( G );
@@ -182,7 +188,10 @@ function( G )
 	    if IsIntegerMatrixGroup( G ) then
                 # in GL(n,Z), G is polyc. iff G is solvable 
                 return POL_IsSolvableRationalMatGroup_infinite( G );
-            else 
+            else
+                if not IsRationalMatrixGroup( G ) then 
+                    TryNextMethod();
+                fi; 
                 return POL_IsPolycyclicRationalMatGroup( G );
             fi;
         else
@@ -278,6 +287,9 @@ function( G )
         if IsAbelian( G ) then
             return true;
         elif test = 0 then
+            if not IsRationalMatrixGroup( G ) then 
+                TryNextMethod();
+            fi;
             return POL_IsTriangularizableRationalMatGroup_infinite( G ); 
         else
             TryNextMethod(); 
