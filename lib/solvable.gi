@@ -187,7 +187,7 @@ function( G )
         # in GL(n,Z), G is polyc. iff G is solvable 
         return IsSolvableGroup( G );
     elif IsRationalMatrixGroup( G ) then 
-        POL_IsPolycyclicRationalMatGroup( G );
+        return POL_IsPolycyclicRationalMatGroup( G );
     else
         TryNextMethod();
     fi;
