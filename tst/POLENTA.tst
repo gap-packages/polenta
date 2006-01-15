@@ -19,18 +19,14 @@ gap> IsTriangularizableMatGroup( G );
 true
 gap> IsSolvable( G );
 true
-gap> G_f := Group( mats_f );
-<matrix group with 5 generators>
-gap> IsSolvable( G_f );
-true
-gap> Size( G_f );
-162
 gap> mats_f := mats* One( GF(3 ) );;
 gap> G_f := Group( mats_f );;
 gap> IsSolvable( G_f );
 true
 gap> IsPolycyclicMatGroup( G_f );
 true
+gap> Size( G_f );
+162
 gap> STOP_TEST( "POLENTA.tst", 100000);   
 
 
