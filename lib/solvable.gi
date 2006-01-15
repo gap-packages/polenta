@@ -103,54 +103,33 @@ end;
 
 #############################################################################
 ##
-#M IsSolvableMatGroup( G )
+#M IsSolvableGroup( G )
 ##
-## G is a matrix group over the Rationals or a finite field. 
 ##
-InstallMethod( POL_IsSolvableMatGroup, "for matrix groups", true,
-               [ IsMatrixGroup ], 0, 
+InstallMethod( IsSolvableGroup, "for rational matrix groups", true,
+               [ IsRationalMatrixGroup ], 0, 
 function( G ) 
-        local test;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        fi;
-        if IsAbelian( G ) then
-            return true;
-        elif test = 0 then
-            if not IsRationalMatrixGroup( G ) then 
-                TryNextMethod();
-            fi;
-            return POL_IsSolvableRationalMatGroup_infinite( G ); 
-        else
-            return POL_IsSolvableFiniteMatGroup( G );
-        fi;  
+    return POL_IsSolvableRationalMatGroup_infinite( G ); 
 end );
 
 #############################################################################
 ##
 #M IsSolvableGroup( G )
 ##
-## G is a matrix group over the Rationals or a finite field. 
+## G is a matrix group over a finite field or over the rationals. 
 ##
-InstallMethod( IsSolvableGroup, "for matrix groups", true,
-               [ IsMatrixGroup ], 0, 
+InstallMethod( IsSolvableGroup, "for matrix groups over Q or a finte field", 
+               true, [ IsMatrixGroup ], 0, 
 function( G ) 
-        local test;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        fi;
-        if IsAbelian( G ) then
-            return true;
-        elif test = 0 then
-            if not IsRationalMatrixGroup( G ) then 
-                TryNextMethod();
-            fi;
+        local F;
+        F := DefaultFieldOfMatrixGroup( G );
+        if IsFinite( F ) then 
+            return POL_IsSolvableFiniteMatGroup( G );
+        elif IsRationalMatrixGroup( G ) then 
             return POL_IsSolvableRationalMatGroup_infinite( G ); 
         else
-            return POL_IsSolvableFiniteMatGroup( G );
-        fi;  
+            TryNextMethod();
+        fi;
 end );
 
 #############################################################################
@@ -167,36 +146,51 @@ POL_IsPolycyclicRationalMatGroup := function( G )
      fi;
 end;
 
+#############################################################################
+##
+#M IsPolycyclicMatGroup( G )
+## 
+##
+InstallMethod( IsPolycyclicMatGroup, "for integer matrix groups", true,
+               [ IsIntegerMatrixGroup ], 0, 
+function( G ) 
+    # in GL(n,Z), G is polyc. iff G is solvable 
+    return IsSolvableGroup( G );
+end );
+
+#############################################################################
+##
+#M IsPolycyclicMatGroup( G )
+## 
+##
+InstallMethod( IsPolycyclicMatGroup, "for rational matrix groups", true,
+               [ IsRationalMatrixGroup ], 0, 
+function( G ) 
+    return POL_IsPolycyclicRationalMatGroup( G );
+end );
 
 #############################################################################
 ##
 #M IsPolycyclicMatGroup( G )
 ##
-## G is a matrix group over the Rationals or a finite field. 
+## G is a matrix group over a finite field or over the rationals
 ##
-InstallMethod( IsPolycyclicMatGroup, "for matrix groups", true,
-               [ IsMatrixGroup ], 0, 
+InstallMethod( IsPolycyclicMatGroup, 
+               "for matrix groups over Q or a finite field", 
+               true,[ IsMatrixGroup ], 0, 
 function( G ) 
-        local test;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        fi;
-        if IsAbelian( G ) then
-            return true;
-        elif test = 0 then
-	    if IsIntegerMatrixGroup( G ) then
-                # in GL(n,Z), G is polyc. iff G is solvable 
-                return POL_IsSolvableRationalMatGroup_infinite( G );
-            else
-                if not IsRationalMatrixGroup( G ) then 
-                    TryNextMethod();
-                fi; 
-                return POL_IsPolycyclicRationalMatGroup( G );
-            fi;
-        else
-            return POL_IsSolvableFiniteMatGroup( G ); 
-        fi;  
+    local F;
+    F := DefaultFieldOfMatrixGroup( G );
+    if IsFinite( F ) then 
+        return IsSolvableGroup( G );
+    elif IsIntegerMatrixGroup( G ) then 
+        # in GL(n,Z), G is polyc. iff G is solvable 
+        return IsSolvableGroup( G );
+    elif IsRationalMatrixGroup( G ) then 
+        POL_IsPolycyclicRationalMatGroup( G );
+    else
+        TryNextMethod();
+    fi;
 end );
 
 #############################################################################
@@ -274,25 +268,18 @@ end;
 ##
 #M IsTriangularizableMatGroup( G )
 ##
-## G is a matrix group over the Rationals or a finite field. 
 ##
-InstallMethod( IsTriangularizableMatGroup, "for matrix groups", true,
+InstallMethod( IsTriangularizableMatGroup, "for matrix groups over Q", true,
                [ IsMatrixGroup ], 0, 
 function( G ) 
-        local test;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        fi;
-        if IsAbelian( G ) then
-            return true;
-        elif test = 0 then
-            if not IsRationalMatrixGroup( G ) then 
-                TryNextMethod();
+        if IsRationalMatrixGroup( G )  then 
+            if IsAbelian( G ) then
+                return true;
+	    else
+                return POL_IsTriangularizableRationalMatGroup_infinite( G ); 
             fi;
-            return POL_IsTriangularizableRationalMatGroup_infinite( G ); 
-        else
-            TryNextMethod(); 
+        else 
+	    TryNextMethod( );
         fi;  
 end );
 

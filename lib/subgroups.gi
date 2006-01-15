@@ -213,78 +213,54 @@ end );
 ##
 InstallMethod( SubgroupsUnipotentByAbelianByFinite, 
                "for polycyclic matrix groups", 
-                true, [ IsMatrixGroup ], 0, 
+                true, [ IsRationalMatrixGroup ], 0, 
 function( G ) 
-
-        local test, U_p, K_p, cpcs,T,U;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        elif test = 0 then
-            cpcs := CPCS_PRMGroup( G );
-            if cpcs = fail then return fail; fi;
-            if IsAbelian( G ) then
-                U_p := cpcs.pcgs_U_p.pcs;
-                return rec( T := G ,
-                            U := POL_Group( U_p, G ));
-            else
-                U_p := cpcs.pcgs_U_p.pcs;
-                # check if G is triangularizable
-                if Length( cpcs.pcgs_GU.pcgs_I_p.gens ) = 0 then
-                    #G triangularizable
-                    return rec( T := G,
-                                U := POL_Group( U_p, G ));   
-                else 
-                    #G not triangularizable
-                    K_p := cpcs.pcgs_GU.preImgsNue;
-                    K_p := Concatenation( K_p, U_p );
-                    return rec( T := POL_Group( K_p, G ),
-                              U := POL_Group( U_p, G ));
-                fi;
-            fi;
-        else
-            TryNextMethod();
-        fi;  
+    local cpcs, U_p, K_p; 
+    cpcs := CPCS_PRMGroup( G );
+    if cpcs = fail then return fail; fi;
+    if IsAbelian( G ) then
+        U_p := cpcs.pcgs_U_p.pcs;
+        return rec( T := G , U := POL_Group( U_p, G ));
+    else
+        U_p := cpcs.pcgs_U_p.pcs;
+        # check if G is triangularizable
+        if Length( cpcs.pcgs_GU.pcgs_I_p.gens ) = 0 then
+            #G triangularizable
+            return rec( T := G, U := POL_Group( U_p, G ));   
+        else 
+            #G not triangularizable
+            K_p := cpcs.pcgs_GU.preImgsNue;
+            K_p := Concatenation( K_p, U_p );
+            return rec( T := POL_Group( K_p, G ), U := POL_Group( U_p, G ));
+        fi;
+    fi;
 end );
-
 
 InstallOtherMethod( SubgroupsUnipotentByAbelianByFinite , 
                "for polycyclic matrix groups", true,
-               [ IsMatrixGroup, IsInt], 0, 
+               [ IsRationalMatrixGroup, IsInt], 0, 
 function( G,p ) 
-
-        local test, K_p, U_p, cpcs;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        elif test = 0 then
-            cpcs := CPCS_PRMGroup( G,p  );
-            if cpcs = fail then return fail; fi;
-
-
-            if IsAbelian( G ) then
-                U_p := cpcs.pcgs_U_p.pcs;
-                return rec( T := G ,
-                            U := POL_Group( U_p, G ));
-            else
-                U_p := cpcs.pcgs_U_p.pcs;
-                # check if G is triangularizable
-                if Length( cpcs.pcgs_GU.pcgs_I_p.gens ) = 0 then
-                    #G triangularizable
-                    return rec( T := G,
-                                U := POL_Group( U_p, G ));   
-                else 
-                    #G not triangularizable
-                    K_p := cpcs.pcgs_GU.preImgsNue;
-                    K_p := Concatenation( K_p, U_p );
-                    return rec( T := POL_Group( K_p, G ),
-                              U := POL_Group( U_p, G ));
-                fi;
-            fi;
-        else
-            TryNextMethod();
-        fi;  
+    local cpcs, U_p, K_p; 
+    cpcs := CPCS_PRMGroup( G,p );
+    if cpcs = fail then return fail; fi;
+    if IsAbelian( G ) then
+        U_p := cpcs.pcgs_U_p.pcs;
+        return rec( T := G , U := POL_Group( U_p, G ));
+    else
+        U_p := cpcs.pcgs_U_p.pcs;
+        # check if G is triangularizable
+        if Length( cpcs.pcgs_GU.pcgs_I_p.gens ) = 0 then
+            #G triangularizable
+            return rec( T := G, U := POL_Group( U_p, G ));   
+        else 
+            #G not triangularizable
+            K_p := cpcs.pcgs_GU.preImgsNue;
+            K_p := Concatenation( K_p, U_p );
+            return rec( T := POL_Group( K_p, G ), U := POL_Group( U_p, G ));
+        fi;
+    fi;
 end );
+ 
 
 #############################################################################
 ##

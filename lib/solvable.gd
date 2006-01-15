@@ -12,14 +12,6 @@
 
 #############################################################################
 ##
-#M IsSolvableMatGroup( G )
-##
-## G is a matrix group over the Rationals or a finite field. 
-##
-DeclareOperation( "POL_IsSolvableMatGroup", [ IsMatrixGroup ] );
-
-#############################################################################
-##
 #M IsPolycyclicMatGroup( G )
 ##
 ## G is a matrix group over the Rationals or a finite field. 
