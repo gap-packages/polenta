@@ -8,6 +8,7 @@ groups. Let $G$ be a subgroup of $GL(d,R)$ where the ring $R$ is
 either equal to $\Q,\Z$ or a finite field $\F_q$.
 Then:
    - We can test whether $G$ is solvable.
+   - We can test whether $G$ is polycyclic.
    - If $G$ is polycyclic, then we can determine a polycyclic
     presentation for $G$.
     
@@ -19,11 +20,6 @@ and calculate the torsion subgroup. Further we can compute the derived
 series and the Hirschlength of the group $G$. Also various methods for
 computations with subgroups, factorsgroups and extensions are
 available.
- 
-In the case that the matrix group
-$G$ is a subgroup of $GL(d,\F_q)$ or $GL(d,\Z)$, the
-group $G$ is solvable if and only if $G$ is polycyclic.
-Therefore, in this case, we can test if $G$ is polycyclic.
  
 As a by-product, the Polenta package
 provides some functionality to compute certain module series for
@@ -41,9 +37,9 @@ so normally there should be no need to install it separately.
 
 If by any chance it is not part of your GAP distribution, then 
 this package is available at
-                                                                             
-      http://cayley.math.nat.tu-bs.de/software/assmann/Polenta
-                                                                             
+        
+     www.gap-system.org/Packages/packages.html
+                                                                           
 in form of a gzipped tar-archive and as an uncompressed tar-archive.
 The standard method is to unpack the package into the `pkg'
 directory  of your GAP distribution.  This will create a `polenta'
@@ -55,7 +51,7 @@ Note that the GAP-Packages Alnuth and Polycyclic are needed for this package.
 Normally they should be contained in your distribution. If not 
 they can be obtained at
 
-             http://cayley.math.nat.tu-bs.de/software/content.html
+      http://cayley.math.nat.tu-bs.de/software/content.html
 
 
 Getting and installing KASH
