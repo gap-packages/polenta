@@ -65,8 +65,10 @@ POL_Test_Series_PRMGroup := function( G )
     a_level := AssertionLevel();
     SetAssertionLevel( 2 );
     radSer :=RadicalSeriesSolvableMatGroup( G );
-    homSer := HomogeneousSeriesAbelianMatGroup( G );
-    comSer := CompositionSeriesAbelianMatGroup( G );   
+    if IsAbelian( G ) then 
+        homSer := HomogeneousSeriesAbelianMatGroup( G );
+        comSer := CompositionSeriesAbelianMatGroup( G ); 
+    fi;  
     homSer := HomogeneousSeriesTriangularizableMatGroup( G );
     comSer := CompositionSeriesTriangularizableMatGroup( G );
     SetAssertionLevel( a_level );
@@ -119,7 +121,7 @@ POL_Test_Isom_PRMGroup := function( G )
     n := Length( mats );
     numberOfTests := 2;
     for i in [1..numberOfTests] do
-       Print( i );
+       Info( InfoPolenta, 1, i );
        #exp1 := List( [1..n], x-> Random( Integers ) );
        #mat1 := MappedVector( exp1, mats );
        mat1 := POL_RandomGroupElement( mats );
@@ -130,7 +132,7 @@ POL_Test_Isom_PRMGroup := function( G )
        fi;
      od;
      SetAssertionLevel( a_level );
-     Print( "\n" );
+     Info( InfoPolenta, 1, "\n" );
 end;
 
 #############################################################################

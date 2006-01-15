@@ -8,7 +8,7 @@ SetPackageInfo( rec(
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
 Version := "1.2.2",
-Date := "010/01/2006",
+Date := "10/01/2006",
 
 ArchiveURL := Concatenation([ 
 "http://www.icm.tu-bs.de/ag_algebra/software/assmann/Polenta/Polenta-", 
