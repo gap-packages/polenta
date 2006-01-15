@@ -46,8 +46,9 @@ POL_DetermineMultiplier := function( gens )
     return a;
 end;
 
-# we have to calculate a basis of Q^d
-# which exhibits a flag for all u in gens. we know that the matrices
+# We have to calculate a basis of Q^d
+# which exhibits a flag for all u in gens. 
+# we know that the matrices
 # in gens are unipotent. next we have to determine the nullspace of
 # (u-1)^1, (u-1)^2,...  we have to do that simultaneously for all
 # matrices in gens so we have to write them in one big matrix.
@@ -74,7 +75,7 @@ POL_BuildBigMatrix := function( modifiedGens )
 end;
 
 
-#for determining a flag you have to compute the nullspace W of a matrix u 
+#For determining a flag you have to compute the nullspace W of a matrix u 
 #then you proceed by passing to the factor V/W an compute a new
 #nullspace.
 #this process will terminate, because u is unipotent which means that
@@ -230,7 +231,7 @@ POL_DetermineRealConjugator := function( gens )
     # upper triangular form
     v := POL_DetermineConjugatorTriangular( gens );
     if v = fail then return fail; fi;
-    gens_mod := GeneratorsOfGroup( Group( gens )^v );
+    gens_mod := List( gens, x-> x^v );
     # upper triangular integer form
     w := POL_DetermineConjugatorIntegral( gens_mod );
     conjugator := v*w;
