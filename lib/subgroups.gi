@@ -213,9 +213,12 @@ end );
 ##
 InstallMethod( SubgroupsUnipotentByAbelianByFinite, 
                "for polycyclic matrix groups", 
-                true, [ IsRationalMatrixGroup ], 0, 
+                true, [ IsMatrixGroup ], 0, 
 function( G ) 
     local cpcs, U_p, K_p; 
+    if not IsRationalMatrixGroup( G ) then
+       TryNextMethod( );
+    fi;
     cpcs := CPCS_PRMGroup( G );
     if cpcs = fail then return fail; fi;
     if IsAbelian( G ) then
@@ -238,9 +241,12 @@ end );
 
 InstallOtherMethod( SubgroupsUnipotentByAbelianByFinite , 
                "for polycyclic matrix groups", true,
-               [ IsRationalMatrixGroup, IsInt], 0, 
+               [ IsMatrixGroup, IsInt], 0, 
 function( G,p ) 
     local cpcs, U_p, K_p; 
+    if not IsRationalMatrixGroup( G ) then
+       TryNextMethod( );
+    fi;
     cpcs := CPCS_PRMGroup( G,p );
     if cpcs = fail then return fail; fi;
     if IsAbelian( G ) then
