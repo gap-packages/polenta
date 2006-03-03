@@ -189,9 +189,17 @@ end;
 ##
 POL_IsIntegralActionOnLieAlgebra := function( gens, L )
     local g,ind,pol,coeffs,constTerm,bool;
+    Info( InfoPolenta, 3, "Testing whether action on Lie alg. is integral" );
     for g in gens do 
+        Info( InfoPolenta, 3, "Generator that will be induced:" );
+        Info( InfoPolenta, 3, g ); 
         ind := POL_InducedActionToLieAlgebra( g, L );
- 	pol := MinimalPolynomial( Rationals, ind );
+        Info( InfoPolenta, 3, "Induced action to Lie algebra:" );
+        Info(InfoPolenta, 3, ind );
+        pol := CharacteristicPolynomial( Rationals, ind );
+ 	# pol := MinimalPolynomial( Rationals, ind );
+        Info( InfoPolenta, 3, "Characteristic polynomial:" );
+        Info(InfoPolenta, 3, pol );
 	coeffs := CoefficientsOfLaurentPolynomial( pol );
 
 	# test if pol_g in Z[x]
