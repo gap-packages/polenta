@@ -25,6 +25,7 @@ ReadPkg( "polenta/lib/present.gd" );
 ReadPkg( "polenta/lib/solvable.gd" );
 ReadPkg( "polenta/lib/series.gd" );
 ReadPkg( "polenta/lib/subgroups.gd" );
+ReadPkg( "polenta/lib/ispolyz.gd" );
 
 ############################################################################
 #R  read other packages

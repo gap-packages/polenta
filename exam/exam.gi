@@ -1571,7 +1571,7 @@ POL_PolExamples2 := function( n )
 # examples groups used for the paper "testing polycyclicity"
 #
 SolvableMatGroupExams := function( n )
-    local gens;
+    local gens,mat1,mat2;
     if n=1 then 
         return PolExamples( 3 );
     fi;
@@ -1601,6 +1601,13 @@ SolvableMatGroupExams := function( n )
     fi;
     if n = 9 then 
         return POL_PolExamples2( 1210 );
+    fi;
+    if n = 10 then 
+         mat1 := [ [ 5/6, -2, 1, 4 ], [ 2/3, -19/6, -1, 4 ], 
+                 [ 0, 0, 5/6, -2 ],  [ 0, 0, 2/3, -19/6 ] ];
+         mat2 := [ [ -1/2, -12/5, 3, -1 ], [ 4/5, -53/10, -2, -4 ], 
+                 [ 0, 0, -1/2, -12/5 ], [ 0, 0, 4/5, -53/10 ] ];
+         return Group( mat1, mat2 );
     fi;
     
     return 0;

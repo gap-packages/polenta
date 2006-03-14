@@ -29,7 +29,7 @@ ReadPkg( "polenta/lib/solvable.gi" );
 ReadPkg( "polenta/exam/exam.gi" );
 ReadPkg( "polenta/exam/test.gi" );
 ReadPkg( "polenta/lib/subgroups.gi" );
-
+ReadPkg( "polenta/lib/ispolyz.gi" );
 
 #############################################################################
 ##
