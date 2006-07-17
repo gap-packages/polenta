@@ -612,7 +612,7 @@ end;
 ##
 ## G is a matrix group over the Rationals
 ## 
-InstallMethod( RadicalSeriesSolvableMatGroup, "for solvable matrix groups", 
+InstallMethod( RadicalSeriesSolvableMatGroup, "for solvable matrix groups (Polenta)", 
                true, [ IsMatrixGroup ], 0, 
 function( G ) 
         local test, mats, d;

@@ -253,7 +253,7 @@ end );
 ## Returned is PcpGroup ( polycyclicallly presented group) 
 ## which is isomorphic to G. 
 ##
-InstallMethod( PcpGroupByMatGroup, "for polycyclic matrix groups", true,
+InstallMethod( PcpGroupByMatGroup, "for polycyclic matrix groups (Polenta)", true,
                [ IsMatrixGroup ], 0, 
 function( G ) 
         local test;
@@ -267,7 +267,7 @@ function( G )
         fi;  
 end );
 
-InstallOtherMethod( PcpGroupByMatGroup, "for polycyclic matrix groups", true,
+InstallOtherMethod( PcpGroupByMatGroup, "for polycyclic matrix groups (Polenta)", true,
                [ IsMatrixGroup, IsInt], 0, 
 function( G, p ) 
         local test;

@@ -106,7 +106,7 @@ end;
 #M IsSolvableGroup( G )
 ##
 ##
-InstallMethod( IsSolvableGroup, "for rational matrix groups", true,
+InstallMethod( IsSolvableGroup, "for rational matrix groups (Polenta)", true,
                [ IsRationalMatrixGroup ], 0, 
 function( G ) 
     return POL_IsSolvableRationalMatGroup_infinite( G ); 
@@ -118,7 +118,7 @@ end );
 ##
 ## G is a matrix group over a finite field or over the rationals. 
 ##
-InstallMethod( IsSolvableGroup, "for matrix groups over Q or a finte field", 
+InstallMethod( IsSolvableGroup, "for matrix groups over Q or a finte field (Polenta)", 
                true, [ IsMatrixGroup ], 0, 
 function( G ) 
         local F;
@@ -151,7 +151,7 @@ end;
 #M IsPolycyclicMatGroup( G )
 ## 
 ##
-InstallMethod( IsPolycyclicMatGroup, "for integer matrix groups", true,
+InstallMethod( IsPolycyclicMatGroup, "for integer matrix groups (Polenta)", true,
                [ IsIntegerMatrixGroup ], 0, 
 function( G ) 
     # in GL(n,Z), G is polyc. iff G is solvable 
@@ -163,7 +163,7 @@ end );
 #M IsPolycyclicMatGroup( G )
 ## 
 ##
-InstallMethod( IsPolycyclicMatGroup, "for rational matrix groups", true,
+InstallMethod( IsPolycyclicMatGroup, "for rational matrix groups (Polenta)", true,
                [ IsRationalMatrixGroup ], 0, 
 function( G ) 
     return POL_IsPolycyclicRationalMatGroup( G );
@@ -176,7 +176,7 @@ end );
 ## G is a matrix group over a finite field or over the rationals
 ##
 InstallMethod( IsPolycyclicMatGroup, 
-               "for matrix groups over Q or a finite field", 
+               "for matrix groups over Q or a finite field (Polenta)", 
                true,[ IsMatrixGroup ], 0, 
 function( G ) 
     local F;
@@ -269,7 +269,7 @@ end;
 #M IsTriangularizableMatGroup( G )
 ##
 ##
-InstallMethod( IsTriangularizableMatGroup, "for matrix groups over Q", true,
+InstallMethod( IsTriangularizableMatGroup, "for matrix groups over Q (Polenta)", true,
                [ IsMatrixGroup ], 0, 
 function( G ) 
         if IsRationalMatrixGroup( G )  then 

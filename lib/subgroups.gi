@@ -212,7 +212,7 @@ end );
 ## and an unipotent normal subgroup U of K such that K/U is abelian.
 ##
 InstallMethod( SubgroupsUnipotentByAbelianByFinite, 
-               "for polycyclic matrix groups", 
+               "for polycyclic matrix groups (Polenta)", 
                 true, [ IsMatrixGroup ], 0, 
 function( G ) 
     local cpcs, U_p, K_p; 
@@ -240,7 +240,7 @@ function( G )
 end );
 
 InstallOtherMethod( SubgroupsUnipotentByAbelianByFinite , 
-               "for polycyclic matrix groups", true,
+               "for polycyclic matrix groups (Polenta)", true,
                [ IsMatrixGroup, IsInt], 0, 
 function( G,p ) 
     local cpcs, U_p, K_p; 

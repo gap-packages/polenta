@@ -108,7 +108,7 @@ end;
 ##
 #M Create isom to pcp group
 ##
-InstallOtherMethod( IsomorphismPcpGroup, "for matrix groups", true,
+InstallOtherMethod( IsomorphismPcpGroup, "for matrix groups (Polenta)", true,
 [IsMatrixGroup], 0,
 function( G ) 
     local test;
@@ -122,7 +122,7 @@ function( G )
     fi;  
 end);
 
-InstallOtherMethod( IsomorphismPcpGroup, "for matrix groups", true,
+InstallOtherMethod( IsomorphismPcpGroup, "for matrix groups (Polenta)", true,
 [IsMatrixGroup, IsInt], 0,
 function( G, p ) 
     local test;
@@ -145,7 +145,7 @@ end);
 ##
 #M Images under IsomorphismByPolycyclicMatrixGroup
 ##
-InstallMethod( ImagesRepresentative, "for isom by matrix groups", true,
+InstallMethod( ImagesRepresentative, "for isom by matrix groups (Polenta)", true,
 [IsIsomorphismByPolycyclicMatrixGroup, 
 IsMultiplicativeElementWithInverse], 0,
 function( nat, h )
@@ -158,7 +158,7 @@ function( nat, h )
     return MappedVector( e, Pcp(H) );
 end);
  
-InstallMethod( ImageElm, "for isom by matrix groups ", true,
+InstallMethod( ImageElm, "for isom by matrix groups (Polenta)", true,
 [IsIsomorphismByPolycyclicMatrixGroup, 
 IsMultiplicativeElementWithInverse], 0,
 function( nat, h )
@@ -171,7 +171,7 @@ function( nat, h )
     return MappedVector( e, Pcp(H) );
 end);
  
-InstallMethod( ImagesSet,"for isom by matrix groups", true,
+InstallMethod( ImagesSet,"for isom by matrix groups (Polenta)", true,
 [IsIsomorphismByPolycyclicMatrixGroup, IsCollection], 0,
 function( nat, elms )
     local  H, e, CPCS,exps,h;
@@ -194,7 +194,7 @@ end);
 ##
 #M Images under IsomorphismByFinitePolycyclicMatrixGroup
 ##
-InstallMethod( ImagesRepresentative, "for isom by finite matrix groups", 
+InstallMethod( ImagesRepresentative, "for isom by finite matrix groups (Polenta)", 
 true, [IsIsomorphismByFinitePolycyclicMatrixGroup, 
 IsMultiplicativeElementWithInverse], 0,
 function( nat, h )
@@ -207,7 +207,7 @@ function( nat, h )
     return MappedVector( e, Pcp(H) );
 end);
  
-InstallMethod( ImageElm, "for isom by finite matrix groups ", true,
+InstallMethod( ImageElm, "for isom by finite matrix groups (Polenta)", true,
 [IsIsomorphismByFinitePolycyclicMatrixGroup, 
 IsMultiplicativeElementWithInverse], 0,
 function( nat, h )
@@ -220,7 +220,7 @@ function( nat, h )
     return MappedVector( e, Pcp(H) );
 end);
  
-InstallMethod( ImagesSet,"for isom by finite matrix groups", true,
+InstallMethod( ImagesSet,"for isom by finite matrix groups (Polenta)", true,
 [IsIsomorphismByFinitePolycyclicMatrixGroup, IsCollection], 0,
 function( nat, elms )
     local  H, e, CPCS,exps,h;
