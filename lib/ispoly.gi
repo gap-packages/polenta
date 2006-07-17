@@ -196,6 +196,10 @@ POL_IsIntegralActionOnLieAlgebra := function( gens, L )
         ind := POL_InducedActionToLieAlgebra( g, L );
         Info( InfoPolenta, 3, "Induced action to Lie algebra:" );
         Info(InfoPolenta, 3, ind );
+        if not Trace( ind ) in Integers then
+            Info( InfoPolenta, 3, "Trace not integral\n" );
+            return false;
+        fi;
         pol := CharacteristicPolynomial( Rationals, ind );
  	# pol := MinimalPolynomial( Rationals, ind );
         Info( InfoPolenta, 3, "Characteristic polynomial:" );
@@ -219,6 +223,33 @@ end;
 
 #############################################################################
 ##
+#F POL_IsIntegralActionOnLieAlgebra_Beals( gens, L )
+##
+## IN: gens ....... list of matrices 
+##     L ........... Lie algebra on which gens acts 
+##                   via l^g = Log( Exp(l)^g )
+## 
+## OUT: returns true if for all g in gens, the minimal polynomial of
+##      the induced action of  g,g^-1 to L is integral.
+##      false otherwise.
+##
+POL_IsIntegralActionOnLieAlgebra_Beals := function( gens, L )
+    local gens_ind, G_ind, lat; 
+    
+    gens_ind :=  List( gens, x-> POL_InducedActionToLieAlgebra( x, L ));
+    G_ind := GroupByGenerators( gens_ind );
+    
+    lat := InvariantLattice( G_ind );
+    if lat = fail then 
+        return false;
+    else 
+        return true;
+    fi; 
+
+end;
+
+#############################################################################
+##
 #F
 ##
 ## IN: gensU_p ...... normal subgroup generators for U_p
@@ -226,7 +257,7 @@ end;
 ##     gensGU ......  representatives of pc sequence of GU
 ##
 POL_IsFinitelgeneratedU_p := function( gensU_p, gensG, gensGU )
-    local L,L_ext,isIntegral,gensU_p_mod,i;
+    local L,L_ext,isIntegral,gensU_p_mod,i,method;
 
     # catch trivial case G/U = 1
     if Length( gensGU ) = 0 then 
@@ -251,9 +282,15 @@ POL_IsFinitelgeneratedU_p := function( gensU_p, gensG, gensGU )
     # close it under action of G
     L_ext := POL_CloseLieAlgebraUnderGrpAction( gensG, L );
     Info( InfoPolenta, 3, "Dimension L_ext: ", Dimension( L_ext ) );
+    Info( InfoPolenta, 3, "Basis of L_ext: ", Basis( L ) );
 
     # test whether the action of gensGU on the Lie algebra is integral
-    isIntegral := POL_IsIntegralActionOnLieAlgebra( gensGU, L_ext );
+    method := "beals";
+    if method = "char" then 
+        isIntegral := POL_IsIntegralActionOnLieAlgebra_Beals( gensG, L_ext );
+    else 
+        isIntegral := POL_IsIntegralActionOnLieAlgebra( gensGU, L_ext );
+    fi;
 
     return isIntegral;
 end;
