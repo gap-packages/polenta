@@ -200,7 +200,7 @@ POL_IsIntegralActionOnLieAlgebra := function( gens, L )
             Info( InfoPolenta, 3, "Trace not integral\n" );
             return false;
         fi;
-        pol := CharacteristicPolynomial( Rationals, ind );
+        pol := CharacteristicPolynomial( Rationals, Rationals, ind );
  	# pol := MinimalPolynomial( Rationals, ind );
         Info( InfoPolenta, 3, "Characteristic polynomial:" );
         Info(InfoPolenta, 3, pol );
