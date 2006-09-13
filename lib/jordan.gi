@@ -51,6 +51,7 @@ if false then
     x := Indeterminate(Rationals,"x": old );
     pol := x^2+1;
     pol := x^3+2*x+2;
+    pol := x^3-x +7;
     pol := x^2 + 1/2;
 
     mat := CompanionMat( pol );
@@ -69,8 +70,9 @@ if false then
 fi;
 
 
-## IN: mat ..................... semisimple rational matrix.
-##
+## IN: args[1]=mat ..................... semisimple rational matrix.
+##     args[2]=pol ..................... minimal or char polynomial of
+##                                       mat. (optional parameter)
 ## Comment: Several strategies are possible.
 ## We could first compute a homegeneous series for the 
 ## <mat>-module Q^d and then diagonalize these. 
@@ -82,12 +84,19 @@ fi;
 ## We probably need that field anyway later when we use 
 ## it for symbolic collection.
 ##
-POL_DiagonalizeMat := function( mat )
-    local pol, F, factors, eigen_values, eigen_spaces, id, space, T, e,fil;
+POL_DiagonalizeMat := function( args )
+    local pol, F, factors, eigen_values, eigen_spaces, id, space, T, e,fil,mat;
+
+    # setup 
+    mat := args[1];
+    if Length( args ) = 2 then
+        pol := args[2];
+    else
+        pol := CharacteristicPolynomial( Rationals, Rationals, mat );
+    fi;
 
     # compute the extension field of the rationals that contains
     # all eigenvalues of mat.
-    pol := CharacteristicPolynomial( Rationals, Rationals, mat );
     F := SplittingField(  pol );
     factors := FactorsPolynomialKant( pol, F );
     
@@ -115,17 +124,50 @@ POL_DiagonalizeMat := function( mat )
     # attach info to matrix
     # ?
 
-    return [T*mat*T^-1, eigen_values, eigen_spaces, T ];
+    return rec( diagonalmat := T*mat*T^-1,
+                eigen_values := eigen_values,
+                eigen_spaces := eigen_spaces,
+                baseChange := T );
 end;
 
-# problem with the following matrix.
+POL_AlgebraBase := function( mats )
+    local base, flat;
+     if Length( mats ) = 0 then return []; fi;
+     flat := List( mats, Flat );
+     base := SpinnUpEchelonBase( [], flat, mats, OnMatVector);
+     return base;
+end;
+
+    
 if false then 
-    mat := [ [ 0, 0, -2 ], [ 1, 0, -2 ], [ 0, 1, 0 ] ];
+    mat1 := [ [ 0, 0, -2 ], [ 1, 0, -2 ], [ 0, 1, 0 ] ];
+    mat2 := 2* mat1; 
+    mats := [mat1,mat2];
 fi;
 
-## IN mats ............. semisimple and commuting mats
+## IN mats ............. semisimple and commuting matrices over Q
 ##
 POL_DiagonalizeMatsSimultaneously := function( mats )
+    local basis, g_rec, g, pol, diag_rec, T, Tinv, primitiveElm;
+
+    # get primitive element g for the Q-algebra Q[mats]
+    basis := POL_AlgebraBase( mats );
+    g_rec := PrimitiveAlgebraElement( mats, basis );
+    g := g_rec.elem;
+    pol := g_rec.poly;
+
+    # diagonalize this element g 
+    diag_rec := POL_DiagonalizeMat( [g, pol] );
+    T := diag_rec.baseChange;
+    Tinv := T^-1;
+
+    # return list of diagonalized matrices,
+    # and full information for T.
+    return rec( diagonalmats := List( mats, x->T*x*Tinv ),
+                basis := basis,
+                primitiveElm := g,
+                pol := pol,
+                diag_rec := diag_rec);
 
 end;
 

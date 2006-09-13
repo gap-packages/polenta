@@ -1300,7 +1300,6 @@ HomogeneousSeriesTriangularizableMatGroup := function( G )
     
 end;
 
-
 #############################################################################
 ##
 #E
