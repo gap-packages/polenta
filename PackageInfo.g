@@ -24,7 +24,7 @@ Persons := [
       IsAuthor      := true,
       IsMaintainer  := true,
       Email         := "BjoernAssmann@gmx.net",
-      WWWHome       := "www.dcs.st-and.ac.uk/~bjoern",
+      WWWHome       := "http://www.dcs.st-and.ac.uk/~bjoern",
       PostalAddress := Concatenation( [
             "Mathematical Institute\n",
             "University of St. Andrews\n",

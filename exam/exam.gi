@@ -1603,6 +1603,7 @@ SolvableMatGroupExams := function( n )
         return POL_PolExamples2( 1210 );
     fi;
     if n = 10 then 
+         # examples used during the talk in oxford and st andrews
          mat1 := [ [ 5/6, -2, 1, 4 ], [ 2/3, -19/6, -1, 4 ], 
                  [ 0, 0, 5/6, -2 ],  [ 0, 0, 2/3, -19/6 ] ];
          mat2 := [ [ -1/2, -12/5, 3, -1 ], [ 4/5, -53/10, -2, -4 ], 
