@@ -98,7 +98,7 @@ POL_DiagonalizeMat := function( args )
     # compute the extension field of the rationals that contains
     # all eigenvalues of mat.
     F := SplittingField(  pol );
-    factors := FactorsPolynomialKant( pol, F );
+    factors := FactorsPolynomialKant( F, pol );
     
     # check wheter all factors have degree one
     fil := Filtered( factors, x->Degree(x) > 1 );
