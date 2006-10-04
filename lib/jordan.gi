@@ -128,7 +128,7 @@ POL_DiagonalizeMat := function( args )
                 eigen_values := eigen_values,
                 eigen_spaces := eigen_spaces,
                 baseChange := T,
-                splittField := F );
+                splitField := F );
 end;
 
 POL_AlgebraBase := function( mats )
