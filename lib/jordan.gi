@@ -127,7 +127,8 @@ POL_DiagonalizeMat := function( args )
     return rec( diagonalmat := T*mat*T^-1,
                 eigen_values := eigen_values,
                 eigen_spaces := eigen_spaces,
-                baseChange := T );
+                baseChange := T,
+                splittField := F );
 end;
 
 POL_AlgebraBase := function( mats )
