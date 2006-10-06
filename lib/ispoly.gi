@@ -42,9 +42,11 @@ end;
 POL_Exponential := function( v )
     local n,exp, vPow, fac, i;
     n := Length( v[1] );
-    exp := IdentityMat(n) + v;
+    #exp := IdentityMat(n) + v;
+    exp := v^0 + v;
     vPow := v;
-    fac := 1;
+    #fac := 1;
+    fac := v[1][1]^0;
     for i in [2..n-1] do
         vPow := vPow*v;
         fac := fac*i;
