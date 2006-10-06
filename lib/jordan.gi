@@ -168,7 +168,9 @@ POL_DiagonalizeMatsSimultaneously := function( mats )
                 basis := basis,
                 primitiveElm := g,
                 pol := pol,
-                diag_rec := diag_rec);
+                diag_rec := diag_rec,
+                T := T, 
+                Tinv := Tinv );
 
 end;
 
