@@ -19,6 +19,7 @@ POL_IsSolvableRationalMatGroup_infinite := function( G )
            homSeries, gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
            gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p,  pcgs_U_p;
 
+
     # setup
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
@@ -109,7 +110,11 @@ end;
 InstallMethod( IsSolvableGroup, "for rational matrix groups (Polenta)", true,
                [ IsRationalMatrixGroup ], 0, 
 function( G ) 
-    return POL_IsSolvableRationalMatGroup_infinite( G ); 
+    if IsAbelian( G ) then 
+        return true;
+    else
+        return POL_IsSolvableRationalMatGroup_infinite( G ); 
+    fi;
 end );
 
 #############################################################################
@@ -122,6 +127,9 @@ InstallMethod( IsSolvableGroup, "for matrix groups over Q or a finte field (Pole
                true, [ IsMatrixGroup ], 0, 
 function( G ) 
         local F;
+        if IsAbelian( G ) then 
+            return true;
+        fi;
         F := DefaultFieldOfMatrixGroup( G );
         if IsFinite( F ) then 
             return POL_IsSolvableFiniteMatGroup( G );
@@ -138,9 +146,16 @@ end );
 ##
 POL_IsPolycyclicRationalMatGroup := function( G )
      local  test;
+     if not IsFinitelyGeneratedGroup( G ) then 
+         return false;
+     fi;
+
+     if IsAbelian( G ) then 
+         return true;
+     fi;
      test := CPCS_NonAbelianPRMGroup( G, 0, "testIsPoly" );
      if test=false or test=fail then
-	return false;
+	 return false;
      else
         return true;
      fi;
@@ -166,6 +181,13 @@ end );
 InstallMethod( IsPolycyclicMatGroup, "for rational matrix groups (Polenta)", true,
                [ IsRationalMatrixGroup ], 0, 
 function( G ) 
+     if not IsFinitelyGeneratedGroup( G ) then 
+         return false;
+     fi;
+
+     if IsAbelian( G ) then 
+         return true;
+     fi;
     return POL_IsPolycyclicRationalMatGroup( G );
 end );
 
@@ -180,6 +202,12 @@ InstallMethod( IsPolycyclicMatGroup,
                true,[ IsMatrixGroup ], 0, 
 function( G ) 
     local F;
+     if not IsFinitelyGeneratedGroup( G ) then 
+         return false;
+     fi;
+    if IsAbelian( G ) then 
+        return true;
+    fi;
     F := DefaultFieldOfMatrixGroup( G );
     if IsFinite( F ) then 
         return IsSolvableGroup( G );
@@ -202,6 +230,9 @@ POL_IsTriangularizableRationalMatGroup_infinite := function( G )
             gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
             gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p,
             radSeries, comSeries, recordSeries, isTriang;
+    if IsAbelian( G ) then 
+        return true;
+    fi;
     # setup
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
