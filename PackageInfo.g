@@ -7,8 +7,8 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.2.4",
-Date := "07/06/2007",
+Version := "1.2.6",
+Date := "11/06/2007",
 
 ArchiveURL := Concatenation([ 
 "http://www.cs.st-andrews.ac.uk/~bjoern/software/Polenta/Polenta-", 
@@ -59,7 +59,7 @@ PackageDoc := rec(
 Dependencies := rec(
   GAP := ">= 4.3fix4",
   NeededOtherPackages := [[ "polycyclic", ">=1.1" ],
-                          [ "alnuth" , "2.0"], ],
+                          [ "alnuth" , "2.2.3"], ],
   SuggestedOtherPackages := [ ["aclib", "1.0"]], 
   ExternalConditions := 
 [["needs KANT/KASH Computer Algebra System Version 2.5",
