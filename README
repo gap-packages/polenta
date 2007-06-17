@@ -51,7 +51,7 @@ Note that the GAP-Packages Alnuth and Polycyclic are needed for this package.
 Normally they should be contained in your distribution. If not 
 they can be obtained at
 
-      http://cayley.math.nat.tu-bs.de/software/content.html
+      http://www.gap-system.org/Packages/packages.html
 
 
 Getting and installing KASH
@@ -100,10 +100,9 @@ Running the test suite
 Once the package is installed, it is possible to check the correct
 installation by running the test suite of the package.
 
-    gap> Read( "mygap/pkg/polenta/tst/testall.g" );
+    gap> ReadPackage( "Polenta", "tst/testall.g" );
 
-where `mygap' needs to be replaced with the directory where GAP
-was installed. For more details on  Test Files see 
+For more details on  Test Files see 
 Section 7.9 of the 
 GAP Reference Manual.
 
