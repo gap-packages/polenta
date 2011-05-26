@@ -19,8 +19,8 @@
 POL_KroneckerProduct := function( G, e ) 
     local newGens, gens;
     gens := GeneratorsOfGroup( G );
-    if exp = 0 then 
-        exp := RandomList( [1,-1] );
+    if e = 0 then 
+        e := RandomList( [1,-1] );
     fi;
     newGens := List( gens, x->KroneckerProduct(x,x^e) );
     return Group( newGens );
@@ -850,21 +850,6 @@ POL_DirectProduct:= function( G1, G2 )
     return Group( gens ); 
 end;
 
-#############################################################################
-##
-#F POL_KroneckerProduct
-## 
-## Examples build with the Kroneckerproduct.
-## 
-POL_KroneckerProduct := function( G, e ) 
-    local newGens, gens;
-    gens := GeneratorsOfGroup( G );
-    if exp = 0 then 
-        exp := RandomList( [1,-1] );
-    fi;
-    newGens := List( gens, x->KroneckerProduct(x,x^e) );
-    return Group( newGens );
-end;
 
 #############################################################################
 ##
