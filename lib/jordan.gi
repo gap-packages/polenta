@@ -61,7 +61,7 @@ if false then
     pol2 := AlgExtEmbeddedPol(F,pol);
     Factors( pol2 );
 
-    #or use FactorsPolynomialKant( pol, F );
+    #or use FactorsPolynomialAlgExt( F, pol );
 
     a := RootOfDefiningPolynomial( F );
     id := IdentityMat( 2, F );
@@ -97,8 +97,9 @@ POL_DiagonalizeMat := function( args )
 
     # compute the extension field of the rationals that contains
     # all eigenvalues of mat.
+    # SplittingField over the rationals requires the radiroot GAP package!
     F := SplittingField(  pol );
-    factors := FactorsPolynomialKant( F, pol );
+    factors := FactorsPolynomialAlgExt( F, pol );
     
     # check wheter all factors have degree one
     fil := Filtered( factors, x->Degree(x) > 1 );
