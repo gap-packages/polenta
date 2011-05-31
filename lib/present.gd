@@ -26,4 +26,3 @@ DeclareGlobalFunction( "POL_IsMatGroupOverFiniteField" );
 #############################################################################
 ##
 #E
-

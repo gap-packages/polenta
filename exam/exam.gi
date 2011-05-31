@@ -1617,4 +1617,3 @@ end;
 # 
 #   H = { (\sigma,g) : \sigma \alpha = g \beta}
 #   K < G \times H
-    

@@ -14,4 +14,3 @@
 #F POL_RandomGroupElement( gens )
 ##
 DeclareGlobalFunction( "POL_RandomGroupElement" );
-

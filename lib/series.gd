@@ -22,14 +22,3 @@ DeclareOperation( "RadicalSeriesSolvableMatGroup", [ IsMatrixGroup ] );
 #############################################################################
 ##
 #E
-
-
-
-
-
-
-
-
-
-
-

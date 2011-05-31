@@ -64,9 +64,3 @@ DeclareGlobalFunction( "POL_NormalSubgroupGeneratorsU_p" );
 #############################################################################
 ##
 #E
-
-
-
-
-
-

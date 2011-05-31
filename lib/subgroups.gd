@@ -48,5 +48,3 @@ DeclareOperation( "SubgroupsUnipotentByAbelianByFinite" , [ IsMatrixGroup ] );
 #############################################################################
 ##
 #E
-
-

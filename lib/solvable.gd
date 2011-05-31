@@ -29,5 +29,3 @@ DeclareOperation( "IsTriangularizableMatGroup", [ IsMatrixGroup ] );
 #############################################################################
 ##
 #E
-
-
