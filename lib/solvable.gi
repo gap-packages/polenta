@@ -299,18 +299,11 @@ end;
 ##
 ##
 InstallMethod( IsTriangularizableMatGroup, "for matrix groups over Q (Polenta)", true,
-               [ IsMatrixGroup ], 0, 
-function( G ) 
-    if IsRationalMatrixGroup( G )  then 
-	if IsAbelian( G ) then
-	    return true;
-	else
-	    return POL_IsTriangularizableRationalMatGroup_infinite( G ); 
-	fi;
-    else 
-	TryNextMethod( );
-    fi;  
-end );
+               [ IsRationalMatrixGroup ], 0,
+               POL_IsTriangularizableRationalMatGroup_infinite );
+
+## Enforce rationality check for cyclotomic matrix groups
+RedispatchOnCondition(IsTriangularizableMatGroup,true,[IsCyclotomicMatrixGroup],[IsRationalMatrixGroup],0);
 
 #############################################################################
 ##
