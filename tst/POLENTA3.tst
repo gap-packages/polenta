@@ -1,4 +1,4 @@
-gap> START_TEST("Test 2 of POLENTA package");  
+gap> START_TEST("Test 3 of POLENTA package");  
 gap> SetInfoLevel( InfoPolenta, 0 );;
 gap> POL_Test_AllFunctions_PolExamples( 1,31 );
 Test of group 1
