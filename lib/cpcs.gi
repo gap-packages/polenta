@@ -41,7 +41,7 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
             gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
             gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p,
             radSeries, comSeries, recordSeries, isTriang, isFiniteGen,
-	    testIsPoly;
+            testIsPoly;
     # setup
     G := arg[1];
     gens := GeneratorsOfGroup( G );
@@ -64,7 +64,7 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     testIsPoly := false;
     if Length( arg ) = 3 then
        if arg[3] = "testIsPoly" then
-	  testIsPoly := true;
+          testIsPoly := true;
        fi;
     fi;
 
@@ -118,8 +118,8 @@ InstallGlobalFunction( CPCS_NonAbelianPRMGroup , function( arg )
     if isTriang then
         Info( InfoPolenta, 1, "Group is triangularizable!" );
         return CPCS_UnipotentByAbelianGroupByRadSeries( gens,
-							recordSeries,
-							testIsPoly );  
+                                                        recordSeries,
+                                                        testIsPoly );  
     fi;
 
     # compositions series
@@ -294,7 +294,7 @@ InstallGlobalFunction( CPCS_UnipotentByAbelianGroupByRadSeries ,
     local   p, d, gens_p, bound_derivedLength, pcgs_I_p, gens_K_p,
             comSeries, gens_mutableCopy, pcgs,
             gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p,
-	    isFiniteGen;
+            isFiniteGen;
     # setup
     d := Length(gens[1][1]);
 

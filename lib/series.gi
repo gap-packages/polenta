@@ -835,7 +835,7 @@ POL_CompositionSeriesByRadicalSeries := function( mats, d, sersFullData, pos)
     rads := POL_CompositionSeriesByRadicalSeries(acts,
                                                  Length(radb.radical),
                                                  sersFullData, 
-						 pos +1 );
+                                                 pos +1 );
     if rads = fail then return fail; fi;
     rads := List( rads, function(x) if x=[] then return []; else
                             return x * radb.radical; fi;end );
@@ -931,7 +931,7 @@ POL_CompositionSeriesByRadicalSeriesRecalAlg
     rads := POL_CompositionSeriesByRadicalSeriesRecalAlg(acts,
                                                  Length(radb.radical),
                                                  sersFullData, 
-						 pos +1 );
+                                                 pos +1 );
     if rads = fail then return fail; fi;
     rads := List( rads, function(x) if x=[] then return []; else
                             return x * radb.radical; fi;end );
@@ -1189,7 +1189,7 @@ POL_HomogeneousSeriesByRadicalSeriesRecalAlg
     rads := POL_HomogeneousSeriesByRadicalSeriesRecalAlg(acts,
                                                  Length(radb.radical),
                                                  sersFullData, 
-						 pos +1 );
+                                                 pos +1 );
     if rads = fail then return fail; fi;
     rads := List( rads, function(x) if x=[] then return []; else
                             return x * radb.radical; fi;end );

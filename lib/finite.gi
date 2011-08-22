@@ -133,7 +133,7 @@ InstallGlobalFunction( ClosureBasePcgs_word,function( pcgsN, g, gens, lim )
               Add(c,a); 
           od;
           c := Filtered(c,x -> not
-	                MemberTestByBasePcgs(pcgsU,x.groupElement));
+                        MemberTestByBasePcgs(pcgsU,x.groupElement));
 
         # recurse, if <U,c>/N is not abelian
           l := Length( pcgsN.pcref );

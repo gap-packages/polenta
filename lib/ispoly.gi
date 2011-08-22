@@ -70,15 +70,15 @@ POL_CloseMatrixSpaceUnderLieBracket := function( V )
     n := Length( basis );
 
     for i in [1..n] do
-	for j in [i+1..n] do
-	    com := basis[i]*basis[j]-basis[j]*basis[i];
+        for j in [i+1..n] do
+            com := basis[i]*basis[j]-basis[j]*basis[i];
             if not com in V then 
-	       basis_ext := POL_CopyVectorList( basis );
-	       Add( basis_ext, com );
-	       V_ext := VectorSpace( Rationals, basis_ext, "basis" );
-	       return POL_CloseMatrixSpaceUnderLieBracket( V_ext );
-	    fi;
-	od;
+               basis_ext := POL_CopyVectorList( basis );
+               Add( basis_ext, com );
+               V_ext := VectorSpace( Rationals, basis_ext, "basis" );
+               return POL_CloseMatrixSpaceUnderLieBracket( V_ext );
+            fi;
+        od;
     od;
     return V;
 end;
@@ -119,18 +119,18 @@ POL_CloseLieAlgebraUnderGrpAction := function( gensG, L )
     local basis,b,g,exp,u,l,basis_ext,V_ext,L_ext;
     basis := Basis( L );
     for b in basis do 
-	for g in gensG do
-	    exp := POL_Exponential( b );
-	    u := exp^g;
-	    l := POL_Logarithm( u );
-	    if not l in L then
-	       basis_ext := POL_CopyVectorList( basis );
-	       Add( basis_ext, l );
-	       V_ext := VectorSpace( Rationals, basis_ext, "basis" );
-	       L_ext := POL_CloseMatrixSpaceUnderLieBracket( V_ext );
-	       return POL_CloseLieAlgebraUnderGrpAction( gensG, L_ext );
-	    fi;  
-	od;
+        for g in gensG do
+            exp := POL_Exponential( b );
+            u := exp^g;
+            l := POL_Logarithm( u );
+            if not l in L then
+               basis_ext := POL_CopyVectorList( basis );
+               Add( basis_ext, l );
+               V_ext := VectorSpace( Rationals, basis_ext, "basis" );
+               L_ext := POL_CloseMatrixSpaceUnderLieBracket( V_ext );
+               return POL_CloseLieAlgebraUnderGrpAction( gensG, L_ext );
+            fi;  
+        od;
     od;
     return L;
 end;
@@ -153,11 +153,11 @@ POL_InducedActionToLieAlgebra := function( g, L )
     inducedAction := [];
 
     for i in [1..n] do 
-	exp := POL_Exponential( basis[i] );
-	u := exp^g;
-	log := POL_Logarithm( u );
-	coeff := Coefficients( basis, log );
-	Add( inducedAction, coeff );
+        exp := POL_Exponential( basis[i] );
+        u := exp^g;
+        log := POL_Logarithm( u );
+        coeff := Coefficients( basis, log );
+        Add( inducedAction, coeff );
     od;
     return inducedAction;
 end;
@@ -170,9 +170,9 @@ end;
 POL_IsIntegerList := function( list )
     local z;
     for z in list do 
-	if not z in Integers then
-	    return false;
-	fi;
+        if not z in Integers then
+            return false;
+        fi;
     od;
     return true;
 end;
@@ -203,22 +203,22 @@ POL_IsIntegralActionOnLieAlgebra := function( gens, L )
             return false;
         fi;
         pol := CharacteristicPolynomial( Rationals, Rationals, ind );
- 	# pol := MinimalPolynomial( Rationals, ind );
+        # pol := MinimalPolynomial( Rationals, ind );
         Info( InfoPolenta, 3, "Characteristic polynomial:" );
         Info(InfoPolenta, 3, pol );
-	coeffs := CoefficientsOfLaurentPolynomial( pol );
+        coeffs := CoefficientsOfLaurentPolynomial( pol );
 
-	# test if pol_g in Z[x]
-	if not POL_IsIntegerList( coeffs[1] ) then 
-	    return false;
-	fi;
+        # test if pol_g in Z[x]
+        if not POL_IsIntegerList( coeffs[1] ) then 
+            return false;
+        fi;
 
-	# test if pol_g^-1 in Z[X] 
+        # test if pol_g^-1 in Z[X] 
         constTerm := Value( pol, 0 );
-	bool := (constTerm = 1 ) or ( constTerm = -1);
-	if not bool then
-	   return false;
-	fi;
+        bool := (constTerm = 1 ) or ( constTerm = -1);
+        if not bool then
+           return false;
+        fi;
     od;
     return true;
 end;

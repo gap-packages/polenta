@@ -155,7 +155,7 @@ POL_IsPolycyclicRationalMatGroup := function( G )
      fi;
      test := CPCS_NonAbelianPRMGroup( G, 0, "testIsPoly" );
      if test=false or test=fail then
-	 return false;
+        return false;
      else
         return true;
      fi;
@@ -303,15 +303,15 @@ end;
 InstallMethod( IsTriangularizableMatGroup, "for matrix groups over Q (Polenta)", true,
                [ IsMatrixGroup ], 0, 
 function( G ) 
-        if IsRationalMatrixGroup( G )  then 
-            if IsAbelian( G ) then
-                return true;
-	    else
-                return POL_IsTriangularizableRationalMatGroup_infinite( G ); 
-            fi;
-        else 
-	    TryNextMethod( );
-        fi;  
+    if IsRationalMatrixGroup( G )  then 
+	if IsAbelian( G ) then
+	    return true;
+	else
+	    return POL_IsTriangularizableRationalMatGroup_infinite( G ); 
+	fi;
+    else 
+	TryNextMethod( );
+    fi;  
 end );
 
 #############################################################################

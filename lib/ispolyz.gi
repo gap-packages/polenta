@@ -31,7 +31,7 @@ POL_ComputePolyZSeries := function( G )
         nat := NaturalHomomorphism( H, der );
         im := Image( nat );
         if IsFinite( im ) then
-	   return fail;
+           return fail;
         else 
            T := TorsionSubgroup( im );
            H := PreImage( nat, T );
@@ -56,9 +56,9 @@ POL_IsPolyZGroup := function( G )
 
     sers := POL_ComputePolyZSeries( G );
     if sers = fail then 
-       return false;
+        return false;
     else
-	return true;
+        return true;
     fi; 
 
 end;
