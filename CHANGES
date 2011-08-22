@@ -19,6 +19,13 @@
 	  it here.
 	o Fixed handling of matrix groups over finite fields that are
 	  not prime fields.
+	o Changed IsSolvableGroup method installation so that calling them
+	  on matrix groups not defined over a field does not cause weird
+	  errors anymore.
+	o Changed the IsPolycyclicMatGroup methods to IsPolycyclicGroup
+	  methods, so that more code can automatically benefit from this
+	  functionality. The only remaining IsPolycyclicMatGroup method
+	  simply invokes IsPolycyclicGroup.
 
 1.2.7 (17/06/2007)
 	o TODO

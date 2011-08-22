@@ -14,9 +14,12 @@
 ##
 #M IsPolycyclicMatGroup( G )
 ##
-## G is a matrix group over the Rationals or a finite field. 
+## G is a matrix group, test whether it is polycyclic.
 ##
-DeclareOperation( "IsPolycyclicMatGroup", [IsMatrixGroup] );
+## TODO: Mark this as deprecated and eventually remove it; code using it
+## should be changed to use IsPolycyclicGroup.
+##
+DeclareOperation( "IsPolycyclicMatGroup", [ IsMatrixGroup ] );
 
 #############################################################################
 ##

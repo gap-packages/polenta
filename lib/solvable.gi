@@ -19,6 +19,10 @@ POL_IsSolvableRationalMatGroup_infinite := function( G )
            homSeries, gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
            gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p,  pcgs_U_p;
 
+    # handle trivial case
+    if IsAbelian( G ) then 
+        return true;
+    fi;
 
     # setup
     gens := GeneratorsOfGroup( G );
@@ -84,14 +88,20 @@ end;
 ##
 POL_IsSolvableFiniteMatGroup := function( G )
     local gens, d, CPCS, bound_derivedLength;
+
+    # handle trivial case
+    if IsAbelian( G ) then 
+        return true;
+    fi;
+
     # calculate a constructive pc-sequence
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
     # determine un upperbound for the derived length of G
     bound_derivedLength := d+2;
 
-     Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
-           "    for the finite input group ..." );
+    Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
+          "    for the finite input group ..." );
     CPCS := CPCS_finite_word( gens, bound_derivedLength );
 
     if CPCS = fail then 
@@ -106,39 +116,25 @@ end;
 ##
 #M IsSolvableGroup( G )
 ##
+## G is a matrix group over the rationals. 
+##
 ##
 InstallMethod( IsSolvableGroup, "for rational matrix groups (Polenta)", true,
                [ IsRationalMatrixGroup ], 0, 
-function( G ) 
-    if IsAbelian( G ) then 
-        return true;
-    else
-        return POL_IsSolvableRationalMatGroup_infinite( G ); 
-    fi;
-end );
+               POL_IsSolvableRationalMatGroup_infinite );
+
+## Enforce rationality check for cyclotomic matrix groups
+RedispatchOnCondition(IsSolvableGroup,true,[IsCyclotomicMatrixGroup],[IsRationalMatrixGroup],0);
 
 #############################################################################
 ##
 #M IsSolvableGroup( G )
 ##
-## G is a matrix group over a finite field or over the rationals. 
+## G is a matrix group over a finite field.
 ##
-InstallMethod( IsSolvableGroup, "for matrix groups over Q or a finte field (Polenta)", 
-               true, [ IsMatrixGroup ], 0, 
-function( G ) 
-        local F;
-        if IsAbelian( G ) then 
-            return true;
-        fi;
-        F := DefaultFieldOfMatrixGroup( G );
-        if IsFinite( F ) then 
-            return POL_IsSolvableFiniteMatGroup( G );
-        elif IsRationalMatrixGroup( G ) then 
-            return POL_IsSolvableRationalMatGroup_infinite( G ); 
-        else
-            TryNextMethod();
-        fi;
-end );
+InstallMethod( IsSolvableGroup, "for matrix groups over a finte field (Polenta)", 
+               true, [ IsFFEMatrixGroup ], 0,
+               POL_IsSolvableFiniteMatGroup );
 
 #############################################################################
 ##
@@ -163,43 +159,44 @@ end;
 
 #############################################################################
 ##
-#M IsPolycyclicMatGroup( G )
+#M IsPolycyclicGroup( G )
 ## 
+## G is a finitely generated subgroup of GL(n,Z), hence G is polycycylic
+## if and only if G is solvable and finitely generated.
 ##
-InstallMethod( IsPolycyclicMatGroup, "for integer matrix groups (Polenta)", true,
+InstallMethod( IsPolycyclicGroup, "for integer matrix groups (Polenta)", true,
                [ IsIntegerMatrixGroup ], 0, 
-function( G ) 
-    # in GL(n,Z), G is polyc. iff G is solvable 
-    return IsSolvableGroup( G );
+function( G )
+    return IsFinitelyGeneratedGroup( G ) and IsSolvableGroup( G );
 end );
 
 #############################################################################
 ##
-#M IsPolycyclicMatGroup( G )
+#M IsPolycyclicGroup( G )
 ## 
+## G is a matrix group over the rationals
 ##
-InstallMethod( IsPolycyclicMatGroup, "for rational matrix groups (Polenta)", true,
-               [ IsRationalMatrixGroup ], 0, 
-function( G ) 
-     if not IsFinitelyGeneratedGroup( G ) then 
-         return false;
-     fi;
-
-     if IsAbelian( G ) then 
-         return true;
-     fi;
+InstallMethod( IsPolycyclicGroup, "for rational matrix groups (Polenta)", true,
+               [ IsRationalMatrixGroup ], 0,
+function( G )
+    if IsIntegerMatrixGroup(G) then
+        return IsFinitelyGeneratedGroup( G ) and IsSolvableGroup( G );
+    fi;
     return POL_IsPolycyclicRationalMatGroup( G );
 end );
 
+## Enforce rationality check for cyclotomic matrix groups
+RedispatchOnCondition(IsPolycyclicGroup,true,[IsCyclotomicMatrixGroup],[IsRationalMatrixGroup],0);
+
 #############################################################################
 ##
-#M IsPolycyclicMatGroup( G )
+#M IsPolycyclicGroup( G )
 ##
-## G is a matrix group over a finite field or over the rationals
+## G is a matrix group over a finite field
 ##
-InstallMethod( IsPolycyclicMatGroup, 
-               "for matrix groups over Q or a finite field (Polenta)", 
-               true,[ IsMatrixGroup ], 0, 
+InstallMethod( IsPolycyclicGroup, 
+               "for matrix groups over a finite field (Polenta)", true, 
+               [ IsFFEMatrixGroup ], 0, 
 function( G ) 
     local F;
      if not IsFinitelyGeneratedGroup( G ) then 
@@ -208,18 +205,19 @@ function( G )
     if IsAbelian( G ) then 
         return true;
     fi;
-    F := DefaultFieldOfMatrixGroup( G );
-    if IsFinite( F ) then 
-        return IsSolvableGroup( G );
-    elif IsIntegerMatrixGroup( G ) then 
-        # in GL(n,Z), G is polyc. iff G is solvable 
-        return IsSolvableGroup( G );
-    elif IsRationalMatrixGroup( G ) then 
-        return POL_IsPolycyclicRationalMatGroup( G );
-    else
-        TryNextMethod();
-    fi;
+    return IsSolvableGroup( G );
 end );
+
+#############################################################################
+##
+#M IsPolycyclicMatGroup( G )
+##
+## G is a matrix group, test whether it is polycyclic.
+##
+## TODO: Mark this as deprecated and eventually remove it; code using it
+## should be changed to use IsPolycyclicGroup.
+##
+InstallMethod( IsPolycyclicMatGroup, [ IsMatrixGroup ], IsPolycyclicGroup);
 
 #############################################################################
 ##
