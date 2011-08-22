@@ -237,9 +237,13 @@ end;
 #F POL_IsMatGroupOverFiniteField( G )
 ##
 InstallGlobalFunction( POL_IsMatGroupOverFiniteField, function( G )
-    local gens, k, F, i,j,g,d;
-    gens := GeneratorsOfGroup( G );
-    F := Field( gens[1][1] );
+    local k, F;
+    # TODO: Using FieldOfMatrixGroup here would trigger an error
+    # for matrix groups defined over a ring which is not embedded in
+    # a field, e.g. over "Integers mod 9".
+    #F := FieldOfMatrixGroup( G );
+    F := DefaultRing(Flat(GeneratorsOfGroup(G)));
+    if not IsField( F ) then return false; fi;
     k := Characteristic(  F );
     if k = false then return false; fi;
     return k;

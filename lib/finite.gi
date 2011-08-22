@@ -18,11 +18,11 @@
 ## we calculate suitable orbit points for a stabilizer chain
 ## of <gens>, i.e. points with small orbits
 ##
-POL_SuitableOrbitPoints := function( gens)
+POL_SuitableOrbitPoints := function( gens )
     local MM,cs,l,i,x,fac,F,n,csR;
 
     # calculate the module
-    F := Field( gens[1][1][1] );
+    F := FieldOfMatrixList( gens );
     MM := GModuleByMats(gens, F);
 
     # use the meataxe to calculate a decomposition series
@@ -209,18 +209,17 @@ end );
 ##
 ## 
 InstallGlobalFunction( CPCS_finite_word , function( gensOfG , b)
-    local c,f,d,trv,pcgsOfN,x,epsilon,h,H,i,n,
+    local c,f,d,pcgsOfN,x,epsilon,h,H,i,n,
           suitableOrbitPoints,pcgsOfN_hilf,j,k;
     Info( InfoPolenta, 5, "determining a constructive pcgs for the finite part...");  
 
     # Setup of N
-    f := Field( gensOfG[1][1][1] );
+    f := FieldOfMatrixList( gensOfG );
     d := Length( gensOfG[1] );   
-    trv := function( x ) return x = x^0; end; 
     suitableOrbitPoints := POL_SuitableOrbitPoints( gensOfG );
     pcgsOfN := rec( orbit := [], trans := [], trels := [], defns := [],
                  pcref := [], 
-                 acton := f^d, oper := OnRight, trivl := trv, 
+                 acton := f^d, oper := OnRight, trivl := IsOne, 
                  gens:= [], wordGens:=[], gensOfG:=gensOfG,
                  suitableOrbitPoints := suitableOrbitPoints );
     c :=0;

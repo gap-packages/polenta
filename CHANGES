@@ -17,6 +17,8 @@
 	o Removed references to KANT / KASH -- which is a dependency of
 	  (old versions of) Alnuth, so we should not have to worry about
 	  it here.
+	o Fixed handling of matrix groups over finite fields that are
+	  not prime fields.
 
 1.2.7 (17/06/2007)
 	o TODO
