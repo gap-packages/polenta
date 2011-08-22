@@ -124,7 +124,9 @@ InstallMethod( IsSolvableGroup, "for rational matrix groups (Polenta)", true,
                POL_IsSolvableRationalMatGroup_infinite );
 
 ## Enforce rationality check for cyclotomic matrix groups
-RedispatchOnCondition(IsSolvableGroup,true,[IsCyclotomicMatrixGroup],[IsRationalMatrixGroup],0);
+RedispatchOnCondition( IsSolvableGroup, true,
+    [ IsCyclotomicMatrixGroup ], [ IsRationalMatrixGroup ],
+    RankFilter(IsCyclotomicMatrixGroup) );
 
 #############################################################################
 ##
@@ -186,7 +188,9 @@ function( G )
 end );
 
 ## Enforce rationality check for cyclotomic matrix groups
-RedispatchOnCondition(IsPolycyclicGroup,true,[IsCyclotomicMatrixGroup],[IsRationalMatrixGroup],0);
+RedispatchOnCondition( IsPolycyclicGroup, true,
+    [ IsCyclotomicMatrixGroup ], [ IsRationalMatrixGroup ],
+    RankFilter(IsCyclotomicMatrixGroup) );
 
 #############################################################################
 ##
@@ -303,7 +307,9 @@ InstallMethod( IsTriangularizableMatGroup, "for matrix groups over Q (Polenta)",
                POL_IsTriangularizableRationalMatGroup_infinite );
 
 ## Enforce rationality check for cyclotomic matrix groups
-RedispatchOnCondition(IsTriangularizableMatGroup,true,[IsCyclotomicMatrixGroup],[IsRationalMatrixGroup],0);
+RedispatchOnCondition( IsTriangularizableMatGroup, true,
+    [ IsCyclotomicMatrixGroup ], [ IsRationalMatrixGroup ],
+    RankFilter(IsCyclotomicMatrixGroup) );
 
 #############################################################################
 ##
