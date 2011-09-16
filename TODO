@@ -1,0 +1,25 @@
+* Rewrite documentation using GAPDoc
+* update documentation to match latest reality
+* make package release
+* check copyright data
+* add GPL headers to files as appropriate
+* Consider removing "documentation" for methods like ImageElm, IsSolvableGroup
+  or at least rewrite it to make clear that what Polenta does
+  is providing a new *method* for these, but that the functions
+  themselves are part of GAP...
+
+
+* PolExamples(14) is buggy, triggers an error?!?
+  But in a new test, it did work (in GAP 4.5). Huh?
+    # FIXME: The following group triggers an error in IsomorphismPcpGroup
+    # when passing it to POL_Test_AllFunctions_PRMGroup.
+        return POL_AlmostCrystallographicGroup( 4, 13, [-2,0,-2,-2,-1,-1] );
+
+* Implement IsTriangularizableMatGroup for FFE groups?
+
+* Update unit tests
+
+* Remove outdated refs to Björn's email
+
+* POL_DiagonalizeMat uses SplittingField for a rational
+  polynomial -> this requires package radiroot
