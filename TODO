@@ -18,8 +18,3 @@
 * Implement IsTriangularizableMatGroup for FFE groups?
 
 * Update unit tests
-
-* Remove outdated refs to Björn's email
-
-* POL_DiagonalizeMat uses SplittingField for a rational
-  polynomial -> this requires package radiroot

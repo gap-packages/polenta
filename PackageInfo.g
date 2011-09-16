@@ -63,7 +63,9 @@ PackageDoc := rec(
 Dependencies := rec(
   GAP := ">= 4.4",
   NeededOtherPackages := [[ "polycyclic", ">=1.1" ],
-                          [ "alnuth" , "2.2.3"], ],
+                          [ "alnuth" , "2.2.3"],
+                          [ "radiroot", "2.4" ],
+                         ],
   SuggestedOtherPackages := [ ["aclib", "1.0"]],
 ), 
 
