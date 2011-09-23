@@ -461,6 +461,7 @@ end;
 ##
 ## <G> is an abelian rational matrix group
 ##
+# FIXME: This function is documented and should be turned into a GlobalFunction
 HomogeneousSeriesAbelianMatGroup := function( G )
     local mats,d;
     if not IsRationalMatrixGroup( G ) or not IsAbelian( G ) then 
@@ -1012,6 +1013,7 @@ end;
 ##
 ## <G> is an abelian rational matrix group
 ##
+# FIXME: This function is documented and should be turned into a GlobalFunction
 CompositionSeriesAbelianMatGroup := function( G )
     local mats,d;
     if not IsRationalMatrixGroup( G ) or not IsAbelian( G ) then 
@@ -1110,6 +1112,7 @@ end;
 ##
 ## <G> is a triangularizable  rational matrix group
 ##
+# FIXME: This function is documented and should be turned into a GlobalFunction
 CompositionSeriesTriangularizableMatGroup := function( G )
     local mats,d;
     if not IsRationalMatrixGroup( G ) then 
@@ -1284,6 +1287,7 @@ end;
 ##
 ## <G> is a triangularizable  rational matrix group
 ##
+# FIXME: This function is documented and should be turned into a GlobalFunction
 HomogeneousSeriesTriangularizableMatGroup := function( G )
     local mats,d;
     if not IsRationalMatrixGroup( G ) then 
