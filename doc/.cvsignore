@@ -1,3 +1,8 @@
+chap*.html
+chap*.txt
+*.css
+*.js
+chooser.html
 manual.aux
 manual.bbl
 manual.blg
@@ -10,3 +15,16 @@ manual.lab
 manual.log
 manual.pdf
 manual.toc
+main.aux
+main.bbl
+main.blg
+main.brf
+main.idx
+main.ilg
+main.ind
+main.log
+main.out
+main.pnr
+main.tex
+main.toc
+polentabib.xml.bib
