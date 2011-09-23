@@ -266,7 +266,7 @@ POL_AbelianTestGroup := function( i )
     # natural homomorphism to GL(d,p)
     gens_p := InducedByField( gens, GF(p) );
  
-    # determine un upperbound for the derived length of G
+    # determine an upper bound for the derived length of G
     bound_derivedLength := d+2;
  
     # finite part
