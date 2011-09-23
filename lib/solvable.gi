@@ -2,7 +2,7 @@
 ##
 #W solvalble.gi           POLENTA package                     Bjoern Assmann
 ##
-## Methods for testing if a matrix group 
+## Methods for testing if a matrix group
 ## is solvable or polycyclic
 ##
 #H  @(#)$Id$
@@ -20,7 +20,7 @@ POL_IsSolvableRationalMatGroup_infinite := function( G )
            gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p,  pcgs_U_p;
 
     # handle trivial case
-    if IsAbelian( G ) then 
+    if IsAbelian( G ) then
         return true;
     fi;
 
@@ -38,9 +38,9 @@ POL_IsSolvableRationalMatGroup_infinite := function( G )
     # natural homomorphism to GL(d,p)
     gens_p := InducedByField( gens, GF(p) );
 
-    # determine un upperbound for the derived length of G
+    # determine an upper bound for the derived length of G
     bound_derivedLength := d+2;
- 
+
     # finite part
     Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
           "    for the image under the p-congruence homomorphism ..." );
@@ -55,31 +55,31 @@ POL_IsSolvableRationalMatGroup_infinite := function( G )
     Info( InfoPolenta, 1,"Compute normal subgroup generators for the kernel\n",
           "    of the p-congruence homomorphism ...");
     gens_K_p := POL_NormalSubgroupGeneratorsOfK_p( pcgs_I_p, gens );
-    gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) ); 
+    gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) );
     Info( InfoPolenta, 1,"finished.");
     Info( InfoPolenta, 2,"The normal subgroup generators are" );
     Info( InfoPolenta, 2, gens_K_p );
     Info( InfoPolenta, 1, "  " );
-  
- 
+
+
     # homogeneous series
     Info( InfoPolenta, 1, "Compute the homogeneous series ... ");
     gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
-    homSeries := POL_HomogeneousSeriesNormalGens( gens, 
+    homSeries := POL_HomogeneousSeriesNormalGens( gens,
                                                   gens_K_p_mutableCopy,
                                                   d );
-    if homSeries = fail then 
+    if homSeries = fail then
         return false;
     else
         Info( InfoPolenta, 1,"finished.");
-        Info( InfoPolenta, 1, "The homogeneous series has length ", 
+        Info( InfoPolenta, 1, "The homogeneous series has length ",
                           Length( homSeries ), "." );
         Info( InfoPolenta, 2, "The homogeneous series is" );
         Info( InfoPolenta, 2, homSeries );
         Info( InfoPolenta, 1, " " );
         return true;
-    fi;    
- 
+    fi;
+
 end;
 
 #############################################################################
@@ -90,23 +90,23 @@ POL_IsSolvableFiniteMatGroup := function( G )
     local gens, d, CPCS, bound_derivedLength;
 
     # handle trivial case
-    if IsAbelian( G ) then 
+    if IsAbelian( G ) then
         return true;
     fi;
 
     # calculate a constructive pc-sequence
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
-    # determine un upperbound for the derived length of G
+    # determine an upper bound for the derived length of G
     bound_derivedLength := d+2;
 
     Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
           "    for the finite input group ..." );
     CPCS := CPCS_finite_word( gens, bound_derivedLength );
 
-    if CPCS = fail then 
+    if CPCS = fail then
         return false;
-    else 
+    else
         Info(InfoPolenta,1,"finished.");
         return true;
     fi;
@@ -116,11 +116,11 @@ end;
 ##
 #M IsSolvableGroup( G )
 ##
-## G is a matrix group over the rationals. 
+## G is a matrix group over the rationals.
 ##
 ##
 InstallMethod( IsSolvableGroup, "for rational matrix groups (Polenta)", true,
-               [ IsRationalMatrixGroup ], 0, 
+               [ IsRationalMatrixGroup ], 0,
                POL_IsSolvableRationalMatGroup_infinite );
 
 ## Enforce rationality check for cyclotomic matrix groups
@@ -134,7 +134,7 @@ RedispatchOnCondition( IsSolvableGroup, true,
 ##
 ## G is a matrix group over a finite field.
 ##
-InstallMethod( IsSolvableGroup, "for matrix groups over a finte field (Polenta)", 
+InstallMethod( IsSolvableGroup, "for matrix groups over a finte field (Polenta)",
                true, [ IsFFEMatrixGroup ], 0,
                POL_IsSolvableFiniteMatGroup );
 
@@ -144,11 +144,11 @@ InstallMethod( IsSolvableGroup, "for matrix groups over a finte field (Polenta)"
 ##
 POL_IsPolycyclicRationalMatGroup := function( G )
      local  test;
-     if not IsFinitelyGeneratedGroup( G ) then 
+     if not IsFinitelyGeneratedGroup( G ) then
          return false;
      fi;
 
-     if IsAbelian( G ) then 
+     if IsAbelian( G ) then
          return true;
      fi;
      test := CPCS_NonAbelianPRMGroup( G, 0, "testIsPoly" );
@@ -162,12 +162,12 @@ end;
 #############################################################################
 ##
 #M IsPolycyclicGroup( G )
-## 
+##
 ## G is a finitely generated subgroup of GL(n,Z), hence G is polycycylic
 ## if and only if G is solvable and finitely generated.
 ##
 InstallMethod( IsPolycyclicGroup, "for integer matrix groups (Polenta)", true,
-               [ IsIntegerMatrixGroup ], 0, 
+               [ IsIntegerMatrixGroup ], 0,
 function( G )
     return IsFinitelyGeneratedGroup( G ) and IsSolvableGroup( G );
 end );
@@ -175,7 +175,7 @@ end );
 #############################################################################
 ##
 #M IsPolycyclicGroup( G )
-## 
+##
 ## G is a matrix group over the rationals
 ##
 InstallMethod( IsPolycyclicGroup, "for rational matrix groups (Polenta)", true,
@@ -198,15 +198,15 @@ RedispatchOnCondition( IsPolycyclicGroup, true,
 ##
 ## G is a matrix group over a finite field
 ##
-InstallMethod( IsPolycyclicGroup, 
-               "for matrix groups over a finite field (Polenta)", true, 
-               [ IsFFEMatrixGroup ], 0, 
-function( G ) 
+InstallMethod( IsPolycyclicGroup,
+               "for matrix groups over a finite field (Polenta)", true,
+               [ IsFFEMatrixGroup ], 0,
+function( G )
     local F;
-     if not IsFinitelyGeneratedGroup( G ) then 
+     if not IsFinitelyGeneratedGroup( G ) then
          return false;
      fi;
-    if IsAbelian( G ) then 
+    if IsAbelian( G ) then
         return true;
     fi;
     return IsSolvableGroup( G );
@@ -232,7 +232,7 @@ POL_IsTriangularizableRationalMatGroup_infinite := function( G )
             gens_K_p_m, gens, gens_K_p_mutableCopy, pcgs,
             gensOfBlockAction, pcgs_nue_K_p, pcgs_GU, gens_U_p, pcgs_U_p,
             radSeries, comSeries, recordSeries, isTriang;
-    if IsAbelian( G ) then 
+    if IsAbelian( G ) then
         return true;
     fi;
     # setup
@@ -252,9 +252,9 @@ POL_IsTriangularizableRationalMatGroup_infinite := function( G )
     # natural homomorphism to GL(d,p)
     gens_p := InducedByField( gens, GF(p) );
 
-    # determine un upperbound for the derived length of G
+    # determine an upper bound for the derived length of G
     bound_derivedLength := d+2;
- 
+
     # finite part
     Info( InfoPolenta, 1,"Determine a constructive polycyclic sequence\n",
           "    for the image under the p-congruence homomorphism ..." );
@@ -264,13 +264,13 @@ POL_IsTriangularizableRationalMatGroup_infinite := function( G )
     Info( InfoPolenta, 1, "Finite image has relative orders ",
                            RelativeOrdersPcgs_finite( pcgs_I_p ), "." );
     Info( InfoPolenta, 1, " " );
- 
+
     # compute the normal the subgroup gens. for the kernel of phi_p
     Info( InfoPolenta, 1,"Compute normal subgroup generators for the kernel\n",
-          "    of the p-congruence homomorphism ...");      
+          "    of the p-congruence homomorphism ...");
     gens_K_p := POL_NormalSubgroupGeneratorsOfK_p( pcgs_I_p, gens );
     gens_K_p := Filtered( gens_K_p, x -> not x = IdentityMat(d) );
-    Info( InfoPolenta, 1,"finished.");   
+    Info( InfoPolenta, 1,"finished.");
     Info( InfoPolenta, 2,"The normal subgroup generators are" );
     Info( InfoPolenta, 2, gens_K_p );
     Info( InfoPolenta, 1, "  " );
@@ -278,17 +278,17 @@ POL_IsTriangularizableRationalMatGroup_infinite := function( G )
     # radical series
     Info( InfoPolenta, 1, "Compute the radical series ...");
     gens_K_p_mutableCopy := CopyMatrixList( gens_K_p );
-    recordSeries := POL_RadicalSeriesNormalGensFullData( gens, 
+    recordSeries := POL_RadicalSeriesNormalGensFullData( gens,
                                                       gens_K_p_mutableCopy,
                                                       d );
     if recordSeries=fail then return false; fi;
     radSeries := recordSeries.sers;
-    Info( InfoPolenta, 1,"finished.");   
-    Info( InfoPolenta, 1, "The radical series has length ", 
+    Info( InfoPolenta, 1,"finished.");
+    Info( InfoPolenta, 1, "The radical series has length ",
                           Length( radSeries ), "." );
     Info( InfoPolenta, 2, "The radical series is" );
     Info( InfoPolenta, 2, radSeries );
-    Info( InfoPolenta, 1, " " );    
+    Info( InfoPolenta, 1, " " );
 
     # test if G is unipotent by abelian
     isTriang := POL_TestIsUnipotenByAbelianGroupByRadSeries( gens, radSeries );

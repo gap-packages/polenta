@@ -2,8 +2,8 @@
 ##
 #W isom.gi                 POLENTA package                     Bjoern Assmann
 ##
-## Methods for the calculation of 
-## isommorphisms from matrix groups to pcp-presentations 
+## Methods for the calculation of
+## isomorphisms from matrix groups to pcp-presentations
 ##
 #H  @(#)$Id$
 ##
@@ -33,18 +33,14 @@ POL_IsomorphismToMatrixGroup_infinite := function( arg )
     Info( InfoPolenta, 1, " " );
 
     Info( InfoPolenta, 1,"Construct the polycyclic presented group ..." );
-    if AssertionLevel() = 0 then
-        H := PcpGroupByCollector( pcp );
-    else
-        H := PcpGroupByCollector( pcp );
-    fi;
+    H := PcpGroupByCollector( pcp );
     Info( InfoPolenta, 1,"finished.");
     Info( InfoPolenta, 1, " " );
 
-    Info( InfoPolenta, 1,"Construct the ismorphism on the polycyclic\n",
+    Info( InfoPolenta, 1,"Construct the isomorphism on the polycyclic\n",
           "    presented group ..." );
     nat := GroupHomomorphismByImagesNC( G, H, CPCS.pcs, AsList(Pcp(H)) );
-    Info( InfoPolenta, 1,"finished."); 
+    Info( InfoPolenta, 1,"finished.");
 
     # add infos
     SetIsBijective( nat, true );
@@ -68,7 +64,7 @@ POL_IsomorphismToMatrixGroup_finite := function( G )
     # calculate a constructive pc-sequence
     gens := GeneratorsOfGroup( G );
     d := Length(gens[1][1]);
-    # determine un upperbound for the derived length of G
+    # determine an upper bound for the derived length of G
     bound_derivedLength := d+2;
     CPCS := CPCS_finite_word( gens, bound_derivedLength );
     if CPCS = fail then return fail; fi;
@@ -88,12 +84,12 @@ POL_IsomorphismToMatrixGroup_finite := function( G )
 
     # new generating set for G
     pcs := Reversed(CPCS.gens);
-    Info( InfoPolenta, 1,"Construct the ismorphism on the polycyclic\n",
+    Info( InfoPolenta, 1,"Construct the isomorphism on the polycyclic\n",
           "    presented group ..." );
     nat := GroupHomomorphismByImagesNC( G, H, pcs, AsList(Pcp(H)) );
     Info( InfoPolenta, 1,"finished.");
     Info( InfoPolenta, 1, " " );
- 
+
     # add infos
     SetIsBijective( nat, true );
     SetIsMapping( nat, true );
@@ -110,21 +106,21 @@ end;
 ##
 InstallOtherMethod( IsomorphismPcpGroup, "for matrix groups (Polenta)", true,
 [IsMatrixGroup], 0,
-function( G ) 
+function( G )
     local test;
     test := POL_IsMatGroupOverFiniteField( G );
     if IsBool( test ) then
         TryNextMethod();
     elif test = 0 then
-        return POL_IsomorphismToMatrixGroup_infinite( G ); 
+        return POL_IsomorphismToMatrixGroup_infinite( G );
     else
         return POL_IsomorphismToMatrixGroup_finite( G );
-    fi;  
+    fi;
 end);
 
 InstallOtherMethod( IsomorphismPcpGroup, "for matrix groups (Polenta)", true,
 [IsMatrixGroup, IsInt], 0,
-function( G, p ) 
+function( G, p )
     local test;
     test := POL_IsMatGroupOverFiniteField( G );
     if IsBool( test ) then
@@ -133,11 +129,11 @@ function( G, p )
         if not IsPrime(p) then
             Print( "Second argument must be a prime number.\n" );
             return fail;
-        fi;  
-        return POL_IsomorphismToMatrixGroup_infinite( G, p ); 
+        fi;
+        return POL_IsomorphismToMatrixGroup_infinite( G, p );
     else
         return POL_IsomorphismToMatrixGroup_finite( G );
-    fi;  
+    fi;
 end);
 
 
@@ -146,7 +142,7 @@ end);
 #M Images under IsomorphismByPolycyclicMatrixGroup
 ##
 InstallMethod( ImagesRepresentative, "for isom by matrix groups (Polenta)", true,
-[IsIsomorphismByPolycyclicMatrixGroup, 
+[IsIsomorphismByPolycyclicMatrixGroup,
 IsMultiplicativeElementWithInverse], 0,
 function( nat, h )
     local H, e, CPCS;
@@ -157,9 +153,9 @@ function( nat, h )
     if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
 end);
- 
+
 InstallMethod( ImageElm, "for isom by matrix groups (Polenta)", true,
-[IsIsomorphismByPolycyclicMatrixGroup, 
+[IsIsomorphismByPolycyclicMatrixGroup,
 IsMultiplicativeElementWithInverse], 0,
 function( nat, h )
     local H, e, CPCS;
@@ -170,7 +166,7 @@ function( nat, h )
     if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
 end);
- 
+
 InstallMethod( ImagesSet,"for isom by matrix groups (Polenta)", true,
 [IsIsomorphismByPolycyclicMatrixGroup, IsCollection], 0,
 function( nat, elms )
@@ -194,8 +190,8 @@ end);
 ##
 #M Images under IsomorphismByFinitePolycyclicMatrixGroup
 ##
-InstallMethod( ImagesRepresentative, "for isom by finite matrix groups (Polenta)", 
-true, [IsIsomorphismByFinitePolycyclicMatrixGroup, 
+InstallMethod( ImagesRepresentative, "for isom by finite matrix groups (Polenta)",
+true, [IsIsomorphismByFinitePolycyclicMatrixGroup,
 IsMultiplicativeElementWithInverse], 0,
 function( nat, h )
     local H, e, CPCS;
@@ -206,9 +202,9 @@ function( nat, h )
     if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
 end);
- 
+
 InstallMethod( ImageElm, "for isom by finite matrix groups (Polenta)", true,
-[IsIsomorphismByFinitePolycyclicMatrixGroup, 
+[IsIsomorphismByFinitePolycyclicMatrixGroup,
 IsMultiplicativeElementWithInverse], 0,
 function( nat, h )
     local H, e, CPCS;
@@ -219,7 +215,7 @@ function( nat, h )
     if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
 end);
- 
+
 InstallMethod( ImagesSet,"for isom by finite matrix groups (Polenta)", true,
 [IsIsomorphismByFinitePolycyclicMatrixGroup, IsCollection], 0,
 function( nat, elms )

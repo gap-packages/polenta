@@ -2,7 +2,7 @@
 ##
 #W solvalble.gi           POLENTA package                     Bjoern Assmann
 ##
-## Methods for testing if a matrix group 
+## Methods for testing if a matrix group
 ## is solvable or polycyclic
 ##
 #H  @(#)$Id$
@@ -25,10 +25,10 @@ DeclareOperation( "IsPolycyclicMatGroup", [ IsMatrixGroup ] );
 ##
 #M IsTriangularizableMatGroup( G )
 ##
-## G is a matrix group over the Rationals. 
+## G is a matrix group over the Rationals.
 ##
-DeclareProperty( "IsTriangularizableMatGroup", IsMatrixGroup ); 
-     
+DeclareProperty( "IsTriangularizableMatGroup", IsMatrixGroup );
+
 #############################################################################
 ##
 #E
