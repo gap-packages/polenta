@@ -27,7 +27,7 @@ DeclareOperation( "IsPolycyclicMatGroup", [ IsMatrixGroup ] );
 ##
 ## G is a matrix group over the Rationals. 
 ##
-DeclareOperation( "IsTriangularizableMatGroup", [ IsMatrixGroup ] ); 
+DeclareProperty( "IsTriangularizableMatGroup", IsMatrixGroup ); 
      
 #############################################################################
 ##
