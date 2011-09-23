@@ -30,8 +30,7 @@ the info level of <C>InfoPolenta</C>.
   If <C>InfoLevel( InfoPolenta )</C> is equal to 1 then basic informations
   about the process are provided. For further background on the displayed
   informations we refer to  <Cite Key="Assmann"/> (publicly available via the
-  Internet address <URL>http://cayley.math.nat.tu-bs.de/software/assmann/</URL>).
-  <!-- TODO: Update URL -->
+  Internet address <URL>http://www.icm.tu-bs.de/ag_algebra/software/assmann/diploma.pdf</URL>).
 </Item>
 
 <Item>
