@@ -9,6 +9,10 @@ PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
 Version := "1.3dev",
 Date := "??/??/2011",
+##  <#GAPDoc Label="PKGVERSIONDATA">
+##  <!ENTITY VERSION "1.3dev">
+##  <!ENTITY RELEASEDATE "?? September 2011">
+##  <#/GAPDoc>
 
 Persons := [
 

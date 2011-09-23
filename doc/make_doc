@@ -5,6 +5,6 @@ GAP=$GAPROOT/bin/gap.sh
 
 $GAP -A -q -T <<GAPDOC_SCRIPT
 LoadPackage("gapdoc");;
-MakeGAPDocDoc( ".", "main", [ ], "polenta", "$GAPROOT", "MathJax" );;
+MakeGAPDocDoc( ".", "main", [ "../PackageInfo.g" ], "polenta", "$GAPROOT", "MathJax" );;
 CopyHTMLStyleFiles(".");
 GAPDOC_SCRIPT

@@ -2,8 +2,7 @@
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
    [ <!ENTITY Polenta "<Package>Polenta</Package>">
-     <!ENTITY VERSION "1.3">
-     <!ENTITY RELEASEDATE "2011-??-??">
+     <#Include Label="PKGVERSIONDATA">
    ]>
 
 <!-- Documentation of the Example package. -->
