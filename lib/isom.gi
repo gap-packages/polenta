@@ -104,36 +104,38 @@ end;
 ##
 #M Create isom to pcp group
 ##
-InstallOtherMethod( IsomorphismPcpGroup, "for matrix groups (Polenta)", true,
-[IsMatrixGroup], 0,
+InstallMethod( IsomorphismPcpGroup,
+               "for matrix groups over a finite field (Polenta)", true,
+               [ IsFFEMatrixGroup ], 0,
 function( G )
-    local test;
-    test := POL_IsMatGroupOverFiniteField( G );
-    if IsBool( test ) then
-        TryNextMethod();
-    elif test = 0 then
-        return POL_IsomorphismToMatrixGroup_infinite( G );
-    else
-        return POL_IsomorphismToMatrixGroup_finite( G );
-    fi;
+    return POL_IsomorphismToMatrixGroup_finite( G );
 end);
 
-InstallOtherMethod( IsomorphismPcpGroup, "for matrix groups (Polenta)", true,
-[IsMatrixGroup, IsInt], 0,
+InstallMethod( IsomorphismPcpGroup,
+               "for rational matrix groups (Polenta)", true,
+               [ IsRationalMatrixGroup ], 0,
+function( G )
+    return POL_IsomorphismToMatrixGroup_infinite( G );
+end);
+
+## Enforce rationality check for cyclotomic matrix groups
+RedispatchOnCondition( IsomorphismPcpGroup, true,
+    [ IsCyclotomicMatrixGroup ], [ IsRationalMatrixGroup ],
+    RankFilter(IsCyclotomicMatrixGroup) );
+
+
+InstallOtherMethod( IsomorphismPcpGroup,
+                    "for matrix groups (Polenta)", true,
+                    [IsCyclotomicMatrixGroup, IsInt], 0,
 function( G, p )
-    local test;
-    test := POL_IsMatGroupOverFiniteField( G );
-    if IsBool( test ) then
-        TryNextMethod();
-    elif test = 0 then
+    if IsRationalMatrixGroup( G ) then
         if not IsPrime(p) then
             Print( "Second argument must be a prime number.\n" );
             return fail;
         fi;
         return POL_IsomorphismToMatrixGroup_infinite( G, p );
-    else
-        return POL_IsomorphismToMatrixGroup_finite( G );
     fi;
+    TryNextMethod();
 end);
 
 
