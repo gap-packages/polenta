@@ -44,7 +44,6 @@ POL_IsomorphismToMatrixGroup_infinite := function( arg )
 
     # add infos
     SetIsBijective( nat, true );
-    SetIsMapping( nat, true );
     SetKernelOfMultiplicativeGeneralMapping( nat, TrivialSubgroup( G ) );
     SetIsIsomorphismByPolycyclicMatrixGroup( nat, true );
 
@@ -92,7 +91,6 @@ POL_IsomorphismToMatrixGroup_finite := function( G )
 
     # add infos
     SetIsBijective( nat, true );
-    SetIsMapping( nat, true );
     SetKernelOfMultiplicativeGeneralMapping( nat, true );
     SetIsIsomorphismByFinitePolycyclicMatrixGroup( nat, true );
 
@@ -143,9 +141,11 @@ end);
 ##
 #M Images under IsomorphismByPolycyclicMatrixGroup
 ##
-InstallMethod( ImagesRepresentative, "for isom by matrix groups (Polenta)", true,
-[IsIsomorphismByPolycyclicMatrixGroup,
-IsMultiplicativeElementWithInverse], 0,
+InstallMethod( ImagesRepresentative,
+               "for isom by matrix groups (Polenta)",
+               FamSourceEqFamElm,
+               [IsGroupGeneralMappingByImages and IsIsomorphismByPolycyclicMatrixGroup, IsMultiplicativeElementWithInverse],
+               0,
 function( nat, h )
     local H, e, CPCS;
     CPCS := nat!.CPCS;
@@ -154,47 +154,17 @@ function( nat, h )
     if e=fail then return fail; fi;
     if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
-end);
-
-InstallMethod( ImageElm, "for isom by matrix groups (Polenta)", true,
-[IsIsomorphismByPolycyclicMatrixGroup,
-IsMultiplicativeElementWithInverse], 0,
-function( nat, h )
-    local H, e, CPCS;
-    CPCS := nat!.CPCS;
-    H := Range( nat );
-    e := ExponentVector_CPCS_PRMGroup( h, CPCS );
-    if e=fail then return fail; fi;
-    if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
-    return MappedVector( e, Pcp(H) );
-end);
-
-InstallMethod( ImagesSet,"for isom by matrix groups (Polenta)", true,
-[IsIsomorphismByPolycyclicMatrixGroup, IsCollection], 0,
-function( nat, elms )
-    local  H, e, CPCS,exps,h;
-    CPCS := nat!.CPCS;
-    H := Range( nat );
-    exps := [];
-    for h in elms do
-        e := ExponentVector_CPCS_PRMGroup( h, CPCS );
-        Add(exps, e );
-    od;
-    return List( exps, function(x)
-                          if x=fail then return fail;
-                          elif Length(e)=0 then return OneOfPcp( Pcp( H ) );
-                          else return MappedVector( x, Pcp(H) );
-                          fi;
-                          end );
 end);
 
 #############################################################################
 ##
 #M Images under IsomorphismByFinitePolycyclicMatrixGroup
 ##
-InstallMethod( ImagesRepresentative, "for isom by finite matrix groups (Polenta)",
-true, [IsIsomorphismByFinitePolycyclicMatrixGroup,
-IsMultiplicativeElementWithInverse], 0,
+InstallMethod( ImagesRepresentative,
+               "for isom by finite matrix groups (Polenta)",
+               FamSourceEqFamElm,
+               [IsGroupGeneralMappingByImages and IsIsomorphismByFinitePolycyclicMatrixGroup, IsMultiplicativeElementWithInverse],
+               0,
 function( nat, h )
     local H, e, CPCS;
     CPCS := nat!.CPCS;
@@ -203,38 +173,6 @@ function( nat, h )
     if e=fail then return fail; fi;
     if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
     return MappedVector( e, Pcp(H) );
-end);
-
-InstallMethod( ImageElm, "for isom by finite matrix groups (Polenta)", true,
-[IsIsomorphismByFinitePolycyclicMatrixGroup,
-IsMultiplicativeElementWithInverse], 0,
-function( nat, h )
-    local H, e, CPCS;
-    CPCS := nat!.CPCS;
-    H := Range( nat );
-    e := ExponentvectorPcgs_finite( CPCS, h );
-    if e=fail then return fail; fi;
-    if Length(e)=0 then return OneOfPcp( Pcp( H ) );fi;
-    return MappedVector( e, Pcp(H) );
-end);
-
-InstallMethod( ImagesSet,"for isom by finite matrix groups (Polenta)", true,
-[IsIsomorphismByFinitePolycyclicMatrixGroup, IsCollection], 0,
-function( nat, elms )
-    local  H, e, CPCS,exps,h;
-    CPCS := nat!.CPCS;
-    H := Range( nat );
-    exps := [];
-    for h in elms do
-        e := ExponentvectorPcgs_finite( CPCS, h );
-        Add(exps, e );
-    od;
-    return List( exps, function(x)
-                          if x=fail then return fail;
-                          elif Length(e)=0 then return OneOfPcp( Pcp( H ) );
-                          else return MappedVector( x, Pcp(H) );
-                          fi;
-                          end );
 end);
 
 
