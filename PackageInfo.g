@@ -16,7 +16,7 @@ Persons := [
       LastName      := "Assmann",
       FirstNames    := "Bjoern",
       IsAuthor      := true,
-      WWWHome       := "http://www.dcs.st-and.ac.uk/~bjoern"
+      WWWHome       := "http://www.cs.st-andrews.ac.uk/~bjoern/"
   ),
 
   rec( LastName      := "Horn",
