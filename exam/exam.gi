@@ -758,6 +758,7 @@ PolExamples := function( n )
        gens := GeneratorsOfGroup( MatExamples(4) );
        return Group( gens{[1,2]} );
     fi;
+    return fail;
 end;
 
 
@@ -1547,8 +1548,7 @@ POL_PolExamples2 := function( n )
             return Group( gens );
        fi;
 
-        
-
+    return fail;
 
   end;
 
