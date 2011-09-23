@@ -243,6 +243,7 @@ InstallGlobalFunction( POL_IsMatGroupOverFiniteField, function( G )
     # a field, e.g. over "Integers mod 9".
     #F := FieldOfMatrixGroup( G );
     F := DefaultRing(Flat(GeneratorsOfGroup(G)));
+    if F = Integers then return 0; fi;
     if not IsField( F ) then return false; fi;
     k := Characteristic(  F );
     if k = false then return false; fi;
