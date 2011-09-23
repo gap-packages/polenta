@@ -7,11 +7,11 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.3dev",
-Date := "??/??/2011",
+Version := "1.3",
+Date := "23/09/2011",
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "1.3dev">
-##  <!ENTITY RELEASEDATE "?? September 2011">
+##  <!ENTITY VERSION "1.3">
+##  <!ENTITY RELEASEDATE "23 September 2011">
 ##  <#/GAPDoc>
 
 Persons := [
