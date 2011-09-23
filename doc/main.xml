@@ -17,7 +17,7 @@
   <Date>&RELEASEDATE;</Date>
   <Author>
     Björn Assmann                          <!-- REQUIRED -->
-    <Homepage>TODO</Homepage>
+    <Homepage>http://www.cs.st-andrews.ac.uk/~bjoern/</Homepage>
   </Author>
   <Author>
     Max Horn                          <!-- REQUIRED -->
@@ -32,7 +32,7 @@
     <Email>
         mhorn@tu-bs.de
     </Email>
-    <Homepage>http://www.icm.tu-bs.de/~mhorn</Homepage>
+    <Homepage>http://www.icm.tu-bs.de/~mhorn/</Homepage>
   </Author>
   <Copyright> 
   <Index>License</Index>
