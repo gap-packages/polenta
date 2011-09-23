@@ -42,6 +42,7 @@ fi;
 ##
 #F PolExamples( n ) .............. .. Examples for polycyc rat. matrix groups
 ##
+# FIXME: This function is documented and should be turned into a GlobalFunction
 PolExamples := function( n )
     local i,M,P, nat, G, gens, d, l,r,s;
 
