@@ -62,7 +62,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">= 4.4",
-  NeededOtherPackages := [[ "polycyclic", ">=1.1" ],
+  NeededOtherPackages := [[ "polycyclic", "2.0" ],
                           [ "alnuth" , "2.2.3"],
                           [ "radiroot", "2.4" ],
                          ],
