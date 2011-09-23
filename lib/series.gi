@@ -24,14 +24,12 @@ POL_SplitSemisimple := function( base )
                 basis := IdentityMat( Length( b.elem ) ),
                 poly := f ) ];
     fi;
-    s := List( f, function ( x )
-            return NullspaceRatMat( Value( x, b.elem ) );
-        end );
-    s := List( [ 1 .. Length( f ) ], function ( x )
-            return rec(
-                basis := s[x],
-                poly := f[x] );
-        end );
+    s := List( f,
+               x -> NullspaceRatMat( Value( x, b.elem ) )
+             );
+    s := List( [ 1 .. Length( f ) ],
+               x -> rec( basis := s[x], poly := f[x] )
+             );
     return s;
 end;
 
@@ -614,24 +612,20 @@ end;
 ## G is a matrix group over the Rationals
 ##
 InstallMethod( RadicalSeriesSolvableMatGroup, "for solvable matrix groups (Polenta)",
-               true, [ IsMatrixGroup ], 0,
+               true, [ IsCyclotomicMatrixGroup ], 0,
 function( G )
-        local test, mats, d;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        elif test = 0 then
-            if IsAbelian( G ) then
-                mats := GeneratorsOfGroup( G );
-                d := Length( mats[1] );
-                return RadicalSeriesAbelianRMGroup( mats, d );
-            else
-                return  RadicalSeriesPRMGroup( G );
-            fi;
-        else
-            Print( "matrix groups must defined over the rationals" );
-            return fail;
-        fi;
+    local mats, d;
+    if not IsRationalMatrixGroup( G ) then
+        Print( "matrix groups must defined over the rationals" );
+        return fail;
+    fi;
+    if IsAbelian( G ) then
+        mats := GeneratorsOfGroup( G );
+        d := Length( mats[1] );
+        return RadicalSeriesAbelianRMGroup( mats, d );
+    else
+        return RadicalSeriesPRMGroup( G );
+    fi;
 end );
 
 #############################################################################
