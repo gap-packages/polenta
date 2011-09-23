@@ -105,16 +105,12 @@ end;
 InstallMethod( IsomorphismPcpGroup,
                "for matrix groups over a finite field (Polenta)", true,
                [ IsFFEMatrixGroup ], 0,
-function( G )
-    return POL_IsomorphismToMatrixGroup_finite( G );
-end);
+               POL_IsomorphismToMatrixGroup_finite );
 
 InstallMethod( IsomorphismPcpGroup,
                "for rational matrix groups (Polenta)", true,
                [ IsRationalMatrixGroup ], 0,
-function( G )
-    return POL_IsomorphismToMatrixGroup_infinite( G );
-end);
+               POL_IsomorphismToMatrixGroup_infinite );
 
 ## Enforce rationality check for cyclotomic matrix groups
 RedispatchOnCondition( IsomorphismPcpGroup, true,
