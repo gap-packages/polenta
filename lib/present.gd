@@ -21,8 +21,6 @@ DeclareProperty( "IsIsomorphismByFinitePolycyclicMatrixGroup",
 DeclareProperty( "IsIsomorphismByPolycyclicMatrixGroup",
                   IsMapping);
 
-DeclareGlobalFunction( "POL_IsMatGroupOverFiniteField" );
-
 #############################################################################
 ##
 #E

@@ -238,60 +238,38 @@ end;
 
 #############################################################################
 ##
-#F POL_IsMatGroupOverFiniteField( G )
-##
-InstallGlobalFunction( POL_IsMatGroupOverFiniteField, function( G )
-    local k, F;
-    # TODO: Using FieldOfMatrixGroup here would trigger an error
-    # for matrix groups defined over a ring which is not embedded in
-    # a field, e.g. over "Integers mod 9".
-    #F := FieldOfMatrixGroup( G );
-    F := DefaultRing(Flat(GeneratorsOfGroup(G)));
-    if F = Integers then return 0; fi;
-    if not IsField( F ) then return false; fi;
-    k := Characteristic( F );
-    if k = false then return false; fi;
-    return k;
-end );
-
-#############################################################################
-##
 #M PcpGroupByMatGroup( G )
 ##
 ## G is a matrix group over the Rationals or a finite field.
 ## Returned is PcpGroup ( polycyclically presented group)
 ## which is isomorphic to G.
 ##
-InstallMethod( PcpGroupByMatGroup, "for polycyclic matrix groups (Polenta)", true,
-               [ IsMatrixGroup ], 0,
-function( G )
-        local test;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        elif test = 0 then
-            return POL_PcpGroupByMatGroup_infinite( G );
-        else
-            return POL_PcpGroupByMatGroup_finite( G );
-        fi;
-end );
+InstallMethod( PcpGroupByMatGroup,
+               "for matrix groups over a finite field (Polenta)", true,
+               [ IsFFEMatrixGroup ], 0,
+               POL_PcpGroupByMatGroup_finite );
+
+InstallMethod( PcpGroupByMatGroup,
+               "for rational matrix groups (Polenta)", true,
+               [ IsRationalMatrixGroup ], 0,
+               POL_PcpGroupByMatGroup_infinite );
+
+## Enforce rationality check for cyclotomic matrix groups
+RedispatchOnCondition( PcpGroupByMatGroup, true,
+    [ IsCyclotomicMatrixGroup ], [ IsRationalMatrixGroup ],
+    RankFilter(IsCyclotomicMatrixGroup) );
 
 InstallOtherMethod( PcpGroupByMatGroup, "for polycyclic matrix groups (Polenta)", true,
-               [ IsMatrixGroup, IsInt], 0,
+               [ IsCyclotomicMatrixGroup, IsInt ], 0,
 function( G, p )
-        local test;
-        test := POL_IsMatGroupOverFiniteField( G );
-        if IsBool( test ) then
-            TryNextMethod();
-        elif test = 0 then
-            if not IsPrime(p) then
-                Print( "Second argument must be a prime number.\n" );
-                return fail;
-            fi;
-            return POL_PcpGroupByMatGroup_infinite( G,p );
-        else
-            return POL_PcpGroupByMatGroup_finite( G );
-        fi;
+    if not IsPrime(p) then
+        Print( "Second argument must be a prime number.\n" );
+        return fail;
+    fi;
+    if IsRationalMatrixGroup(G) then
+        return POL_PcpGroupByMatGroup_infinite( G, p );
+    fi;
+    TryNextMethod();
 end );
 
 #############################################################################
