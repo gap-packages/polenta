@@ -26,6 +26,10 @@
 	  methods, so that more code can automatically benefit from this
 	  functionality. The only remaining IsPolycyclicMatGroup method
 	  simply invokes IsPolycyclicGroup.
+	o Converted documentation to GAPDoc format.
+	o Turn IsTriangularizableMatGroup into a property.
+	o Fixed bug that could cause an error while building an isomorphism
+	  from a matrix group to a pcp group.
 
 1.2.7 (17/06/2007)
 	o TODO

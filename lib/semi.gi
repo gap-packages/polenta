@@ -163,7 +163,19 @@ ExponentVector_AbelianSS:=function( CPCS_nue_K_p, g )
             # fi;
    rels := NormalFormIntMat(rels,0).normal;
    if not rels[1][1]=1 then return fail; fi;
-   exp := -rels[1]{ [2..(Length(rels[1]))] };
+
+   exp := -rels[1]; exp[1] := 0;
+   # Reduce exp by the remaining rows
+   for r in rels do
+     i := PositionNonZero(r);
+     if exp[i] < 0 then
+       exp := exp + QuoInt(-exp[i]+r[i]-1, r[i]) * r;
+     fi;
+   od;
+
+   # Remove the leading zero
+   Remove(exp, 1);
+
    Assert( 2,  POL_TestExponentVector_AbelianSS( CPCS_nue_K_p, g, exp ),
            "failure in ExponentVector_AbelianSS" );
    return exp;
