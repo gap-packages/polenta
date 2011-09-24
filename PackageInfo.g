@@ -48,7 +48,7 @@ AcceptDate := "08/2005",
 PackageWWWHome := "http://www.icm.tu-bs.de/ag_algebra/software/Polenta/",
 
 ArchiveFormats := ".tar.gz .tar.bz2",
-ArchiveURL     := Concatenation( ~.PackageWWWHome, "Polenta-", ~.Version ),
+ArchiveURL     := Concatenation( ~.PackageWWWHome, "polenta-", ~.Version ),
 README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 
@@ -56,9 +56,9 @@ AbstractHTML :=
 "The <span class=\"pkgname\">Polenta</span> package provides  methods to compute polycyclic presentations of matrix groups (finite or infinite). As a by-product, this package gives some functionality to compute certain module series for modules of solvable groups. For example, if G is a rational polycyclic matrix group, then we can compute the radical series of the natural Q[G]-module Q^d.",
 
 PackageDoc := rec(          
-  BookName  := "Polenta",
-  ArchiveURLSubset := ["doc", "htm"],
-  HTMLStart := "htm/chapters.htm",
+  BookName  := "polenta",
+  ArchiveURLSubset := [ "doc" ],
+  HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Polycyclic presentations for matrix groups",
@@ -92,16 +92,3 @@ Keywords := [
 #############################################################################
 ##
 #E
-
-
-
-
-
-
-
-
-
-
-
-
-
