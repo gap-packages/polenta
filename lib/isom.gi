@@ -44,7 +44,6 @@ POL_IsomorphismToMatrixGroup_infinite := function( arg )
 
     # add infos
     SetIsBijective( nat, true );
-    SetKernelOfMultiplicativeGeneralMapping( nat, TrivialSubgroup( G ) );
     SetIsIsomorphismByPolycyclicMatrixGroup( nat, true );
 
     nat!.CPCS := CPCS;
@@ -91,7 +90,6 @@ POL_IsomorphismToMatrixGroup_finite := function( G )
 
     # add infos
     SetIsBijective( nat, true );
-    SetKernelOfMultiplicativeGeneralMapping( nat, true );
     SetIsIsomorphismByFinitePolycyclicMatrixGroup( nat, true );
 
     nat!.CPCS := CPCS;
