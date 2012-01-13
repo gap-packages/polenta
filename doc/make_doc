@@ -1,7 +1,7 @@
 #!/bin/sh
 
-GAPROOT=../../..
-GAP=$GAPROOT/bin/gap.sh
+GAPROOT=${1:-../../..}
+GAP=${2:-$GAPROOT/bin/gap.sh}
 
 $GAP -A -q -T <<GAPDOC_SCRIPT
 LoadPackage("gapdoc");;
