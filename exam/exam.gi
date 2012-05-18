@@ -26,9 +26,9 @@ POL_KroneckerProduct := function( G, e )
     return Group( newGens );
 end;
 
-if TestPackageAvailability( "aclib" , "1.0" )=fail then
+if not IsPackageMarkedForLoading( "aclib" , "1.0" ) then
     POL_AlmostCrystallographicGroup := false;
-else 
+else
     POL_AlmostCrystallographicGroup := function( a,b,c )
        local G, mats;
        G := AlmostCrystallographicGroup(a,b,c);
