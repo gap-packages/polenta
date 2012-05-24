@@ -7,10 +7,10 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.3",
+Version := "1.3dev",
 Date := "23/09/2011",
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "1.3">
+##  <!ENTITY VERSION "1.3dev">
 ##  <!ENTITY RELEASEDATE "23 September 2011">
 ##  <#/GAPDoc>
 
@@ -65,7 +65,7 @@ PackageDoc := rec(
   Autoload  := true),
 
 Dependencies := rec(
-  GAP := ">= 4.4",
+  GAP := ">= 4.5",
   NeededOtherPackages := [[ "polycyclic", "2.0" ],
                           [ "alnuth" , "2.2.3"],
                           [ "radiroot", "2.4" ],
