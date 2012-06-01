@@ -40,8 +40,8 @@ package is available at
 in form of a gzipped tar-archive and as an uncompressed tar-archive.
 The standard method is to unpack the package into the `pkg'
 directory  of your GAP distribution.  This will create a `polenta'
-subdirectory. For other non-standard options please see  Chapter
-74.1 in the GAP Reference Manual.
+subdirectory. For other non-standard options please refer to the
+GAP Reference Manual.
 
 Note that the GAP-Packages Alnuth and Polycyclic are needed for this
 package. Normally they should be contained in your distribution. If
@@ -55,8 +55,7 @@ Loading the Polenta package
 
 If the  Package is not already loaded then you have to request it
 explicitly. This  can be done by `LoadPackage("polenta")'. The
-`LoadPackage' command is described in Section 72.2.1 in the GAP
-Reference Manual.
+`LoadPackage' command is described in the GAP Reference Manual.
 
 
 Running the test suite

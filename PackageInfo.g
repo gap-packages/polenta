@@ -7,11 +7,11 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.3dev",
-Date := "23/09/2011",
+Version := "1.3.1",
+Date := "01/06/2012",
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "1.3dev">
-##  <!ENTITY RELEASEDATE "23 September 2011">
+##  <!ENTITY VERSION "1.3.1">
+##  <!ENTITY RELEASEDATE "1 June 2012">
 ##  <#/GAPDoc>
 
 Persons := [
@@ -65,8 +65,8 @@ PackageDoc := rec(
   Autoload  := true),
 
 Dependencies := rec(
-  GAP := ">= 4.5",
-  NeededOtherPackages := [[ "polycyclic", "2.0" ],
+  GAP := ">= 4.4",
+  NeededOtherPackages := [[ "polycyclic", "2.10.1" ],
                           [ "alnuth" , "2.2.3"],
                           [ "radiroot", "2.4" ],
                          ],
@@ -74,7 +74,6 @@ Dependencies := rec(
 ), 
 
 AvailabilityTest := ReturnTrue,             
-BannerString := Concatenation([ "Loading Polenta ", ~.Version, " ... \n" ]),     
 Autoload := true,
 TestFile := "tst/testall.g",
 Keywords := [
