@@ -14,7 +14,7 @@
 ##
 #F POL_KroneckerProduct
 ## 
-## Examples build with the Kroneckerproduct.
+## Examples built with the Kroneckerproduct.
 ## 
 POL_KroneckerProduct := function( G, e ) 
     local newGens, gens;
@@ -25,6 +25,20 @@ POL_KroneckerProduct := function( G, e )
     newGens := List( gens, x->KroneckerProduct(x,x^e) );
     return Group( newGens );
 end;
+
+
+#############################################################################
+##
+#F POL_AlmostCrystallographicGroup
+## 
+## Examples coming from aclib
+## 
+# In GAP 4.4, the function IsPackageMarkedForLoading is not available.
+if not IsBound( IsPackageMarkedForLoading ) then
+  IsPackageMarkedForLoading:= function( arg )
+    return CallFuncList( LoadPackage, arg ) = true;
+  end;
+fi;
 
 if not IsPackageMarkedForLoading( "aclib" , "1.0" ) then
     POL_AlmostCrystallographicGroup := false;
