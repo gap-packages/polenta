@@ -1,0 +1,13 @@
+/doc/Makefile
+/doc/chap*html
+/doc/chap*txt
+/doc/*.js
+/doc/*.css
+/doc/chooser.html
+/doc/manual.pdf
+/doc/manual.six
+/doc/polentabib.xml.bib
+/doc/main.idx
+/doc/main.log
+/doc/main.out
+/doc/main.tex
