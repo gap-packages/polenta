@@ -8,19 +8,15 @@ SetPackageInfo( rec(
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
 Version := "1.3.1",
-Date := "01/06/2012",
-##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "1.3.1">
-##  <!ENTITY RELEASEDATE "1 June 2012">
-##  <#/GAPDoc>
+Date := "01/06/2012", # dd/mm/yyyy format
 
 Persons := [
 
   rec(
       LastName      := "Assmann",
-      FirstNames    := "Bjoern",
+      FirstNames    := "Björn",
       IsAuthor      := true,
-      WWWHome       := "http://www.cs.st-andrews.ac.uk/~bjoern/"
+      IsMaintainer  := false,
   ),
 
   rec( LastName      := "Horn",
@@ -84,7 +80,24 @@ Keywords := [
   "unipotent subgroup",
   "radical series",
   "composition series of triangularizable groups"
-]
+],
+
+AutoDoc := rec(
+    TitlePage := rec(
+        Copyright := "\
+            <Index>License</Index>\
+            &copyright; 2003-2007 by Björn Assmann<P/>\
+            The &Polenta; package is free software; \
+            you can redistribute it and/or modify it under the terms of the \
+            <URL Text=\"GNU General Public License\">http://www.fsf.org/licenses/gpl.html</URL> \
+            as published by the Free Software Foundation; either version 2 of the License, \
+            or (at your option) any later version.",
+        Acknowledgements := "\
+            We appreciate very much all past and future comments, suggestions and \
+            contributions to this package and its documentation provided by &GAP; \
+            users and developers.",
+    ),
+),
 
 ));
 
