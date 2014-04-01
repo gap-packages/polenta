@@ -38,5 +38,6 @@
   
   [33X[0;0YIf  the  test  suite runs into an error, even though the packages Polycyclic
   and  Alnuth  and  their  depdendencies  have  been correctly installed, then
-  please send a message to [10Xmhorn@tu-bs.de[110X including the error message.[133X
+  please  send  a  message to [10Xmax.horn@math.uni-giessen.de[110X including the error
+  message.[133X
   

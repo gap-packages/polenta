@@ -71,8 +71,8 @@ Manual.
 
 If the test suite runs into an error, even though the packages
 Polycyclic and Alnuth and their depdendencies have been correctly
-installed, then please send a message to `mhorn@tu-bs.de' including
-the error message.
+installed, then please send a message to `max.horn@math.uni-giessen.de'
+including the error message.
    
                                  
 Author / Maintainer
@@ -81,5 +81,5 @@ Author / Maintainer
 The Polenta package was originally written by Bjoern Assmann,
 who remains his principal author.
 
-It is currently being maintained by Max Horn <mhorn@tu-bs.de>,
+It is currently being maintained by Max Horn <max.horn@math.uni-giessen.de>,
 to whom any bug reports should be directed.
