@@ -6,6 +6,12 @@
  from old records. If you notice anything amiss, please let us know.
 ===========================================================================
 
+1.3.2 (2014-04-01)
+	o Moved the homepage
+	o Updated Max Horn's contact details
+	o Changed how the manual is built (now AutoDoc is used to
+	  automatically generate the title page from PackageInfo.g)
+
 1.3.1 (2012-06-01)
 	o Fixed warning when loading without aclib
 	o Some minor tweaks and cleanups
