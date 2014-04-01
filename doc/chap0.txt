@@ -1,1 +1,93 @@
-Placeholder
+  
+  
+                                    [1X[5XPolenta[105X[101X
+  
+  
+                   [1XPolycyclic presentations for matrix groups[101X
+  
+  
+                                 Version 1.3.1
+  
+  
+                                  1 June 2012
+  
+  
+                                 Björn Assmann
+  
+                                    Max Horn
+  
+  
+  
+  Björn Assmann
+      Homepage: [7Xhttp://www.cs.st-andrews.ac.uk/~bjoern/[107X
+  Max Horn
+      Email:    [7Xmailto:mhorn@tu-bs.de[107X
+      Homepage: [7Xhttp://www.icm.tu-bs.de/~mhorn/[107X
+      Address:  [33X[0;14YAG Algebra und Diskrete Mathematik[133X
+                [33X[0;14YInstitut Computational Mathematics[133X
+                [33X[0;14YTU Braunschweig[133X
+                [33X[0;14YPockelsstr. 14[133X
+                [33X[0;14YD-38106 Braunschweig[133X
+                [33X[0;14YGermany[133X
+  
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2003-2007 by Björn Assmann[133X
+  
+  [33X[0;0YThe  [5XPolenta[105X package is free software; you can redistribute it and/or modify
+  it    under    the    terms    of    the    GNU   General   Public   License
+  ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
+  Foundation;  either  version 2 of the License, or (at your option) any later
+  version.[133X
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[101X
+  [33X[0;0YWe  appreciate  very  much  all  past  and  future comments, suggestions and
+  contributions  to  this  package and its documentation provided by [5XGAP[105X users
+  and developers.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (polenta)[101X
+  
+  1 [33X[0;0YIntroduction[133X
+    1.1 [33X[0;0YThe package[133X
+    1.2 [33X[0;0YPolycyclic groups[133X
+  2 [33X[0;0YMethods for matrix groups[133X
+    2.1 [33X[0;0YPolycyclic presentations of matrix groups[133X
+      2.1-1 PcpGroupByMatGroup
+      2.1-2 IsomorphismPcpGroup
+      2.1-3 ImagesRepresentative
+      2.1-4 IsSolvableGroup
+      2.1-5 IsTriangularizableMatGroup
+      2.1-6 IsPolycyclicGroup
+    2.2 [33X[0;0YModule series[133X
+      2.2-1 RadicalSeriesSolvableMatGroup
+      2.2-2 HomogeneousSeriesAbelianMatGroup
+      2.2-3 HomogeneousSeriesTriangularizableMatGroup
+      2.2-4 CompositionSeriesAbelianMatGroup
+      2.2-5 CompositionSeriesTriangularizableMatGroup
+    2.3 [33X[0;0YSubgroups[133X
+      2.3-1 SubgroupsUnipotentByAbelianByFinite
+    2.4 [33X[0;0YExamples[133X
+      2.4-1 PolExamples
+  3 [33X[0;0YAn example application[133X
+    3.1 [33X[0;0YPresentation for rational matrix groups[133X
+    3.2 [33X[0;0YModules series[133X
+    3.3 [33X[0;0YTriangularizable subgroups[133X
+  4 [33X[0;0YInstallation[133X
+    4.1 [33X[0;0YInstalling this package[133X
+    4.2 [33X[0;0YLoading the [5XPolenta[105X package[133X
+    4.3 [33X[0;0YRunning the test suite[133X
+  5 [33X[0;0YInformation Messages[133X
+    5.1 [33X[0;0YInfo Class[133X
+      5.1-1 InfoPolenta
+    5.2 [33X[0;0YExample[133X
+  
+  
+  [32X

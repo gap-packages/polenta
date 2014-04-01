@@ -1,0 +1,199 @@
+  
+  [1X5 [33X[0;0YInformation Messages[133X[101X
+  
+  [33X[0;0YIt  is  possible  to get informations about the status of the computation of
+  the functions of Chapter [14X2[114X of this manual.[133X
+  
+  
+  [1X5.1 [33X[0;0YInfo Class[133X[101X
+  
+  [1X5.1-1 InfoPolenta[101X
+  
+  [29X[2XInfoPolenta[102X[32X info class
+  
+  [33X[0;0Yis  the  Info  class  of  the  [5XPolenta[105X package (for more details on the Info
+  mechanism  see  Section  [14X'Reference:  Info  Functions'[114X  of the [5XGAP[105X Reference
+  Manual).  With  the help of the function [10XSetInfoLevel(InfoPolenta,[3Xlevel[103X[10X)[110X you
+  can change the info level of [10XInfoPolenta[110X.[133X
+  
+  [30X    [33X[0;6YIf [10XInfoLevel( InfoPolenta )[110X is equal to 0 then no information messages
+        are displayed.[133X
+  
+  [30X    [33X[0;6YIf  [10XInfoLevel(  InfoPolenta  )[110X  is  equal to 1 then basic informations
+        about  the  process  are  provided.  For  further  background  on  the
+        displayed informations we refer to [Ass03] (publicly available via the
+        Internet                                                       address
+        [7Xhttp://www.icm.tu-bs.de/ag_algebra/software/assmann/diploma.pdf[107X).[133X
+  
+  [30X    [33X[0;6YIf  [10XInfoLevel(  InfoPolenta  )[110X  is equal to 2 then, in addition to the
+        basic  information,  the  generators  of computed subgroups and module
+        series are displayed.[133X
+  
+  
+  [1X5.2 [33X[0;0YExample[133X[101X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel( InfoPolenta, 1 );[127X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XPcpGroupByMatGroup( PolExamples(11) );[127X[104X
+    [4X[28X#I  Determine a constructive polycyclic sequence[128X[104X
+    [4X[28X    for the input group ...[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Chosen admissible prime: 3[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Determine a constructive polycyclic sequence[128X[104X
+    [4X[28X    for the image under the p-congruence homomorphism ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  Finite image has relative orders [ 3, 2, 3, 3, 3 ].[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute normal subgroup generators for the kernel[128X[104X
+    [4X[28X    of the p-congruence homomorphism ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute the radical series ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  The radical series has length 4.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute the composition series ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  The composition series has length 5.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute a constructive polycyclic sequence[128X[104X
+    [4X[28X    for the induced action of the kernel to the composition series ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  This polycyclic sequence has relative orders [  ].[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Calculate normal subgroup generators for the[128X[104X
+    [4X[28X    unipotent part ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Determine a constructive polycyclic  sequence[128X[104X
+    [4X[28X    for the unipotent part ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  The unipotent part has relative orders[128X[104X
+    [4X[28X#I  [ 0, 0, 0 ].[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  ... computation of a constructive[128X[104X
+    [4X[28X    polycyclic sequence for the whole group finished.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute the relations of the polycyclic[128X[104X
+    [4X[28X    presentation of the group ...[128X[104X
+    [4X[28X#I  Compute power relations ...[128X[104X
+    [4X[28X#I  ... finished.[128X[104X
+    [4X[28X#I  Compute conjugation relations ...[128X[104X
+    [4X[28X#I  ... finished.[128X[104X
+    [4X[28X#I  Update polycyclic collector ...[128X[104X
+    [4X[28X#I  ... finished.[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Construct the polycyclic presented group ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28XPcp-group with orders [ 3, 2, 3, 3, 3, 0, 0, 0 ][128X[104X
+    [4X[28X[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel( InfoPolenta, 2 );[127X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XPcpGroupByMatGroup( PolExamples(11) );[127X[104X
+    [4X[28X#I  Determine a constructive polycyclic sequence[128X[104X
+    [4X[28X    for the input group ...[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Chosen admissible prime: 3[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Determine a constructive polycyclic sequence[128X[104X
+    [4X[28X    for the image under the p-congruence homomorphism ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  Finite image has relative orders [ 3, 2, 3, 3, 3 ].[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute normal subgroup generators for the kernel[128X[104X
+    [4X[28X    of the p-congruence homomorphism ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  The normal subgroup generators are[128X[104X
+    [4X[28X#I  [ [ [ 1, -3/2, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 3 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 0, 0, 24 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3, 3, 15 ], [ 0, 1, 0, 6 ], [ 0, 0, 1, -6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3, 3, 9 ], [ 0, 1, 0, 6 ], [ 0, 0, 1, -6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3/2, 3/2, 3/2 ], [ 0, 1, 0, 3 ], [ 0, 0, 1, -3 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3/2, 9/2, -69/2 ], [ 0, 1, 0, 9 ], [ 0, 0, 1, 3 ], [ 0, 0, 0, 1 ] ][128X[104X
+    [4X[28X    , [ [ 1, 0, 0, -24 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, -3, -9 ], [ 0, 1, 0, -6 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, -3, -15 ], [ 0, 1, 0, -6 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, 0, 9 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, -3, -9 ], [ 0, 1, 0, -6 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, 0, 9 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3/2, -3/2, -9/2 ], [ 0, 1, 0, -3 ], [ 0, 0, 1, 3 ], [ 0, 0, 0, 1 ][128X[104X
+    [4X[28X     ],[128X[104X
+    [4X[28X  [ [ 1, -3, -3, -12 ], [ 0, 1, 0, -6 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3, -3/2, -21 ], [ 0, 1, 0, -3 ], [ 0, 0, 1, -6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3/2, 3/2, 9/2 ], [ 0, 1, 0, 3 ], [ 0, 0, 1, -3 ], [ 0, 0, 0, 1 ] ] ][128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute the radical series ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  The radical series has length 4.[128X[104X
+    [4X[28X#I  The radical series is[128X[104X
+    [4X[28X#I  [ [ [ 1, 0, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ], [ [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [  ] ][128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute the composition series ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  The composition series has length 5.[128X[104X
+    [4X[28X#I  The composition series is[128X[104X
+    [4X[28X#I  [ [ [ 1, 0, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ], [ [ 0, 0, 0, 1 ] ], [  ] ][128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute a constructive polycyclic sequence[128X[104X
+    [4X[28X    for the induced action of the kernel to the composition series ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  This polycyclic sequence has relative orders [  ].[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Calculate normal subgroup generators for the[128X[104X
+    [4X[28X    unipotent part ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  The normal subgroup generators for the unipotent part are[128X[104X
+    [4X[28X#I  [ [ [ 1, -3/2, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 3 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 0, 0, 24 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3, 3, 15 ], [ 0, 1, 0, 6 ], [ 0, 0, 1, -6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3, 3, 9 ], [ 0, 1, 0, 6 ], [ 0, 0, 1, -6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3/2, 3/2, 3/2 ], [ 0, 1, 0, 3 ], [ 0, 0, 1, -3 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3/2, 9/2, -69/2 ], [ 0, 1, 0, 9 ], [ 0, 0, 1, 3 ], [ 0, 0, 0, 1 ] ][128X[104X
+    [4X[28X    , [ [ 1, 0, 0, -24 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, -3, -9 ], [ 0, 1, 0, -6 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, -3, -15 ], [ 0, 1, 0, -6 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, 0, 9 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, -3, -9 ], [ 0, 1, 0, -6 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3, 0, 9 ], [ 0, 1, 0, 0 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, -3/2, -3/2, -9/2 ], [ 0, 1, 0, -3 ], [ 0, 0, 1, 3 ], [ 0, 0, 0, 1 ][128X[104X
+    [4X[28X     ],[128X[104X
+    [4X[28X  [ [ 1, -3, -3, -12 ], [ 0, 1, 0, -6 ], [ 0, 0, 1, 6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3, -3/2, -21 ], [ 0, 1, 0, -3 ], [ 0, 0, 1, -6 ], [ 0, 0, 0, 1 ] ],[128X[104X
+    [4X[28X  [ [ 1, 3/2, 3/2, 9/2 ], [ 0, 1, 0, 3 ], [ 0, 0, 1, -3 ], [ 0, 0, 0, 1 ] ] ][128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Determine a constructive polycyclic  sequence[128X[104X
+    [4X[28X    for the unipotent part ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I  The unipotent part has relative orders[128X[104X
+    [4X[28X#I  [ 0, 0, 0 ].[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  ... computation of a constructive[128X[104X
+    [4X[28X    polycyclic sequence for the whole group finished.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Compute the relations of the polycyclic[128X[104X
+    [4X[28X    presentation of the group ...[128X[104X
+    [4X[28X#I  Compute power relations ...[128X[104X
+    [4X[28X.....[128X[104X
+    [4X[28X#I  ... finished.[128X[104X
+    [4X[28X#I  Compute conjugation relations ...[128X[104X
+    [4X[28X..............................................[128X[104X
+    [4X[28X#I  ... finished.[128X[104X
+    [4X[28X#I  Update polycyclic collector ...[128X[104X
+    [4X[28X#I  ... finished.[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28X#I  Construct the polycyclic presented group ...[128X[104X
+    [4X[28X#I  finished.[128X[104X
+    [4X[28X#I[128X[104X
+    [4X[28XPcp-group with orders [ 3, 2, 3, 3, 3, 0, 0, 0 ][128X[104X
+  [4X[32X[104X
+  

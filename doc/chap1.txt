@@ -1,0 +1,45 @@
+  
+  [1X1 [33X[0;0YIntroduction[133X[101X
+  
+  
+  [1X1.1 [33X[0;0YThe package[133X[101X
+  
+  [33X[0;0YThis package provides functions for computation with matrix groups. Let [22XG[122X be
+  a  subgroup  of  [22XGL(d,R)[122X where the ring [22XR[122X is either equal to [22Xℚ,ℤ[122X or a finite
+  field [22XF_q[122X. Then:[133X
+  
+  [30X    [33X[0;6YWe can test whether [22XG[122X is solvable.[133X
+  
+  [30X    [33X[0;6YWe can test whether [22XG[122X is polycyclic.[133X
+  
+  [30X    [33X[0;6YIf  [22XG[122X  is  polycyclic, then we can determine a polycyclic presentation
+        for [22XG[122X.[133X
+  
+  [33X[0;0YA  group  [22XG[122X  which  is  given  by  a  polycyclic presentation can be largely
+  investigated by algorithms implemented in the [5XGAP[105X-package [5XPolycyclic[105X [EN00].
+  For  example we can determine if [22XG[122X is torsion-free and calculate the torsion
+  subgroup. Further we can compute the derived series and the Hirsch length of
+  the  group  [22XG[122X.  Also various methods for computations with subgroups, factor
+  groups and extensions are available.[133X
+  
+  [33X[0;0YAs  a by-product, the [5XPolenta[105X package provides some functionality to compute
+  certain module series for modules of solvable groups. For example, if [22XG[122X is a
+  rational  polycyclic matrix group, then we can compute the radical series of
+  the natural [22Xℚ[G][122X-module [22Xℚ^d[122X.[133X
+  
+  
+  [1X1.2 [33X[0;0YPolycyclic groups[133X[101X
+  
+  [33X[0;0YA  group  [22XG[122X  is  called  polycyclic if it has a finite subnormal series with
+  cyclic  factors.  It  is  a  well-known  fact that every polycyclic group is
+  finitely  presented  by a so-called polycyclic presentation (see for example
+  Chapter  9  in  [Sim94]  or  Chapter 2 in [EN00] ). In [5XGAP[105X, groups which are
+  defined  by  polycyclic  presentations  are  called polycyclically presented
+  groups, abbreviated PcpGroups.[133X
+  
+  [33X[0;0YThe  overall  idea  of  the  algorithm implemented in this package was first
+  introduced  by  Ostheimer  in  1996  [Ost96].  In 2001 Eick presented a more
+  detailed  version [Eic01]. This package contains an implementation of Eick's
+  algorithm.   A   description  of  this  implementation  together  with  some
+  refinements and extensions can be found in [AE05] and [Ass03].[133X
+  

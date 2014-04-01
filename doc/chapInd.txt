@@ -1,0 +1,28 @@
+  
+  
+  [1XIndex[101X
+  
+  [2XCompositionSeriesAbelianMatGroup[102X  2.2-4
+  [2XCompositionSeriesTriangularizableMatGroup[102X  2.2-5
+  [2XHomogeneousSeriesAbelianMatGroup[102X  2.2-2
+  [2XHomogeneousSeriesTriangularizableMatGroup[102X  2.2-3
+  [2XImageElm[102X  2.1-3
+  [2XImagesRepresentative[102X  2.1-3
+  [2XImagesSet[102X  2.1-3
+  [2XInfoPolenta[102X  5.1-1
+  Installation  4.
+  [2XIsomorphismPcpGroup[102X  2.1-2
+  [2XIsPolycyclicGroup[102X  2.1-6
+  [2XIsSolvableGroup[102X  2.1-4
+  [2XIsTriangularizableMatGroup[102X  2.1-5
+  License  .-1
+  Loading the [5XPolenta[105X package  4.2
+  [2XPcpGroupByMatGroup[102X  2.1-1
+  Polenta  1.
+  [2XPolExamples[102X  2.4-1
+  Polycyclic  1.
+  [2XRadicalSeriesSolvableMatGroup[102X  2.2-1
+  [2XSubgroupsUnipotentByAbelianByFinite[102X  2.3-1
+  
+  
+  -------------------------------------------------------

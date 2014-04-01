@@ -1,0 +1,26 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XAss03[120X]   [16XAssmann,   B.[116X,   [17XPolycyclic   presentations   for  matrix  groups[117X,
+  Diplomarbeit,              TU              Braunschweig              (2003),
+  ((http://www.icm.tu-bs.de/ag_algebra/software/assmann)).
+  
+  [[20XAE05[120X]  [16XAssmann,  B.  and  Eick,  B.[116X, [17XComputing polycyclic presentations for
+  polycyclic  rational  matrix  groups[117X,  [18XJ.  Symbolic  Comput.[118X,  [19X40[119X, 6 (2005),
+  1269--1284.
+  
+  [[20XEic01[120X]  [16XEick,  B.[116X,  [17XAlgorithms for Polycyclic Groups[117X, Habilitationsschrift,
+  Gesamthochschule Kassel (2001).
+  
+  [[20XEN00[120X] [16XEick, B. and Nickel, W.[116X, [17XPolycyclic[117X (2000), ((GAP package)).
+  
+  [[20XOst96[120X]  [16XOstheimer,  G.[116X,  [17XAlgorithms  for Polycyclic-by-finite groups[117X, Ph.D.
+  thesis, Rutgers University (1996).
+  
+  [[20XSim94[120X]  [16XSims,  C. C.[116X, [17XComputation with finitely presented groups[117X, Cambridge
+  University Press (1994).
+  
+  
+  
+  [32X
