@@ -1,5 +1,4 @@
 * update documentation to match latest reality
-* make package release
 * check copyright data
 * add GPL headers to files as appropriate
 * Consider removing "documentation" for methods like ImageElm, IsSolvableGroup
