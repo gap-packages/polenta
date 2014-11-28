@@ -75,18 +75,18 @@ POL_SetPcPresentation_infinite:= function(pcgs)
             f_i:=pcgs.pcs[i];
             f_j:=pcgs.pcs[j];
             conj:=(pcsInv[j])*f_i*f_j;
-            Assert(0, conj=f_i^f_j );
+            Assert(1, conj=f_i^f_j );
             exp:=ExponentVector_CPCS_PRMGroup( conj,pcgs);
-            Assert(0, conj=Product(List([1..n],i->pcgs.pcs[i]^exp[i])) );
+            Assert(1, conj=Product(List([1..n],i->pcgs.pcs[i]^exp[i])) );
             if InfoLevel( InfoPolenta ) >= 2 then Print( "." ); fi;
             genList:=POL_Exp2GenList(exp);
             SetConjugate(ftl,i,j,genList);
             # conjugation with g_j^-1 if g_j has infinite order
             if ro[i] = 0 then
                 conj:= f_j* f_i *(pcsInv[j]);
-                Assert(0, conj=f_i^(f_j^-1) );
+                Assert(1, conj=f_i^(f_j^-1) );
                 exp:=ExponentVector_CPCS_PRMGroup( conj,pcgs);
-                Assert(0, conj=Product(List([1..n],i->pcgs.pcs[i]^exp[i])) );
+                Assert(1, conj=Product(List([1..n],i->pcgs.pcs[i]^exp[i])) );
                 if InfoLevel( InfoPolenta ) >= 2 then Print( "." ); fi;
                 genList:=POL_Exp2GenList(exp);
                 SetConjugate(ftl,i,-j,genList);
