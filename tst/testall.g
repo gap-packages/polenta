@@ -1,6 +1,7 @@
 LoadPackage( "polenta" );
 dirs := DirectoriesPackageLibrary( "polenta", "tst" );
 
+ReadTest( Filename( dirs, "bugfix.tst" ) );
 ReadTest( Filename( dirs, "polenta_finite.tst" ) );
 ReadTest( Filename( dirs, "POLENTA.tst" ) );
 ReadTest( Filename( dirs, "POLENTA2.tst" ) ); # slow

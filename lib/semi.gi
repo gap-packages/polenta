@@ -149,6 +149,8 @@ ExponentVector_AbelianSS:=function( CPCS_nue_K_p, g )
         i := PositionNonZero(r);
         if exp[i] < 0 then
             exp := exp + QuoInt(-exp[i]+r[i]-1, r[i]) * r;
+        elif exp[i] >= r[i] then
+            exp := exp - QuoInt(exp[i], r[i]) * r;
         fi;
     od;
 
