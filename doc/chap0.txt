@@ -6,10 +6,10 @@
                   [1X Polycyclic presentations for matrix groups [101X
   
   
-                                     1.3.2
+                                     1.3.3
   
   
-                                   01/04/2014
+                                   28/11/2014
   
   
                                  Björn Assmann
