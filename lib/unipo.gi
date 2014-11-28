@@ -139,33 +139,33 @@ end;
 ##
 ##
 POL_UpperTriangIntTest := function( gens )
-   local d,goodForm,g,i,j;
-   d := Length( gens[1] );
-   goodForm := true;
-   for g in gens do
-       for i in [1..d] do
-           for j in [1..d] do
-               if i=j then
-                   if not g[i][j]=1 then
-                       Info( InfoPolenta,4, i,"problemplace ",j,"\n" );
-                       goodForm := false;
-                       return goodForm;
-                  fi;
-               elif i < j then
-                   if DenominatorRat( g[i][j] )>1 then
-                        Info( InfoPolenta, 4,i,"problemplace ",j,"\n" );
+    local d,goodForm,g,i,j;
+    d := Length( gens[1] );
+    goodForm := true;
+    for g in gens do
+        for i in [1..d] do
+            for j in [1..d] do
+                if i=j then
+                    if not g[i][j]=1 then
+                        Info( InfoPolenta,4, i,"problemplace ",j,"\n" );
                         goodForm := false;
                         return goodForm;
                    fi;
-               elif not g[i][j]=0 then
-                    Info( InfoPolenta, 4,i,"problemplace ",j,"\n" );
-                    goodForm := false;
-                    return goodForm;
-               fi;
-           od;
-       od;
-   od;
-   return goodForm;
+                elif i < j then
+                    if DenominatorRat( g[i][j] )>1 then
+                         Info( InfoPolenta, 4,i,"problemplace ",j,"\n" );
+                         goodForm := false;
+                         return goodForm;
+                    fi;
+                elif not g[i][j]=0 then
+                     Info( InfoPolenta, 4,i,"problemplace ",j,"\n" );
+                     goodForm := false;
+                     return goodForm;
+                fi;
+            od;
+        od;
+    od;
+    return goodForm;
 end;
 
 #############################################################################
@@ -749,23 +749,23 @@ end;
 #F POL_TestFlag(  flag,gens  )
 ##
 POL_TestFlag  :=  function(  flag,gens  )
-   local i,V,v,g, test;
-   test  :=  true;
-   for i in [1..(  Length(  flag  )  )] do
-       V  :=  VectorSpace(  Rationals,flag{[1..i]}  );
-       for g in gens do
-           v  :=  flag[i]*g;
-           #Print(  "flag[i] ist gleich ",flag[i],"\n"  );
-           #Print(  "v ist gleich ",v,"\n"  );
-           if not v in V then
-              Print(  "Flag Fehler enthalten gleich  ",v in V,"\n"  );
-              Print(  "flag[",i,"] ist gleich ",flag[i],"\n"  );
-              Print(  "v ist gleich ",v,"\n\n"  );
-              test  :=  false;
-           fi;
-       od;
-   od;
-   return test;
+    local i,V,v,g, test;
+    test  :=  true;
+    for i in [1..(  Length(  flag  )  )] do
+        V  :=  VectorSpace(  Rationals,flag{[1..i]}  );
+        for g in gens do
+            v  :=  flag[i]*g;
+            #Print(  "flag[i] ist gleich ",flag[i],"\n"  );
+            #Print(  "v ist gleich ",v,"\n"  );
+            if not v in V then
+               Print(  "Flag Fehler enthalten gleich  ",v in V,"\n"  );
+               Print(  "flag[",i,"] ist gleich ",flag[i],"\n"  );
+               Print(  "v ist gleich ",v,"\n\n"  );
+               test  :=  false;
+            fi;
+        od;
+    od;
+    return test;
 end;
 
 #############################################################################

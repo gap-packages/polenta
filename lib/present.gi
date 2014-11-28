@@ -45,7 +45,7 @@ POL_SetPcPresentation_infinite:= function(pcgs)
         pcsInv[i]:=pcgs.pcs[i]^-1;
     od;
     # the relative orders
-    ro:= ( pcgs.rels );
+    ro:= pcgs.rels;
     for i in [1..n] do
         if ro[i]<>0 then
             SetRelativeOrder(ftl,i,ro[i]);

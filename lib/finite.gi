@@ -104,16 +104,16 @@ InstallGlobalFunction( ClosureBasePcgs_word,function( pcgsN, g, gens, lim )
     fi;
 
     # start extending U = <listU, pcgsN>
-      pcgsU := StructuralCopy( pcgsN );
-      Add( pcgsU.gens, g.groupElement );
-      # in wordGens we find the information, how to
-      # write the elements of gens in terms of gensOfG
-      Add( pcgsU.wordGens, g.word );
-      i := Position( pcgsU.gens, g.groupElement );
-      # as the third argument of the next function call we transmit
-      # g as corresponding to pcgsN.gens
-      ExtendedBasePcgsMod( pcgsU, g.groupElement, [i,1] );
-      listU:=[g];
+    pcgsU := StructuralCopy( pcgsN );
+    Add( pcgsU.gens, g.groupElement );
+    # in wordGens we find the information, how to
+    # write the elements of gens in terms of gensOfG
+    Add( pcgsU.wordGens, g.word );
+    i := Position( pcgsU.gens, g.groupElement );
+    # as the third argument of the next function call we transmit
+    # g as corresponding to pcgsN.gens
+    ExtendedBasePcgsMod( pcgsU, g.groupElement, [i,1] );
+    listU:=[g];
 
     # loop over listU
     while Length( listU ) >= 1 do
@@ -121,60 +121,60 @@ InstallGlobalFunction( ClosureBasePcgs_word,function( pcgsN, g, gens, lim )
         Unbind(listU[Length( listU )]);
 
         # consider all conjugates which are not contained in U
-          # c := List( gens, x -> u^x );
-          c := [];
-          for j in [1..Length( gens )] do
-              x := gens[j];
-              tempWord := [[j,-1]];
-              Append( tempWord, u.word );
-              Append( tempWord, [[j,1]] );
-              a:=rec( groupElement:=u.groupElement^x,
-                      word:=tempWord);
-              Add(c,a);
-          od;
-          c := Filtered(c,x -> not
-                        MemberTestByBasePcgs(pcgsU,x.groupElement));
+        c := [];
+        for j in [1..Length( gens )] do
+            x := gens[j];
+            tempWord := [[j,-1]];
+            Append( tempWord, u.word );
+            Append( tempWord, [[j,1]] );
+            a:=rec( groupElement:=u.groupElement^x,
+                    word:=tempWord);
+            Add(c,a);
+        od;
+        c := Filtered(c,x -> not
+                      MemberTestByBasePcgs(pcgsU,x.groupElement));
 
         # recurse, if <U,c>/N is not abelian
-          l := Length( pcgsN.pcref );
-          for i in [1..Length(c)] do
-              comm := POL_Comm( g, c[i] );
-              pcgsN := ClosureBasePcgs_word(pcgsN,comm,gens,lim-1);
-              if pcgsN = fail then return fail; fi;
-              for j in [(i+1)..Length(c)] do
-                  comm := POL_Comm( c[j], c[i] );
-                  pcgsN := ClosureBasePcgs_word(pcgsN,comm,gens,lim-1);
-                  if pcgsN = fail then return fail; fi;
-              od;
-          od;
+        l := Length( pcgsN.pcref );
+        for i in [1..Length(c)] do
+            comm := POL_Comm( g, c[i] );
+            pcgsN := ClosureBasePcgs_word(pcgsN,comm,gens,lim-1);
+            if pcgsN = fail then return fail; fi;
+            for j in [(i+1)..Length(c)] do
+                comm := POL_Comm( c[j], c[i] );
+                pcgsN := ClosureBasePcgs_word(pcgsN,comm,gens,lim-1);
+                if pcgsN = fail then return fail; fi;
+            od;
+        od;
 
         # reset U and listU
-          #check if pcgsN was modified
-          if Length( pcgsN.pcref) > l then
-              pcgsU := StructuralCopy(pcgsN);
-              for i in [1..Length(listU)] do
-                  u2 := listU[i].groupElement;
-                  if not MemberTestByBasePcgs(pcgsU,u2) then
-                      Add(pcgsU.gens,u2);
-                      Add(pcgsU.wordGens,listU[i].word);
-                      i := Position(pcgsU.gens,listU[i].groupElement);
-                      ExtendedBasePcgsMod(pcgsU,listU[i].groupElement,[i,1]);
-                  fi;
-              od;
-          fi;
 
-         # finally add the conjugates to our list
-         for i in [1..Length(c)] do
-             Add(listU, c[i]);
-             if not MemberTestByBasePcgs( pcgsU,c[i].groupElement) then
-                 Add(pcgsU.gens,c[i].groupElement);
-                 Add(pcgsU.wordGens,c[i].word);
-                 j := Position(pcgsU.gens,c[i].groupElement);
-                 ExtendedBasePcgsMod(pcgsU,c[i].groupElement,[j,1]);
-             fi;
-         od;
-   od;
-   return pcgsU;
+        #check if pcgsN was modified
+        if Length( pcgsN.pcref) > l then
+            pcgsU := StructuralCopy(pcgsN);
+            for i in [1..Length(listU)] do
+                u2 := listU[i].groupElement;
+                if not MemberTestByBasePcgs(pcgsU,u2) then
+                    Add(pcgsU.gens,u2);
+                    Add(pcgsU.wordGens,listU[i].word);
+                    i := Position(pcgsU.gens,listU[i].groupElement);
+                    ExtendedBasePcgsMod(pcgsU,listU[i].groupElement,[i,1]);
+                fi;
+            od;
+        fi;
+
+        # finally add the conjugates to our list
+        for i in [1..Length(c)] do
+            Add(listU, c[i]);
+            if not MemberTestByBasePcgs( pcgsU,c[i].groupElement) then
+                Add(pcgsU.gens,c[i].groupElement);
+                Add(pcgsU.wordGens,c[i].word);
+                j := Position(pcgsU.gens,c[i].groupElement);
+                ExtendedBasePcgsMod(pcgsU,c[i].groupElement,[j,1]);
+            fi;
+        od;
+    od;
+    return pcgsU;
 end );
 
 #############################################################################

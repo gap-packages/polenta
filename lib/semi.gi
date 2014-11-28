@@ -99,86 +99,65 @@ end;
 ## element to the blocks of the factor series
 ##
 ExponentVector_AbelianSS:=function( CPCS_nue_K_p, g )
-   local trivial,freeGens,n,A,m,rels3,v,exp,i,rels,r2,F,
+    local trivial,freeGens,n,A,m,rels3,v,exp,i,rels,r2,F,
          rels2,r,newGens,a,ll;
 
-   # check if nue_K_p is trivial
+    # check if nue_K_p is trivial
     if Length( CPCS_nue_K_p.relOrders )=0 then
         return [];
     fi;
 
-   #check if g is trivial
+    # check if g is trivial
     n := Length( g );
-    trivial := true;
-    for i in [1..n] do
-        if not g[i][1] = g[i][1]^0 then
-            trivial := false;
-            break;
-        fi;
-    od;
-    #if the action of g on the radical series is trivial we
-    #return an as the exponent vector [0 ... 0] of the length of the
-    #pc sequence of nue(K_p)
+    trivial := ForAll([1..n], i -> g[i][1] = g[i][1]^0);
+
+    # if the action of g on the radical series is trivial we
+    # return the exponent vector [0 ... 0] of the length of the
+    # pc sequence of nue(K_p)
     if trivial then
-       ll := Length( CPCS_nue_K_p.relOrders );
-       return List( [1..ll], x->0 );
+        ll := Length( CPCS_nue_K_p.relOrders );
+        return ListWithIdenticalEntries( ll, 0 );
     fi;
 
-   newGens := CPCS_nue_K_p.newGensOfBlockAction;
-   # n is the number of blocks
-   n:=Length(newGens);
-   # A contains an extended genslist, i.e. the newGens plus the
-   # element, for which we want to compute the exp
-   A:=[];
-   for i in [1..n] do
-       a:=StructuralCopy(newGens[i]);
-       a := Concatenation( [g[i][1]], a );
-       # Add(a,g[i][1]);
-       Add(A,a);
-   od;
-   # compute the relations of A
-   rels:=IdentityMat(n+1);
-            #trivial:=true;
-   for r in A do
-            # trivial case: we check if r just contains  1's
-            #for i in [1..Length(r)] do
-            # if not r[i]=r[i]^0 then
-            #   trivial:=false;
-            # break;
-            # fi;
-            #od;
-            #if not trivial then
-          F := FieldByMatricesNC( r );
-          if F = false then return fail; fi;
-          r2 := RelationLattice( F, r );
-          rels:=LatticeIntersection(rels,r2);
-            #fi;
-   od;
-            #if the action of g on the radical series is trivial we
-            #return an as the exponent vector [0 ... 0] of the length of the
-            #pc sequence of nue(K_p)
-            #  if trivial then
-            #  ll := Length( CPCS_nue_K_p.relOrders );
-            #  return List( [1..ll], x->0 );
-            # fi;
-   rels := NormalFormIntMat(rels,0).normal;
-   if not rels[1][1]=1 then return fail; fi;
+    newGens := CPCS_nue_K_p.newGensOfBlockAction;
+    # n is the number of blocks
+    n := Length(newGens);
+    # A contains an extended genslist, i.e. the newGens plus the
+    # element, for which we want to compute the exp
+    A := [];
+    for i in [1..n] do
+        a := StructuralCopy(newGens[i]);
+        a := Concatenation( [g[i][1]], a );
+        Add(A, a);
+    od;
+    # compute the relations of A
+    rels := IdentityMat(n+1);
+    for r in A do
+        F := FieldByMatricesNC( r );
+        if F = false then return fail; fi;
+        r2 := RelationLattice( F, r );
+        rels := LatticeIntersection(rels, r2);
+    od;
+    rels := NormalFormIntMat(rels,0).normal;
+    if not rels[1][1]=1 then
+        return fail;
+    fi;
 
-   exp := -rels[1]; exp[1] := 0;
-   # Reduce exp by the remaining rows
-   for r in rels do
-     i := PositionNonZero(r);
-     if exp[i] < 0 then
-       exp := exp + QuoInt(-exp[i]+r[i]-1, r[i]) * r;
-     fi;
-   od;
+    exp := -rels[1]; exp[1] := 0;
+    # Reduce exp by the remaining rows
+    for r in rels do
+        i := PositionNonZero(r);
+        if exp[i] < 0 then
+            exp := exp + QuoInt(-exp[i]+r[i]-1, r[i]) * r;
+        fi;
+    od;
 
-   # Remove the leading zero
-   Remove(exp, 1);
+    # Remove the leading zero
+    Remove(exp, 1);
 
-   Assert( 2,  POL_TestExponentVector_AbelianSS( CPCS_nue_K_p, g, exp ),
+    Assert( 2,  POL_TestExponentVector_AbelianSS( CPCS_nue_K_p, g, exp ),
            "failure in ExponentVector_AbelianSS" );
-   return exp;
+    return exp;
 end;
 
 #############################################################################
