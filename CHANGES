@@ -6,6 +6,9 @@
  from old records. If you notice anything amiss, please let us know.
 ===========================================================================
 
+1.3.4 (2016-01-07)
+  - Move website to http://gap-packages.github.io/recogbase/
+
 1.3.3 (2014-11-28)
 	o Fixed a bug in ExponentVector_AbelianSS which could lead
 	  to IsomorphismPcpGroup running into an error.

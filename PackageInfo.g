@@ -7,8 +7,8 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.3.3",
-Date := "28/11/2014", # dd/mm/yyyy format
+Version := "1.3.4",
+Date := "07/01/2016", # dd/mm/yyyy format
 
 Persons := [
 
@@ -41,10 +41,10 @@ Status := "accepted",
 CommunicatedBy := "Charles Wright (Eugene)",
 AcceptDate := "08/2005",
 
-PackageWWWHome := "http://gap-system.github.io/polenta/",
+PackageWWWHome := "http://gap-packages.github.io/polenta/",
 README_URL     := Concatenation(~.PackageWWWHome, "README"),
 PackageInfoURL := Concatenation(~.PackageWWWHome, "PackageInfo.g"),
-ArchiveURL     := Concatenation("https://github.com/gap-system/polenta/",
+ArchiveURL     := Concatenation("https://github.com/gap-packages/polenta/",
                                 "releases/download/v", ~.Version,
                                 "/polenta-", ~.Version),
 ArchiveFormats := ".tar.gz .tar.bz2",
