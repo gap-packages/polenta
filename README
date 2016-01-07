@@ -81,5 +81,8 @@ Author / Maintainer
 The Polenta package was originally written by Bjoern Assmann,
 who remains his principal author.
 
-It is currently being maintained by Max Horn <max.horn@math.uni-giessen.de>,
-to whom any bug reports should be directed.
+It is currently being maintained by Max Horn <max.horn@math.uni-giessen.de>.
+
+For bug reports, feature requests and suggestions, please refer to
+
+   https://github.com/gap-packages/polenta/issues
