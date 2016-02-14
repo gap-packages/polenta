@@ -24,5 +24,5 @@ gap> IsSolvable( G );
 true
 gap> Size( H );
 15625
-gap> STOP_TEST( "POLENTA.tst", 100000);
+gap> STOP_TEST( "polenta_finite.tst", 100000);
 

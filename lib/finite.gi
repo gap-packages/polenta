@@ -151,8 +151,8 @@ InstallGlobalFunction( ClosureBasePcgs_word,function( pcgsN, g, gens, lim )
                 if not MemberTestByBasePcgs(pcgsU,u2) then
                     Add(pcgsU.gens,u2);
                     Add(pcgsU.wordGens,listU[i].word);
-                    i := Position(pcgsU.gens,listU[i].groupElement);
-                    ExtendedBasePcgsMod(pcgsU,listU[i].groupElement,[i,1]);
+                    j := Position(pcgsU.gens,listU[i].groupElement);
+                    ExtendedBasePcgsMod(pcgsU,listU[i].groupElement,[j,1]);
                 fi;
             od;
         fi;
