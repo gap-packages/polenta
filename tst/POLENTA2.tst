@@ -1,7 +1,9 @@
 gap> START_TEST("Test 2 of POLENTA package");  
-gap> SetInfoLevel( InfoPolenta, 0 );;
-gap> SetAssertionLevel( 2 );
 
+#
+gap> SetInfoLevel( InfoPolenta, 0 );;
+
+#
 gap> POL_Test_AllFunctions_PRMGroup( POL_PolExamples2( -18 ) );
 The input group is not triangularizable.
 The input group is not triangularizable.
@@ -24,11 +26,13 @@ gap> POL_Test_AllFunctions_PRMGroup( POL_PolExamples2( -3 ) );
 gap> POL_Test_AllFunctions_PRMGroup( POL_PolExamples2( -2 ) );
 gap> POL_Test_AllFunctions_PRMGroup( POL_PolExamples2( -1 ) );
 
+#
 gap> POL_Test_AllFunctions_PRMGroup( PolExamples( 1 ) );
 gap> POL_Test_AllFunctions_PRMGroup( PolExamples( 2 ) );
 gap> POL_Test_AllFunctions_PRMGroup( PolExamples( 3 ) );
 gap> POL_Test_AllFunctions_PRMGroup( PolExamples( 4 ) );
 
+#
 gap> POL_Test_AllFunctions_PRMGroup( PolExamples( 9 ) );
 The input group is not triangularizable.
 The input group is not triangularizable.
@@ -47,5 +51,5 @@ gap> POL_Test_AllFunctions_PRMGroup( PolExamples( 17 ) );
 gap> POL_Test_AllFunctions_PRMGroup( PolExamples( 18 ) );
 gap> POL_Test_AllFunctions_PRMGroup( PolExamples( 19 ) );
 
+#
 gap> STOP_TEST( "POLENTA2.tst", 100000);   
-
