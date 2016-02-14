@@ -53,7 +53,7 @@ AbstractHTML :=
 "The <span class=\"pkgname\">Polenta</span> package provides  methods to compute polycyclic presentations of matrix groups (finite or infinite). As a by-product, this package gives some functionality to compute certain module series for modules of solvable groups. For example, if G is a rational polycyclic matrix group, then we can compute the radical series of the natural Q[G]-module Q^d.",
 
 PackageDoc := rec(          
-  BookName  := "polenta",
+  BookName  := "Polenta",
   ArchiveURLSubset := [ "doc" ],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
