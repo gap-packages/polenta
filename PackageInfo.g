@@ -7,8 +7,8 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.3.4",
-Date := "07/01/2016", # dd/mm/yyyy format
+Version := "1.3.5",
+Date := "14/02/2016", # dd/mm/yyyy format
 
 Persons := [
 
@@ -53,7 +53,7 @@ AbstractHTML :=
 "The <span class=\"pkgname\">Polenta</span> package provides  methods to compute polycyclic presentations of matrix groups (finite or infinite). As a by-product, this package gives some functionality to compute certain module series for modules of solvable groups. For example, if G is a rational polycyclic matrix group, then we can compute the radical series of the natural Q[G]-module Q^d.",
 
 PackageDoc := rec(          
-  BookName  := "polenta",
+  BookName  := "Polenta",
   ArchiveURLSubset := [ "doc" ],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
@@ -62,7 +62,7 @@ PackageDoc := rec(
   Autoload  := true),
 
 Dependencies := rec(
-  GAP := ">= 4.4",
+  GAP := ">= 4.7",
   NeededOtherPackages := [[ "polycyclic", "2.10.1" ],
                           [ "alnuth" , "2.2.3"],
                           [ "radiroot", "2.4" ],
