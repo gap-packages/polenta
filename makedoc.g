@@ -1,10 +1,11 @@
 #
 # Generate the manual using AutoDoc
 #
-LoadPackage("AutoDoc", "2014.03.27");
+if fail = LoadPackage("AutoDoc", ">= 2016.01.21") then
+    Error("AutoDoc 2016.01.21 or newer is required");
+fi;
 
-SetPackagePath("Polenta", ".");
-AutoDoc("Polenta" :
+AutoDoc(rec(
     scaffold := rec(
         bib := "polentabib.xml",
         includes := [
@@ -15,6 +16,6 @@ AutoDoc("Polenta" :
             "info.xml",
         ],
     )
- );
+ ));
 
 QUIT;
