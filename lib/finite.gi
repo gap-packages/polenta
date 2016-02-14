@@ -85,7 +85,7 @@ end;
 ## and the word information corresponding to gens
 ##
 InstallGlobalFunction( ClosureBasePcgs_word,function( pcgsN, g, gens, lim )
-    local pcgsU,listU,u,u2,c,l,i,comm,tempWord,x,j,a,commElement;
+    local pcgsU,listU,u,c,l,i,comm,x,j,addGenerator;
 
     if lim < 0 then
         # G is not polycyclic
@@ -97,36 +97,43 @@ InstallGlobalFunction( ClosureBasePcgs_word,function( pcgsN, g, gens, lim )
     if MemberTestByBasePcgs( pcgsN, g.groupElement ) then
         return pcgsN;
     fi;
+    
+    addGenerator := function(g)
+        # add generator to the list of generators
+        Add( pcgsU.gens, g.groupElement );
+
+        # in wordGens we store information how to
+        # write the elements of gens in terms of gensOfG
+        Add( pcgsU.wordGens, g.word );
+
+        # as the third argument of the next function call we signal that
+        # g corresponds to the last element of pcgsU.gens
+        ExtendedBasePcgsMod( pcgsU, g.groupElement, [Length(pcgsU.gens),1] );
+    end;
 
     # start extending U = <listU, pcgsN>
     pcgsU := StructuralCopy( pcgsN );
-    Add( pcgsU.gens, g.groupElement );
-    # in wordGens we find the information, how to
-    # write the elements of gens in terms of gensOfG
-    Add( pcgsU.wordGens, g.word );
-    i := Position( pcgsU.gens, g.groupElement );
-    # as the third argument of the next function call we transmit
-    # g as corresponding to pcgsN.gens
-    ExtendedBasePcgsMod( pcgsU, g.groupElement, [i,1] );
+    addGenerator(g);
     listU:=[g];
 
     # loop over listU
     while Length( listU ) >= 1 do
         u := Remove( listU );
 
-        # consider all conjugates which are not contained in U
+        # consider all conjugates of u which are not contained in U
         c := [];
         for j in [1..Length( gens )] do
-            x := gens[j];
-            tempWord := [[j,-1]];
-            Append( tempWord, u.word );
-            Append( tempWord, [[j,1]] );
-            a:=rec( groupElement:=u.groupElement^x,
-                    word:=tempWord);
-            Add(c,a);
+            x := u.groupElement ^ gens[j];
+            if MemberTestByBasePcgs(pcgsU, x) then
+                # already contained in U
+                continue;
+            fi;
+
+            Add(c, rec(
+                groupElement := x,
+                word := Concatenation([[j,-1]], u.word, [[j,1]])
+                ));
         od;
-        c := Filtered(c,x -> not
-                      MemberTestByBasePcgs(pcgsU,x.groupElement));
 
         # recurse, if <U,c>/N is not abelian
         l := Length( pcgsN.pcref );
@@ -143,28 +150,21 @@ InstallGlobalFunction( ClosureBasePcgs_word,function( pcgsN, g, gens, lim )
 
         # reset U and listU
 
-        #check if pcgsN was modified
+        # check if pcgsN was modified
         if Length( pcgsN.pcref) > l then
             pcgsU := StructuralCopy(pcgsN);
-            for i in [1..Length(listU)] do
-                u2 := listU[i].groupElement;
-                if not MemberTestByBasePcgs(pcgsU,u2) then
-                    Add(pcgsU.gens,u2);
-                    Add(pcgsU.wordGens,listU[i].word);
-                    j := Position(pcgsU.gens,listU[i].groupElement);
-                    ExtendedBasePcgsMod(pcgsU,listU[i].groupElement,[j,1]);
+            for x in listU do
+                if not MemberTestByBasePcgs(pcgsU, x.groupElement) then
+                    addGenerator(x);
                 fi;
             od;
         fi;
 
         # finally add the conjugates to our list
-        for i in [1..Length(c)] do
-            Add(listU, c[i]);
-            if not MemberTestByBasePcgs( pcgsU,c[i].groupElement) then
-                Add(pcgsU.gens,c[i].groupElement);
-                Add(pcgsU.wordGens,c[i].word);
-                j := Position(pcgsU.gens,c[i].groupElement);
-                ExtendedBasePcgsMod(pcgsU,c[i].groupElement,[j,1]);
+        for x in c do
+            Add(listU, x);
+            if not MemberTestByBasePcgs(pcgsU, x.groupElement) then
+                addGenerator(x);
             fi;
         od;
     od;
