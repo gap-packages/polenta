@@ -70,12 +70,7 @@ POL_NextOrbitPoint2 := function( pcgs, h )
 end;
 
 POL_NextOrbitPoint3 := function( pcgs, h )
-    local k,p,i;
-    k := Length( pcgs.suitableOrbitPoints );
-    #Print( "pcgs.suitableOrbitPoints", pcgs.suitableOrbitPoints, "\n" );
-    p := pcgs.suitableOrbitPoints[k];
-    Unbind( pcgs.suitableOrbitPoints[k] );
-    return p;
+    return Remove(pcgs.suitableOrbitPoints);
 end;
 
 
@@ -117,8 +112,7 @@ InstallGlobalFunction( ClosureBasePcgs_word,function( pcgsN, g, gens, lim )
 
     # loop over listU
     while Length( listU ) >= 1 do
-        u := listU[Length( listU )];
-        Unbind(listU[Length( listU )]);
+        u := Remove( listU );
 
         # consider all conjugates which are not contained in U
         c := [];
@@ -230,8 +224,7 @@ InstallGlobalFunction( CPCS_finite_word , function( gensOfG , b)
     # epsilon:=ShallowCopy(gensOfG);
     j := 0;
     while Length(epsilon) > 0 do
-         h := epsilon[Length(epsilon)];
-         Unbind(epsilon[Length(epsilon)]);
+         h := Remove(epsilon);
          pcgsOfN := ClosureBasePcgs_word(pcgsOfN,h,gensOfG ,b);
          if pcgsOfN = fail then return fail; fi;
     od;
