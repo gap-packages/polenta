@@ -17,5 +17,3 @@ AutoDoc(rec(
         ],
     )
  ));
-
-QUIT;
