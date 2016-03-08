@@ -6,6 +6,9 @@
  from old records. If you notice anything amiss, please let us know.
 ===========================================================================
 
+1.3.6 (2016-03-08)
+  - Internal changes (refactor ClosureBasePcgs_word, fix a URL)
+
 1.3.5 (2016-02-14)
   - Fix a bug in IsomorphismPcpGroup for finite matrix groups
 

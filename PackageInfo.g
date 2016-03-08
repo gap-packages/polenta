@@ -7,8 +7,8 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.3.5",
-Date := "14/02/2016", # dd/mm/yyyy format
+Version := "1.3.6",
+Date := "08/03/2016", # dd/mm/yyyy format
 
 Persons := [
 
