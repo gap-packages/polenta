@@ -8,6 +8,12 @@
 #Y 2003
 ##
 
+##
+## WARNING: the code in this file is not currently used, and
+## in fact is not loaded by default.
+##
+
+
 ## IN: matrix g.
 ## OUT:: g_s, g_u.
 ##
@@ -184,7 +190,6 @@ end;
 ##      the decomposition for an arbitrary element.
 ##
 
-# RereadPackage( "polenta", "lib/jordan.gi" );
 #############################################################################
 ##
 #E

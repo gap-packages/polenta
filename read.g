@@ -25,7 +25,7 @@ ReadPackage( "polenta", "exam/exam.gi" );
 ReadPackage( "polenta", "exam/test.gi" );
 ReadPackage( "polenta", "lib/subgroups.gi" );
 ReadPackage( "polenta", "lib/ispolyz.gi" );
-ReadPackage( "polenta", "lib/jordan.gi" );
+#ReadPackage( "polenta", "lib/jordan.gi" );
 
 #############################################################################
 ##
