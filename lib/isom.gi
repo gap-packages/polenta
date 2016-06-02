@@ -5,8 +5,6 @@
 ## Methods for the calculation of
 ## isomorphisms from matrix groups to pcp-presentations
 ##
-#H  @(#)$Id$
-##
 #Y 2003
 ##
 

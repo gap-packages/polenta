@@ -4,8 +4,6 @@
 ##
 ## Methods for testing if a rational matrix group is polycyclic
 ##
-#H  @(#)$Id$
-##
 #Y 2005
 ##
 

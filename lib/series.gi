@@ -5,8 +5,6 @@
 ## Methods for the calculation of
 ## radical series, homogeneous series and composition series of matrix groups
 ##
-#H  @(#)$Id$
-##
 #Y 2003
 ##
 

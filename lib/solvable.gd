@@ -5,8 +5,6 @@
 ## Methods for testing if a matrix group
 ## is solvable or polycyclic
 ##
-#H  @(#)$Id$
-##
 #Y 2003
 ##
 

@@ -5,8 +5,6 @@
 ## Methods for the calculation of
 ## certain subgroups of matrix groups
 ##
-#H  @(#)$Id$
-##
 #Y 2004
 ##
 

@@ -5,8 +5,6 @@
 ## Methods for the calculation of
 ## pcp-presentations for matrix groups
 ##
-#H  @(#)$Id$
-##
 #Y 2003
 ##
 

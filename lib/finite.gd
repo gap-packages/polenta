@@ -5,8 +5,6 @@
 ## Methods for the calculation of
 ## constructive pc-sequences for finite matrix groups
 ##
-#H  @(#)$Id$
-##
 #Y 2003
 ##
 

@@ -5,8 +5,6 @@
 ## Methods for the calculation of
 ## the multiplicative jordan decomposition.
 ##
-#H  @(#)$Id$
-##
 #Y 2003
 ##
 

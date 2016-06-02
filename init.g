@@ -3,8 +3,6 @@
 #W init.g                  POLENTA package                     Bjoern Assmann
 ##
 ##
-#H  @(#)$Id$
-##
 #Y 2003
 ##
  

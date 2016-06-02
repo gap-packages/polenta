@@ -5,8 +5,6 @@
 ## Methods for the calculation of
 ## radical series and homogeneous series of matrix groups
 ##
-#H  @(#)$Id$
-##
 #Y 2003
 ##
 

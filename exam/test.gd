@@ -4,8 +4,6 @@
 ##
 ## examples for polycyclic rational matrix groups
 ##
-#H  @(#)$Id$
-##
 #Y 2003
 ##
 
