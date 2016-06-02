@@ -6,6 +6,10 @@
  from old records. If you notice anything amiss, please let us know.
 ===========================================================================
 
+X.Y (YYYY-MM-DD)
+  - Disabled some unused code for multiplicative Jordan decomposition
+    and for simultaneously diagonalizing commuting matrices.
+
 1.3.6 (2016-03-08)
   - Internal changes (refactor ClosureBasePcgs_word, fix a URL)
 
