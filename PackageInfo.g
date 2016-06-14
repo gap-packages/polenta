@@ -49,6 +49,12 @@ ArchiveURL     := Concatenation("https://github.com/gap-packages/polenta/",
                                 "/polenta-", ~.Version),
 ArchiveFormats := ".tar.gz .tar.bz2",
 
+SourceRepository := rec( 
+  Type := "git", 
+  URL := "https://github.com/gap-packages/polenta"
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+
 AbstractHTML := 
 "The <span class=\"pkgname\">Polenta</span> package provides  methods to compute polycyclic presentations of matrix groups (finite or infinite). As a by-product, this package gives some functionality to compute certain module series for modules of solvable groups. For example, if G is a rational polycyclic matrix group, then we can compute the radical series of the natural Q[G]-module Q^d.",
 
