@@ -28,7 +28,7 @@ POL_ComputePolyZSeries := function( G )
     # compute poly Z series
     repeat
         der := DerivedSubgroup( H );
-        nat := NaturalHomomorphism( H, der );
+        nat := NaturalHomomorphismByNormalSubgroup( H, der );
         im := Image( nat );
         if IsFinite( im ) then
            return fail;
