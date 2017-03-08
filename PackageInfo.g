@@ -41,7 +41,7 @@ Status := "accepted",
 CommunicatedBy := "Charles Wright (Eugene)",
 AcceptDate := "08/2005",
 
-PackageWWWHome := "http://gap-packages.github.io/polenta/",
+PackageWWWHome := "https://gap-packages.github.io/polenta/",
 README_URL     := Concatenation(~.PackageWWWHome, "README"),
 PackageInfoURL := Concatenation(~.PackageWWWHome, "PackageInfo.g"),
 ArchiveURL     := Concatenation("https://github.com/gap-packages/polenta/",
