@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (Polenta) - Chapter 4: Installation</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -28,7 +28,7 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X81746D7285808409">4.1 <span class="Heading">Installing this package</span></a>
 </span>
 </div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7B5D69ED82E9E5BD">4.2 <span class="Heading">Loading the <strong class="pkg">Polenta</strong> package</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X802ED64A87AA11DC">4.2 <span class="Heading">Loading the <strong class="pkg">Polenta</strong> package</span></a>
 </span>
 </div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X796DF52483B61C74">4.3 <span class="Heading">Running the test suite</span></a>
@@ -42,15 +42,15 @@
 
 <h4>4.1 <span class="Heading">Installing this package</span></h4>
 
-<p>The <strong class="pkg">Polenta</strong> package is part of the standard distribution of <strong class="pkg">GAP</strong> and so normally there should be no need to install it separately. If by any chance it is not part of your <strong class="pkg">GAP</strong> distribution, then the standard method is to unpack the package into the <code class="code">pkg</code> directory of your <strong class="pkg">GAP</strong> distribution. This will create a <code class="code">polenta</code> subdirectory. For other non-standard options please see Chapter <a href="/Users/mhorn/Projekte/GAP/repos/doc/ref/chap76_mj.html#X82473E4B8756C6CD"><span class="RefLink">Reference: Installing a GAP Package</span></a> of the <strong class="pkg">GAP</strong> Reference Manual.</p>
+<p>The <strong class="pkg">Polenta</strong> package is part of the standard distribution of <strong class="pkg">GAP</strong> and so normally there should be no need to install it separately. If by any chance it is not part of your <strong class="pkg">GAP</strong> distribution, then the standard method is to unpack the package into the <code class="code">pkg</code> directory of your <strong class="pkg">GAP</strong> distribution. This will create a <code class="code">polenta</code> subdirectory. For other non-standard options please see Chapter <a href="https://www.gap-system.org/Manuals/doc/ref/chap76_mj.html#X82473E4B8756C6CD"><span class="RefLink">Reference: Installing a GAP Package</span></a> of the <strong class="pkg">GAP</strong> Reference Manual.</p>
 
 <p>Note that the GAP-Packages <strong class="pkg">Alnuth</strong> and <strong class="pkg">Polycyclic</strong> are needed for this package. Normally they should be contained in your distribution. If not, they can be obtained at <span class="URL"><a href="http://www.gap-system.org/Packages/packages.html">http://www.gap-system.org/Packages/packages.html</a></span>.</p>
 
-<p><a id="X7B5D69ED82E9E5BD" name="X7B5D69ED82E9E5BD"></a></p>
+<p><a id="X802ED64A87AA11DC" name="X802ED64A87AA11DC"></a></p>
 
 <h4>4.2 <span class="Heading">Loading the <strong class="pkg">Polenta</strong> package</span></h4>
 
-<p>If the <strong class="pkg">Polenta</strong> package is not already loaded then you have to request it explicitly. This can be done via the <code class="func">LoadPackage</code> (<a href="/Users/mhorn/Projekte/GAP/repos/doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) command.</p>
+<p>If the <strong class="pkg">Polenta</strong> package is not already loaded then you have to request it explicitly. This can be done via the <code class="func">LoadPackage</code> (<a href="https://www.gap-system.org/Manuals/doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) command.</p>
 
 <p><a id="X796DF52483B61C74" name="X796DF52483B61C74"></a></p>
 
@@ -63,7 +63,7 @@
     gap&gt; ReadPackage( "Polenta", "tst/testall.g" );
 </pre></div>
 
-<p>For more details on Test Files see Section <a href="/Users/mhorn/Projekte/GAP/repos/doc/ref/chap7_mj.html#X801051CC86594630"><span class="RefLink">Reference: Test Files</span></a> of the <strong class="pkg">GAP</strong> Reference Manual.</p>
+<p>For more details on Test Files see Section <a href="https://www.gap-system.org/Manuals/doc/ref/chap7_mj.html#X801051CC86594630"><span class="RefLink">Reference: Test Files</span></a> of the <strong class="pkg">GAP</strong> Reference Manual.</p>
 
 <p>If the test suite runs into an error, even though the packages Polycyclic and Alnuth and their depdendencies have been correctly installed, then please send a message to <code class="code">max.horn@math.uni-giessen.de</code> including the error message.</p>
 
