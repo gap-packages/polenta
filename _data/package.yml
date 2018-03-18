@@ -1,6 +1,6 @@
 name: Polenta
 version: 1.3.8
-date: 29/11/2017
+date: 2017-11-29
 description: |
     Polycyclic presentations for matrix groups
 
@@ -16,10 +16,10 @@ GAP: ">= 4.7"
 needed-pkgs:
     - name: "polycyclic"
       version: "2.10.1"
-      url: "http://www.icm.tu-bs.de/ag_algebra/software/polycyclic/"
+      url: "https://gap-packages.github.io/polycyclic/"
     - name: "alnuth"
       version: "2.2.3"
-      url: "http://www.icm.tu-bs.de/ag_algebra/software/Alnuth/"
+      url: "https://gap-packages.github.io/alnuth"
     - name: "radiroot"
       version: "2.4"
       url: "http://www.icm.tu-bs.de/ag_algebra/software/radiroot/"
@@ -27,7 +27,7 @@ needed-pkgs:
 suggested-pkgs:
     - name: "aclib"
       version: "1.0"
-      url: "http://www.icm.tu-bs.de/~beick/so.html"
+      url: "https://gap-packages.github.io/aclib/"
 
 www: https://gap-packages.github.io/polenta/
 readme: README
