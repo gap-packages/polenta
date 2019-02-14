@@ -9,6 +9,7 @@ PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
 Version := "1.3.8",
 Date := "29/11/2017", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
 
