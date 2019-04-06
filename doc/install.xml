@@ -60,7 +60,7 @@ Section <Ref Sect="Test Files" BookName="Reference"/> of the
 If the test suite runs into an error, even though the packages
 Polycyclic and Alnuth  and  their depdendencies
 have been correctly installed, then please send a message
-to <C>max.horn@math.uni-giessen.de</C> including the error message.
+to <C>max.horn@uni-siegen.de</C> including the error message.
 
 </Section>
 </Chapter>
