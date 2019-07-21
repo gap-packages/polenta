@@ -31,13 +31,6 @@ end;
 ## 
 ## Examples coming from aclib
 ## 
-# In GAP 4.4, the function IsPackageMarkedForLoading is not available.
-if not IsBound( IsPackageMarkedForLoading ) then
-  IsPackageMarkedForLoading:= function( arg )
-    return CallFuncList( LoadPackage, arg ) = true;
-  end;
-fi;
-
 if not IsPackageMarkedForLoading( "aclib" , "1.0" ) then
     POL_AlmostCrystallographicGroup := false;
 else
