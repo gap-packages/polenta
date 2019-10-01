@@ -1,222 +1,85 @@
-# GitHubPagesForGAP
+[![Build Status](https://travis-ci.org/gap-packages/polenta.svg?branch=master)](https://travis-ci.org/gap-packages/polenta)
+[![Code Coverage](https://codecov.io/github/gap-packages/polenta/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/polenta)
+  
+The GAP 4 package `Polenta`
+===========================
 
-This repository can be used to quickly set up a website hosted by
-[GitHub](https://github.com/) for GAP packages using a GitHub repository.
-Specifically, this uses [GitHub pages](https://pages.github.com/)
-by adding a `gh-pages` branch to your package repository which
-contains data generated from the `PackageInfo.g` file of your package.
+ 
+This package provides functions for  computation with matrix groups.
+Let $G$ be a subgroup of $GL(d,R)$ where the ring $R$ is either
+equal to $\Q,\Z$ or a finite field $\F_q$.
+Then:
+  - We can test whether $G$ is solvable.
+  - We can test whether $G$ is polycyclic.
+  - If $G$ is polycyclic, then we can determine a polycyclic
+    presentation for $G$.
+    
+A group $G$ which is given by a polycyclic presentations can be
+largely investigated by algorithms implemented in the GAP-package
+Polycyclic. For example we can determine if $G$ is torsion-free and
+calculate the torsion subgroup. Further we can compute the derived
+series and the Hirschlength of the group $G$. Also various methods
+for computations with subgroups, factorsgroups and extensions are
+available.
 
-## Initial setup
-
-The following instructions assume you do not already have a `gh-pages`
-branch in your repository. If you do have one, you should delete it before
-following these instructions.
-
-1. Go into your clone of your package repository.
-
-2. Setup a `gh-pages` branch in a `gh-pages` subdirectory.
-
-   Users with a recent enough git version (recommended is >= 2.11)
-   can do this using a "worktree", via the following commands:
-
-   ```sh
-   # Add a new remote pointing to the GitHubPagesForGAP repository
-   git remote add gh-gap https://github.com/gap-system/GitHubPagesForGAP
-   git fetch gh-gap
-
-   # Create a fresh gh-pages branch from the new remote
-   git branch gh-pages gh-gap/gh-pages --no-track
-
-   # Create a new worktree and change into it
-   git worktree add gh-pages gh-pages
-   cd gh-pages
-   ```
-
-   Everybody else should instead do the following, with the URL
-   in the initial clone command suitably adjusted:
-
-   ```sh
-   # Create a fresh clone of your repository, and change into it
-   git clone https://github.com/USERNAME/REPOSITORY gh-pages
-   cd gh-pages
-
-   # Add a new remote pointing to the GitHubPagesForGAP repository
-   git remote add gh-gap https://github.com/gap-system/GitHubPagesForGAP
-   git fetch gh-gap
-
-   # Create a fresh gh-pages branch from the new remote
-   git checkout -b gh-pages gh-gap/gh-pages --no-track
-   ```
-
-5. Add in copies of your `PackageInfo.g`, `README` (or `README.md`) and manual:
-
-   ```
-   cp -f ../PackageInfo.g ../README* .
-   cp -f ../doc/*.{css,html,js,txt} doc/
-   ```
-
-6. Now run the `update.g` GAP script. This extracts data from your
-   `PackageInfo.g` file and puts that data into `_data/package.yml`.
-   From this, the website template can populate the web pages with
-   some sensible default values.
-
-   ```
-   gap update.g
-   ```
-
-7. Commit and push everything.
-
-   ```
-   git add PackageInfo.g README* doc/ _data/package.yml
-   git commit -m "Setup gh-pages based on GitHubPagesForGAP"
-   git push --set-upstream origin gh-pages
-   ```
-
-That's it. You can now see your new package website under
-https://USERNAME.github.io/REPOSITORY/ (of course after
-adjusting USERNAME and REPOSITORY suitably).
+As a by-product, the Polenta package provides some functionality to
+compute certain module series for modules of solvable groups. For
+example, if $G$ is a rational polycyclic matrix group, then we can
+compute the radical series of the natural $\Q[G]$-module $\Q^d$.
 
 
-## Adjusting the content and layout
+Installing this package
+=======================
 
-GitHubPagesForGAP tries to automatically provide good defaults for
-most packages. However, you can tweak everything about it:
+The Polenta package is part of the standard distribution of GAP and
+so normally there should be no need to install it separately.
 
-* To adjust the page layout, edit the files `stylesheets/styles.css`
-and `_layouts/default.html`.
+If by any chance it is not part of your GAP distribution, then this
+package is available at <http://gap-packages.github.io/polenta/>
+in form of a gzipped tar-archive.
+The standard method is to unpack the package into the `pkg`
+directory  of your GAP distribution.  This will create a `polenta`
+subdirectory. For other non-standard options please refer to the
+GAP Reference Manual.
 
-* To adjust the content of the front page, edit `index.md` (resp.
-  for the content of the sidebar, edit `_layouts/default.html`
-
-* You can also add additional pages, in various formats (HTML,
-Markdown, Textile, ...).
-
-For details, please consult the [Jekyll](http://jekyllrb.com/)
-manual.
-
-
-## Testing the site locally
-
-If you would like to test your site on your own machine, without
-uploading it to GitHub (where it is visible to the public), you can do
-so by installing [Jekyll](http://jekyllrb.com/), the static web site
-generator used by GitHub to power GitHub Pages.
-
-Once you have installed Jekyll as described on its homepage, you can
-test the website locally as follows:
-
-1. Go to the `gh-pages` directory we created above.
-
-2. Run jekyll (this launches a tiny web server on your machine):
-
-   ```
-   jekyll serve -w
-   ```
-
-3. Visit the URL http://localhost:4000 in a web browser.
+Note that the GAP-Packages Alnuth and Polycyclic are needed for this
+package. Normally they should be contained in your distribution. If
+not they can be obtained at
+  <https://www.gap-system.org/Packages/packages.html>.
 
 
-## Updating after you made a release
+Loading the Polenta package
+==========================
 
-Whenever you make a release of your package (and perhaps more often than
-that), you will want to update your website. The easiest way is to use
-the `release` script from the [ReleaseTools][]. However, you can also do
-it manually. The steps for doing it are quite similar to the above:
-
-1. Go to the `gh-pages` directory we created above.
-
-2. Add in copies of your `PackageInfo.g`, `README` (or `README.md`) and manual:
-
-   ```
-   cp -f ../PackageInfo.g ../README* .
-   cp -f ../doc/*.{css,html,js,txt} doc/
-   ```
-
-3. Now run the `update.g` GAP script.
-
-4. Commit and push the work we have just done.
-
-   ```
-   git add PackageInfo.g README* doc/ _data/package.yml
-   git commit -m "Update web pages"
-   git push
-   ```
-
-A few seconds after you have done this, your changes will be online
-under https://USERNAME.github.io/REPOSITORY/ .
+If the  Package is not already loaded then you have to request it
+explicitly. This  can be done by `LoadPackage("polenta")`. The
+`LoadPackage` command is described in the GAP Reference Manual.
 
 
-## Updating to a newer version of GitHubPagesForGAP
+Running the test suite
+======================
 
-Normally you should not have to ever do this. However, if you really want to,
-you can attempt to update to the most recent version of GitHubPagesForGAP via
-the following instructions. The difficulty of such an update depends on how
-much you tweaked the site after initially cloning GitHubPagesForGAP.
+Once the package is installed, it is possible to check the correct
+installation by running the test suite of the package.
 
-1. Go to the `gh-pages` directory we created above.
-   Make sure that there are no uncommitted changes, as they will be lost
-   when following these instructions.
+    gap> ReadPackage( "Polenta", "tst/testall.g" );
 
-2. Make sure the `gh-gap` remote exists and has the correct URL. If in doubt,
-   just re-add it:
-   ```
-   git remote remove gh-gap
-   git remote add gh-gap https://github.com/gap-system/GitHubPagesForGAP
-   ```
+For more details on  Test Files see Section 7.9 of the GAP Reference
+Manual.
 
-3. Attempt to merge the latest GitHubPagesForGAP.
-   ```
-   git pull gh-gap gh-pages
-   ```
+If the test suite runs into an error, even though the packages
+Polycyclic and Alnuth and their depdendencies have been correctly
+installed, then please send a message to <max.horn@uni-siegen.de>
+including the error message.
+   
+                                 
+Author / Maintainer
+===================
+ 
+The Polenta package was originally written by Bjoern Assmann,
+who remains his principal author.
 
-4. If this produced no errors and just worked, skip to the next step.
-   But it is quite likely that you will have conflicts in the file
-   `_data/package.yml`, or in your `README` or `PackageInfo.g` files.
-   These can usually be resolved by entering this:
-   ```
-   cp ../PackageInfo.g ../README* .
-   gap update.g
-   git add PackageInfo.g README* _data/package.yml
-   ```
-   If you are lucky, these were the only conflicts (check with `git status`).
-   If no merge conflicts remain, finish with this command:
-   ```
-   git commit -m "Merge gh-gap/gh-pages"
-   ```
-   If you still have merge conflicts, and don't know how to resolve them, or
-   get stuck some other way, you can abort the merge process and revert to the
-   original state by issuing this command:
-   ```
-   git merge --abort
-   ```
+It is currently being maintained by Max Horn <max.horn@uni-siegen.de>.
 
-5. You should be done now. Don't forget to push your changes if you want them
-   to become public.
-
-
-## Packages using GitHubPagesForGAP
-Packages using GitHubPagesForGAP include the following:
-
-* <https://gap-packages.github.io/anupq>
-* <https://gap-packages.github.io/cvec>
-* <https://gap-packages.github.io/genss>
-* <https://gap-packages.github.io/io>
-* <https://gap-packages.github.io/NormalizInterface>
-* <https://gap-packages.github.io/nq>
-* <https://gap-packages.github.io/orb>
-* <https://gap-packages.github.io/polenta>
-* <https://gap-packages.github.io/recog>
-* <https://gap-packages.github.io/recogbase>
-* <https://gap-packages.github.io/SingularInterface>
-
-
-## Contact
-
-Please submit bug reports, suggestions for improvements and patches via
-the [issue tracker](https://github.com/gap-system/GitHubPagesForGAP/issues).
-
-You can also contact me directly via [email](max@quendi.de).
-
-Copyright (c) 2013-2018 Max Horn
-
-[ReleaseTools]: https://github.com/gap-system/ReleaseTools
+To submit bug reports, feature requests and suggestions, please go to
+<https://github.com/gap-packages/polenta/issues>.

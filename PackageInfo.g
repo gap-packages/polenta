@@ -7,8 +7,9 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.3.8",
-Date := "29/11/2017", # dd/mm/yyyy format
+Version := "1.3.9",
+Date := "01/10/2019", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
 
@@ -23,16 +24,15 @@ Persons := [
        FirstNames    := "Max",
        IsAuthor      := false,
        IsMaintainer  := true,
-       Email         := "max.horn@math.uni-giessen.de",
-       WWWHome       := "http://www.quendi.de/math",
-       PostalAddress := Concatenation( "AG Algebra\n",
-                                       "Mathematisches Institut\n",
-                                       "Justus-Liebig-Universität Gießen\n",
-                                       "Arndtstraße 2\n",
-                                       "35392 Gießen\n",
+       Email         := "max.horn@uni-siegen.de",
+       WWWHome       := "https://www.quendi.de/math",
+       PostalAddress := Concatenation( "Department Mathematik\n",
+                                       "Universität Siegen\n",
+                                       "Walter-Flex-Straße 3\n",
+                                       "57072 Siegen\n",
                                        "Germany" ),
-       Place         := "Gießen, Germany",
-       Institution   := "Justus-Liebig-Universität Gießen"
+       Place         := "Siegen, Germany",
+       Institution   := "Universität Siegen"
   ),
 
 ],
@@ -42,7 +42,7 @@ CommunicatedBy := "Charles Wright (Eugene)",
 AcceptDate := "08/2005",
 
 PackageWWWHome := "https://gap-packages.github.io/polenta/",
-README_URL     := Concatenation(~.PackageWWWHome, "README"),
+README_URL     := Concatenation(~.PackageWWWHome, "README.md"),
 PackageInfoURL := Concatenation(~.PackageWWWHome, "PackageInfo.g"),
 ArchiveURL     := Concatenation("https://github.com/gap-packages/polenta/",
                                 "releases/download/v", ~.Version,
