@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gap-packages/polenta.svg?branch=master)](https://travis-ci.org/gap-packages/polenta)
+[![Build Status](https://travis-ci.com/gap-packages/polenta.svg?branch=master)](https://travis-ci.com/gap-packages/polenta)
 [![Code Coverage](https://codecov.io/github/gap-packages/polenta/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/polenta)
   
 The GAP 4 package `Polenta`
