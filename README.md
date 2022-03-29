@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gap-packages/polenta.svg?branch=master)](https://travis-ci.org/gap-packages/polenta)
+[![Build Status](https://github.com/gap-packages/polenta/workflows/CI/badge.svg?branch=master)](https://github.com/gap-packages/polenta/actions?query=workflow%3ACI+branch%3Amaster)
 [![Code Coverage](https://codecov.io/github/gap-packages/polenta/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/polenta)
   
 The GAP 4 package `Polenta`
@@ -69,7 +69,7 @@ Manual.
 
 If the test suite runs into an error, even though the packages
 Polycyclic and Alnuth and their depdendencies have been correctly
-installed, then please send a message to <max.horn@uni-siegen.de>
+installed, then please send a message to <horn@mathematik.uni-kl.de>
 including the error message.
    
                                  
@@ -79,7 +79,7 @@ Author / Maintainer
 The Polenta package was originally written by Bjoern Assmann,
 who remains his principal author.
 
-It is currently being maintained by Max Horn <max.horn@uni-siegen.de>.
+It is currently being maintained by Max Horn <horn@mathematik.uni-kl.de>.
 
 To submit bug reports, feature requests and suggestions, please go to
 <https://github.com/gap-packages/polenta/issues>.

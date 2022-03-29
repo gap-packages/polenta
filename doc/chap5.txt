@@ -9,7 +9,7 @@
   
   [1X5.1-1 InfoPolenta[101X
   
-  [33X[1;0Y[29X[2XInfoPolenta[102X[32X info class[133X
+  [33X[1;0Y[29X[2XInfoPolenta[102X [32X info class[133X
   
   [33X[0;0Yis  the  Info  class  of  the  [5XPolenta[105X package (for more details on the Info
   mechanism  see  Section  [14X'Reference:  Info  Functions'[114X  of the [5XGAP[105X Reference
