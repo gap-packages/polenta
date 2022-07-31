@@ -29,7 +29,7 @@
   - Fix a bug in IsomorphismPcpGroup for finite matrix groups
 
 1.3.4 (2016-01-07)
-  - Move website to http://gap-packages.github.io/recogbase/
+  - Move website to https://gap-packages.github.io/recogbase/
 
 1.3.3 (2014-11-28)
 	o Fixed a bug in ExponentVector_AbelianSS which could lead

@@ -20,7 +20,7 @@ of the &GAP; Reference Manual.
 Note that the GAP-Packages <Package>Alnuth</Package> and <Package>Polycyclic</Package>
 are needed for this package.
 Normally they should be contained in your distribution. If not,
-they can be obtained at <URL>http://www.gap-system.org/Packages/packages.html</URL>.
+they can be obtained at <URL>https://www.gap-system.org/Packages/packages.html</URL>.
 
 <!-- %To create the documentation, go into the <C>doc</C> directory and type -->
 <!-- %<C>make_doc</C>. -->

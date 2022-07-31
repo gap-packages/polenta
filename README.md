@@ -35,7 +35,7 @@ The Polenta package is part of the standard distribution of GAP and
 so normally there should be no need to install it separately.
 
 If by any chance it is not part of your GAP distribution, then this
-package is available at <http://gap-packages.github.io/polenta/>
+package is available at <https://gap-packages.github.io/polenta/>
 in form of a gzipped tar-archive.
 The standard method is to unpack the package into the `pkg`
 directory  of your GAP distribution.  This will create a `polenta`
