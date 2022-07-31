@@ -3,10 +3,6 @@
 #W ispolyz.gi              POLENTA package                     Bjoern Assmann
 ##
 ##
-#H  @(#)$Id:
-##
-#Y 2006
-##
 
 #############################################################################
 ##
@@ -77,7 +73,3 @@ InstallMethod( IsPolyInfiniteCyclicGroup, "for pcp groups", true,
 function( G )
     return POL_IsPolyZGroup( G );
 end );
-
-#############################################################################
-##
-#E
