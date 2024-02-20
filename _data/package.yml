@@ -1,5 +1,6 @@
 name: Polenta
-version: 1.3.10
+version: "1.3.10"
+license: "GPL-2.0-or-later"
 date: 2022-03-29
 description: |
     Polycyclic presentations for matrix groups
@@ -45,3 +46,34 @@ abstract: |
 status: accepted
 doc-html: doc/chap0.html
 doc-pdf: doc/manual.pdf
+keywords: |
+    polycyclic presentations, matrix groups, test solvability, triangularizable subgroup, unipotent subgroup, radical series, composition series of triangularizable groups.
+citeas: |
+    <p class='BibEntry'>
+    [<span class='BibKey'>AH22</span>]   <b class='BibAuthor'>Assmann, B. and Horn, M.</b>,
+     <i class='BibTitle'>Polenta, Polycyclic presentations for matrix groups,
+             Version 1.3.10</i>
+     (<span class='BibYear'>2022</span>)<br />
+    (<span class='BibNote'>Refereed GAP package</span>),
+    <span class='BibHowpublished'><a href="https://gap-packages.github.io/polenta/">https://gap-packages.github.io/polenta/</a></span>.
+    </p>
+    
+
+bibtex: |
+    @misc{ Polenta1.3.10,
+      author =           {Assmann, B. and Horn, M.},
+      title =            {{Polenta}, Polycyclic presentations for matrix groups,
+                          {V}ersion 1.3.10},
+      month =            {Mar},
+      year =             {2022},
+      note =             {Refereed GAP package},
+      howpublished =     {\href        {https://gap-packages.github.io/polenta/}
+                          {\texttt{https://gap-packages.github.io/}\discretionary
+                          {}{}{}\texttt{polenta/}}},
+      keywords =         {polycyclic    presentations;   matrix   groups;   test
+                          solvability;   triangularizable   subgroup;  unipotent
+                          subgroup;   radical   series;  composition  series  of
+                          triangularizable groups},
+      printedkey =       {AH22}
+    }
+
