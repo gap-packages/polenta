@@ -66,7 +66,7 @@ PackageDoc := rec(
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Polycyclic presentations for matrix groups",
-  Autoload  := true),
+),
 
 Dependencies := rec(
   GAP := ">= 4.7",
@@ -78,7 +78,6 @@ Dependencies := rec(
 ), 
 
 AvailabilityTest := ReturnTrue,             
-Autoload := true,
 TestFile := "tst/testall.g",
 Keywords := [
   "polycyclic presentations",
