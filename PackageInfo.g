@@ -7,8 +7,8 @@ SetPackageInfo( rec(
 
 PackageName := "Polenta",
 Subtitle := "Polycyclic presentations for matrix groups",
-Version := "1.3.10",
-Date := "29/03/2022", # dd/mm/yyyy format
+Version := "1.3.11",
+Date := "10/04/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -24,16 +24,16 @@ Persons := [
        FirstNames    := "Max",
        IsAuthor      := false,
        IsMaintainer  := true,
-       Email         := "horn@mathematik.uni-kl.de",
+       Email         := "mhorn@rptu.de",
        WWWHome       := "https://www.quendi.de/math",
        PostalAddress := Concatenation(
                           "Fachbereich Mathematik\n",
-                          "TU Kaiserslautern\n",
+                          "RPTU Kaiserslautern-Landau\n",
                           "Gottlieb-Daimler-Straße 48\n",
                           "67663 Kaiserslautern\n",
                           "Germany" ),
        Place         := "Kaiserslautern, Germany",
-       Institution   := "TU Kaiserslautern"
+       Institution   := "RPTU Kaiserslautern-Landau"
   ),
 
 ],
@@ -62,11 +62,11 @@ AbstractHTML :=
 PackageDoc := rec(          
   BookName  := "Polenta",
   ArchiveURLSubset := [ "doc" ],
-  HTMLStart := "doc/chap0.html",
+  HTMLStart := "doc/chap0_mj.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Polycyclic presentations for matrix groups",
-  Autoload  := true),
+),
 
 Dependencies := rec(
   GAP := ">= 4.7",
@@ -78,7 +78,6 @@ Dependencies := rec(
 ), 
 
 AvailabilityTest := ReturnTrue,             
-Autoload := true,
 TestFile := "tst/testall.g",
 Keywords := [
   "polycyclic presentations",
@@ -97,7 +96,7 @@ AutoDoc := rec(
             &copyright; 2003-2007 by Björn Assmann<P/>\
             The &Polenta; package is free software; \
             you can redistribute it and/or modify it under the terms of the \
-            <URL Text=\"GNU General Public License\">http://www.fsf.org/licenses/gpl.html</URL> \
+            <URL Text=\"GNU General Public License\">https://www.fsf.org/licenses/gpl.html</URL> \
             as published by the Free Software Foundation; either version 2 of the License, \
             or (at your option) any later version.",
         Acknowledgements := "\

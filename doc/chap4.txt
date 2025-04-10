@@ -14,7 +14,7 @@
   
   [33X[0;0YNote  that  the  GAP-Packages  [5XAlnuth[105X  and  [5XPolycyclic[105X  are  needed for this
   package.  Normally  they  should  be contained in your distribution. If not,
-  they can be obtained at [7Xhttp://www.gap-system.org/Packages/packages.html[107X.[133X
+  they can be obtained at [7Xhttps://www.gap-system.org/Packages/packages.html[107X.[133X
   
   
   [1X4.2 [33X[0;0YLoading the [5XPolenta[105X[101X[1X package[133X[101X
@@ -38,6 +38,5 @@
   
   [33X[0;0YIf  the  test  suite runs into an error, even though the packages Polycyclic
   and  Alnuth  and  their  depdendencies  have  been correctly installed, then
-  please  send  a  message  to  [10Xhorn@mathematik.uni-kl.de[110X  including the error
-  message.[133X
+  please send a message to [10Xmhorn@rptu.de[110X including the error message.[133X
   

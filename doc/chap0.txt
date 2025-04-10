@@ -6,10 +6,10 @@
                   [1X Polycyclic presentations for matrix groups [101X
   
   
-                                     1.3.10
+                                     1.3.11
   
   
-                                 29 March 2022
+                                 10 April 2025
   
   
                                  Björn Assmann
@@ -23,7 +23,7 @@
   
   [33X[0;0YThe  [5XPolenta[105X package is free software; you can redistribute it and/or modify
   it    under    the    terms    of    the    GNU   General   Public   License
-  ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
+  ([7Xhttps://www.fsf.org/licenses/gpl.html[107X)  as  published  by the Free Software
   Foundation;  either  version 2 of the License, or (at your option) any later
   version.[133X
   

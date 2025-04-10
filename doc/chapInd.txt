@@ -10,17 +10,17 @@
   [2XImagesRepresentative[102X 2.1-3 
   [2XImagesSet[102X 2.1-3 
   [2XInfoPolenta[102X 5.1-1 
-  Installation 4. 
+  Installation 4.0 
   [2XIsomorphismPcpGroup[102X 2.1-2 
   [2XIsPolycyclicGroup[102X 2.1-6 
   [2XIsSolvableGroup[102X 2.1-4 
   [2XIsTriangularizableMatGroup[102X 2.1-5 
-  License .-1 
+  License 0.0-1 
   Loading the [5XPolenta[105X package 4.2 
   [2XPcpGroupByMatGroup[102X 2.1-1 
-  Polenta 1. 
+  Polenta 1.0 
   [2XPolExamples[102X 2.4-1 
-  Polycyclic 1. 
+  Polycyclic 1.0 
   [2XRadicalSeriesSolvableMatGroup[102X 2.2-1 
   [2XSubgroupsUnipotentByAbelianByFinite[102X 2.3-1 
   
