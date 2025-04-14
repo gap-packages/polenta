@@ -21,6 +21,7 @@
 /doc/polentabib.xml.bib
 /doc/Polenta.xml
 /doc/title.xml
+/doc/_*.xml
 
 /tmp/
 /gh-pages/
