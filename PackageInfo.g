@@ -70,9 +70,9 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.7",
+  GAP := ">= 4.12",
   NeededOtherPackages := [[ "polycyclic", "2.10.1" ],
-                          [ "alnuth" , "2.2.3"],
+                          [ "alnuth" , "3.2"],
                           [ "radiroot", "2.4" ],
                          ],
   SuggestedOtherPackages := [ ["aclib", "1.0"]],
