@@ -1,106 +1,126 @@
-===========================================================================
- This file describes changes in 'Polenta'.
- 
- This file was added after the 1.2.7 release. Any information pertaining
- older Polenta versions may not be complete accurate, as it was re-created 
- from old records. If you notice anything amiss, please let us know.
-===========================================================================
+This file describes changes in 'Polenta'.
 
-1.3.11 (2025-04-10)
-  - Updated Max Horn's contact details once again ...
-  - Janitorial changes
+This file was added after the 1.2.7 release. Any information pertaining
+older Polenta versions may not be complete accurate, as it was re-created
+from old records. If you notice anything amiss, please let us know.
 
-1.3.10 (2022-03-29)
-  - Updated Max Horn's contact details
-  - Janitorial changes
+## 1.3.11 (2025-04-10)
 
-1.3.9 (2019-10-01)
-  - Janitorial changes
+- Updated Max Horn's contact details once again ...
+- Janitorial changes
 
-1.3.8 (2017-11-29)
-  - Internal changes (use TestDirectory() to run tests in tst/testall.g)
+## 1.3.10 (2022-03-29)
 
-1.3.7 (2016-11-09)
-  - Disabled some unused code for multiplicative Jordan decomposition
-    and for simultaneously diagonalizing commuting matrices
-  - Avoid using polycyclic's NaturalHomomorphism operation, instead use
-    NaturalHomomorphismByNormalSubgroup
+- Updated Max Horn's contact details
+- Janitorial changes
 
-1.3.6 (2016-03-08)
-  - Internal changes (refactor ClosureBasePcgs_word, fix a URL)
+## 1.3.9 (2019-10-01)
 
-1.3.5 (2016-02-14)
-  - Fix a bug in IsomorphismPcpGroup for finite matrix groups
+- Janitorial changes
 
-1.3.4 (2016-01-07)
-  - Move website to https://gap-packages.github.io/recogbase/
+## 1.3.8 (2017-11-29)
 
-1.3.3 (2014-11-28)
-	o Fixed a bug in ExponentVector_AbelianSS which could lead
-	  to IsomorphismPcpGroup running into an error.
+- Internal changes (use TestDirectory() to run tests in tst/testall.g)
 
-1.3.2 (2014-04-01)
-	o Moved the homepage
-	o Updated Max Horn's contact details
-	o Changed how the manual is built (now AutoDoc is used to
-	  automatically generate the title page from PackageInfo.g)
+## 1.3.7 (2016-11-09)
 
-1.3.1 (2012-06-01)
-	o Fixed warning when loading without aclib
-	o Some minor tweaks and cleanups
+- Disabled some unused code for multiplicative Jordan decomposition
+  and for simultaneously diagonalizing commuting matrices
+- Avoid using polycyclic's NaturalHomomorphism operation, instead use
+  NaturalHomomorphismByNormalSubgroup
 
-1.3 (2011-09-23)
-	o Updated README
-    o Added GPL license text
-	o Added this CHANGES file
-	o Fixed bug in POL_KroneckerProduct (used by the examples)
-	o Added Max Horn as addition package maintainer; removed outdated
-	  email address for Bjoern Assmann and removed his maintainer flag
-	  (at least for the time being, due to lack of time on his part)
-	o Removed references to KANT / KASH -- which is a dependency of
-	  (old versions of) Alnuth, so we should not have to worry about
-	  it here.
-	o Fixed handling of matrix groups over finite fields that are
-	  not prime fields.
-	o Changed IsSolvableGroup method installation so that calling them
-	  on matrix groups not defined over a field does not cause weird
-	  errors anymore.
-	o Changed the IsPolycyclicMatGroup methods to IsPolycyclicGroup
-	  methods, so that more code can automatically benefit from this
-	  functionality. The only remaining IsPolycyclicMatGroup method
-	  simply invokes IsPolycyclicGroup. It will be removed in a future
-	  version.
-	o Converted documentation to GAPDoc format.
-	o Turn IsTriangularizableMatGroup into a property.
-	o Fixed bug that could cause an error while building an isomorphism
-	  from a matrix group to a pcp group.
+## 1.3.6 (2016-03-08)
 
-1.2.7 (2007-06-17)
-	o TODO
+- Internal changes (refactor ClosureBasePcgs_word, fix a URL)
 
-1.2.6 (2007-06-11)
-	o TODO
+## 1.3.5 (2016-02-14)
 
-1.2.5 (2007-06-10)
-	o TODO
+- Fix a bug in IsomorphismPcpGroup for finite matrix groups
 
-1.2.4 (2007-06-07)
-	o TODO
+## 1.3.4 (2016-01-07)
 
-1.2.3 (2006-07-17)
-	o TODO
+- Move website to https://gap-packages.github.io/recogbase/
 
-1.2.2 (2006-01-10)
-	o TODO
+## 1.3.3 (2014-11-28)
 
-1.2.1 (2005-08-09)
-	o TODO
+- Fixed a bug in ExponentVector_AbelianSS which could lead
+  to IsomorphismPcpGroup running into an error.
 
-1.2 (2004-02-04)
-	o TODO
+## 1.3.2 (2014-04-01)
 
-1.1 (2003-11-02)
-	o TODO
+- Moved the homepage
+- Updated Max Horn's contact details
+- Changed how the manual is built (now AutoDoc is used to
+  automatically generate the title page from PackageInfo.g)
 
-1.0 (2003-11-02)
-	o TODO
+## 1.3.1 (2012-06-01)
+
+- Fixed warning when loading without aclib
+- Some minor tweaks and cleanups
+
+## 1.3 (2011-09-23)
+
+- Updated README
+- Added GPL license text
+- Added this CHANGES file
+- Fixed bug in POL_KroneckerProduct (used by the examples)
+- Added Max Horn as addition package maintainer; removed outdated
+  email address for Bjoern Assmann and removed his maintainer flag
+  (at least for the time being, due to lack of time on his part)
+- Removed references to KANT / KASH -- which is a dependency of
+  (old versions of) Alnuth, so we should not have to worry about
+  it here.
+- Fixed handling of matrix groups over finite fields that are
+  not prime fields.
+- Changed IsSolvableGroup method installation so that calling them
+  on matrix groups not defined over a field does not cause weird
+  errors anymore.
+- Changed the IsPolycyclicMatGroup methods to IsPolycyclicGroup
+  methods, so that more code can automatically benefit from this
+  functionality. The only remaining IsPolycyclicMatGroup method
+  simply invokes IsPolycyclicGroup. It will be removed in a future
+  version.
+- Converted documentation to GAPDoc format.
+- Turn IsTriangularizableMatGroup into a property.
+- Fixed bug that could cause an error while building an isomorphism
+  from a matrix group to a pcp group.
+
+## 1.2.7 (2007-06-17)
+
+- TODO
+
+## 1.2.6 (2007-06-11)
+
+- TODO
+
+## 1.2.5 (2007-06-10)
+
+- TODO
+
+## 1.2.4 (2007-06-07)
+
+- TODO
+
+## 1.2.3 (2006-07-17)
+
+- TODO
+
+## 1.2.2 (2006-01-10)
+
+- TODO
+
+## 1.2.1 (2005-08-09)
+
+- TODO
+
+## 1.2 (2004-02-04)
+
+- TODO
+
+## 1.1 (2003-11-02)
+
+- TODO
+
+## 1.0 (2003-11-02)
+
+- TODO
