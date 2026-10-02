@@ -29,19 +29,15 @@ end;
 ##
 #F POL_AlmostCrystallographicGroup
 ## 
-## Examples coming from aclib
+## Examples coming from aclib, which need not be loaded
 ## 
-if not IsPackageMarkedForLoading( "aclib" , "1.0" ) then
-    POL_AlmostCrystallographicGroup := false;
-else
-    POL_AlmostCrystallographicGroup := function( a,b,c )
-       local G, mats;
-       G := AlmostCrystallographicGroup(a,b,c);
-       mats := GeneratorsOfGroup( G );
-       G := Group( mats );
-       return G;
-    end;
-fi;
+POL_AlmostCrystallographicGroup := function( a,b,c )
+   local G, mats;
+   G := ValueGlobal("AlmostCrystallographicGroup")(a,b,c);
+   mats := GeneratorsOfGroup( G );
+   G := Group( mats );
+   return G;
+end;
 
 #############################################################################
 ##
@@ -53,7 +49,7 @@ PolExamples := function( n )
 
     # check if aclib is needed
     l := Concatenation( [9..19],[21..24]);
-    if POL_AlmostCrystallographicGroup = false then 
+    if not IsPackageLoaded( "aclib", "1.0" ) then
         if n in l then
             Print( "package 'aclib' is needed for this example.\n" );
             return fail;
@@ -1028,7 +1024,7 @@ POL_PolExamples2 := function( n )
     l := Concatenation( l, l1 ); 
     l1 := l+400;
     l := Concatenation( l, l1 ); 
-    if POL_AlmostCrystallographicGroup = false then 
+    if not IsPackageLoaded( "aclib", "1.0" ) then
         if n in l then
             Print( "package 'aclib' is needed for this example.\n" );
             return fail;
